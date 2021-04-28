@@ -1,0 +1,107 @@
+body{
+    background-image: url(../imgs/Fpegadas.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+main{
+    margin-top: 50px;
+}
+.Perfil{
+    margin-left: 40rem;
+    max-width: 400px;
+}
+.descricao > h2{
+    text-align: center;
+}
+.img > img{
+    width: 400px;
+    height: 330px;
+}
+
+@media only screen and (min-width:1281px){
+    main{
+        width: 700px !important;
+    }
+    .Perfil{
+        max-width: 400px;
+        margin-left: 40rem;
+    }
+    .descricao > h2{
+        text-align: center;
+    }
+    .img > img{
+        width: 400px;
+        height: 330px;
+    }
+}
+@media only screen and (max-width: 1281px) {
+    main{
+        width: 700px !important;
+    }
+    .Perfil{
+        max-width: 400px;
+        margin-left: 40rem;
+    }
+    .descricao > h2{
+        text-align: center;
+    }
+    .img > img{
+        width: 400px;
+        height: 330px;
+    }
+}
+
+@media only screen and (max-width: 1025px) {
+    main{
+        width: 700px !important;
+    }
+    .Perfil{
+        max-width: 400px;
+        margin-left: 20rem;
+    }
+    .descricao > h2{
+        text-align: center;
+    }
+    .img > img{
+        width: 400px;
+        height: 330px;
+    }
+}
+
+@media only screen and (max-width: 801px) {
+    main{
+        width: 600px !important;
+
+    }
+    .Perfil{
+        max-width: 400px;
+        margin-left: 7rem;
+    }
+    .descricao > h2{
+        text-align: center;
+    }
+    .img > img{
+        width: 400px;
+        height: 330px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    main{
+        max-width: 98% !important;
+    }
+    .descricao > h2{
+        text-align: center;
+    }
+    .img > img{
+        width: 300px;
+        height: 280px;
+    }
+    .Perfil{
+        margin-left: 1rem;
+        max-width: 300px;
+    }
+    
+    
+}

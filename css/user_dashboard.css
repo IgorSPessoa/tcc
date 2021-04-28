@@ -1,0 +1,17 @@
+body{
+    background-image: url(../imgs/perfil.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.User > h2{
+    text-align: center;
+    color: white;
+}
+.User >p {
+    color: white;
+    font-size: 20px;
+}
+.button{
+    padding: 5px 20px;
+}

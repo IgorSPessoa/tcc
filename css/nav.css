@@ -1,0 +1,11 @@
+@media screen and (min-width: 991px){
+    .nav-link{
+        margin-left: 10rem;
+    }
+}
+@media screen and (max-width: 1125px){
+    .nav-link{
+        margin-left: 6rem;
+    }
+}
+

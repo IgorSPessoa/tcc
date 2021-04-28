@@ -1,0 +1,25 @@
+#reports_table{
+    width: 100%;
+    font-size: 15px;
+}
+.container_form{
+    width: 95%;
+    
+    margin: 20px auto;
+    height: 20px;
+
+}
+#img_lock{
+    width: 650px;
+    border: 3px solid rgb(85, 85, 85);
+}
+.container_title{
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+}
+#back_button{
+    width: 150px;
+}
