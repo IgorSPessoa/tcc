@@ -1,60 +1,82 @@
-<?php 
-session_start();
+<?php
+//Iniciando sessão
+if(session_status() !== PHP_SESSION_ACTIVE){
+    session_start();
+}
+if(isset($_SESSION['email']) == true){
+    //Logou, então continua com as validações
 
-if(!isset($_SESSION['id']) || $_SESSION['acc_type'] != "ong"){
-    header("Location: ../login.php?msg=need_login");
-    die("Login needed!");
+}else{//Não logou então volta para a página inicial
+    if(session_status() !== PHP_SESSION_ACTIVE){
+        session_start();
+    }
+    session_unset();
+    session_destroy();
+    require_once("logout.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Panel</title>
-    <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/reports.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css_dashboard/all.css">
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="plugins/datatable/jquery.dataTables.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Companheiro Fiel - Reports</title>
 </head>
 <body>
-    <?php include "include/sidenav.php"; ?>
-    <main>
-        <h2>Reports</h2>
-        <p>Verifique reports de animais em situação de risco aqui</p>
-        <table class="table table-striped" id="reports_table">
-            <thead>
-                <tr>
-                    <th scope="col">Autor</th>
-                    <th scope="col">Endereço</th>
-                    <th scope="col">Situação</th>
-                    <th scope="col">Ações</th>
-                </tr>
-            </thead>
-            <tbody>
+    <div class="flex-dashboard">
+        <?php include "includes/sidebar.php"; ?>
 
+        <main>
+            <?php include "includes/header.php"; ?>
+            
+            <div class="main-content">
+                <table id="table_id" class="display">
+                    <thead>
+                        <tr>
+                            <th>Animal</th>
+                            <th>Descrição</th>
+                            <th>Localização</th>
+                            <th>Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php
+                        // Fazendo conexão com o banco de dados
+                        include '../connect.php';
 
-                <?php 
-                    include "../connect.php";
+                        // Pegando conteúdo do banco de dados e colocando na variavel
+                        $sql = $mysql->prepare("SELECT * FROM animal_report");
+                        $sql->execute();
 
-                    $dados = $mysql->query("SELECT id, author_name, localization_lastview, animal_situation FROM animal_report;"); 
+                        //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                        while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo
+                            echo '<tr>'; 
+                                echo '<td>' .  $animal = $linha['animal_description'] . '</td>';
+                                echo '<td>' .  $description = $linha['animal_situation'] . '</td>';
+                                echo '<td>' .  $localizacao = $linha['localization_lastview'] . '</td>';
+                                echo '<td><a class="btn btn-secondary" href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
+                            echo '</tr>';
+                        }    
+                        ?>
+                    </tbody>
+                </table>
 
-                    while($linha = mysqli_fetch_array($dados)){
-                        echo "<tr>
-                                <td>$linha[1]</td>
-                                <td>$linha[2]</td>
-                                <td>$linha[3]</td>
-                                <td>
-                                    <button type='button' class='btn btn-primary' onclick='window.location=\"report_view.php?id=$linha[0]\";'>Visualizar</button>
-                                </td>
-                            </tr>";
-                    }
+                <?php include "includes/footer.php"; ?>
+            </div>
+        </main>
+    </div>
 
-                ?>
-            </tbody>
-        </table>
-    </main>
+    <script src="js/global.js"></script>                   
+    <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="plugins/datatable/jquery.dataTables.js"></script>
 </body>
 </html>

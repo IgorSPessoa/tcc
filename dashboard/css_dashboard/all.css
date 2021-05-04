@@ -1,0 +1,21 @@
+/* @import 'fonts.css'; */
+@import 'fonts.css';
+@import 'reset.css';
+@import 'sidebar.css';
+@import 'header.css';
+@import 'main.css';
+@import 'footer.css';
+
+html {
+    height: 100%;
+}
+body{
+    height: 100%;
+    width: 100%;
+    color: #333b42 !important;
+}
+.title{
+    text-align: center;
+    font-weight: bold;
+    color: #333b42;
+}

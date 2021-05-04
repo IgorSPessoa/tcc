@@ -1,0 +1,19 @@
+#logo_upload{
+    width: 200px;
+    height: 200px;
+}
+#logo_input{
+    display: none;
+}
+.inputButton{
+    cursor: pointer;
+}
+.container_images{
+    width: 200px;
+}
+.inputButton > i{
+    color: blue;
+}
+.inputButton > i:hover{
+    transform: scale(1.2);
+}

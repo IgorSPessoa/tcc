@@ -1,0 +1,112 @@
+main{
+    display: block;
+    height: 100%;
+    background-color: #ffffff;
+    width: calc(100% - 300px);
+
+    transition: width 1s;
+}
+
+main .main-content{
+    padding: 30px;
+    width: 100%;
+    height: calc(100% - 70px);
+    overflow-y: auto;
+}
+
+.main-content::-webkit-scrollbar-track
+{
+	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.main-content::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+}
+
+.main-content::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #343a40;
+}
+
+.main-content .panel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid #f7f7f7;
+    margin: 10px 0;
+}
+
+
+/* Telas Médias e menores */
+@media screen and (max-width: 1000px){
+    sidebar{
+        display: none;
+    }
+    sidebar .sidebar-title{
+        display: none;
+    }
+    main{
+        width: 100%;
+    }
+    main .main-content{
+        width: 100%;
+    }
+    header .menu-button{
+        visibility: visible !important;
+    }
+    .header-logo img{
+        visibility: visible;
+    }
+    .log-out{
+        visibility: hidden;
+    }
+    #logout-mobile{
+        margin-top: 20px;
+    }
+    #logout-mobile i{
+        font-size: 18px;
+        width: 18px;
+    }
+} 
+/* Telas grandes */
+@media screen and (max-width: 1279px) and (min-width:1001px){
+    sidebar{
+        display: block !important;
+        width: 250px;
+    }
+    main{
+        width: calc(100% - 250px);
+    }
+    header .menu-button{
+        visibility: hidden;
+    }
+    #logout-mobile{
+        display: none;
+    }
+} 
+/* Telas enormes */
+@media screen and (min-width: 1280px){
+    sidebar{
+        display: block !important; 
+        width: 300px;
+    }
+    main{
+        width: calc(100% - 300px);   
+    }
+    header .menu-button{
+        visibility: hidden;
+    }
+    #logout-mobile{
+        display: none;
+    }
+}
+
+

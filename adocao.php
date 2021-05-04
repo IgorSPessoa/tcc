@@ -1,3 +1,20 @@
+<?php
+//Iniciando sessão
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+if (isset($_SESSION['email']) == true) {
+    //Logou, então continua com as valida;'oes
+    require_once("includes/nav.php");
+} else { //Não logou então volta para a página inicial
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    session_unset();
+    session_destroy();
+    require_once("includes/nav.php");
+}
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,37 +38,76 @@
 </head>
 
 <body>
-    <?php
-    require_once("includes/nav.php");
-    ?>
     <h1 class="text-center">Encontre animais para adotar!</h1>
     <main class="p-3">
         <div class="animals">
             <?php
             include "connect.php";
 
-            $dados = $mysql->query("SELECT name, description, img, id FROM animal_adoption;");
-            while ($linha = mysqli_fetch_array($dados)) {
-                //<p>$linha[1]</p> vai depois do linha 0.
+            //definir o número total de resultados que você deseja por página
+            $results_per_page = 9;
+
+            //encontre o número total de resultados armazenados no banco de dados  
+            $query = $mysql->prepare("SELECT * FROM animal_adoption;");
+            $query->execute();
+            $number_of_result = $query->rowCount();
+
+            //determinar o número total de páginas disponíveis
+            $number_of_page = ceil($number_of_result / $results_per_page);
+
+            //determinar em qual número de página o visitante está atualmente
+            if (!isset($_GET['page'])) {
+                $page = 1;
+            } else {
+                $page = $_GET['page'];
+            }
+
+            //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
+            $page_first_result = ($page - 1) * $results_per_page;
+
+            //recuperar os resultados selecionados do banco de dados   
+            //$query = "SELECT *FROM alphabet LIMIT " . $page_first_result . ',' . $results_per_page;   
+            //$query = "SELECT * FROM animal_adoption LIMIT " . $page_first_result . ',' . $results_per_page;
+            $query = $mysql->prepare("SELECT * FROM animal_adoption LIMIT " . $page_first_result . ',' . $results_per_page);
+            $query->execute();
+
+            //exibir o resultado recuperado na página da web 
+            //while ($row = mysqli_fetch_array($result))
+            while ($linha = $query->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                        <span>$linha[0]</span>
-                        
-                        <img src='imgs/$linha[2]' alt='Imagem de um cachorro'>
+                        <span>" . $linha['name'] . "</span>
+                    
+                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
                         <br><br>
-                        <a href='animal_profile.php?id=$linha[3]' class='button'>Visualizar informações</a>
+                        <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                         <br><br>
                     </div>";
             }
+            for ($page = 1; $page <= $number_of_page; $page++) {
+                echo '<a href = "adocao.php?page=' . $page . '" class="button">' . $page . ' </a>';
+            }
+            /*
+            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption");
+            $dados->execute();
+            while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
+                //var_dump($linha);
+                //<p>$linha[1]</p> vai depois do linha 0.
+                echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
+                        <span>" . $linha['name'] . "</span>
+                    
+                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
+                        <br><br>
+                        <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
+                        <br><br>
+                    </div>";
+            }*/
             ?>
         </div>
     </main>
+
     <?php
     require_once("includes/footer.php");
     ?>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </body>
 
 </html>
