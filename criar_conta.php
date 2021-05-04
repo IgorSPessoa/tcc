@@ -30,9 +30,9 @@
                 <label for="name">Nome:</label>
                 <input type="text" id="nome" name="nome" required>
                 <label for="email">E-mail:</label>
-                <input type="text" id="email" name="email" required>
+                <input type="text" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                 <label for="senha">Senha:</label>
-                <input type="text" id="senha" name="senha" required>
+                <input type="password" id="senha" name="senha" required>
 
                 <br>
                 <input type="hidden" name="acc_type" value="user">

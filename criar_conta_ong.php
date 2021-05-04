@@ -39,7 +39,7 @@
                     <label for="ong_address">Endereço da ONG:</label>
                     <input type="text" id="ong_address" name="ong_address" required>
                     <label for="ong_cep">CEP da ONG:</label>
-                    <input type="number" id="ong_cep" name="ong_cep" required>
+                    <input type="number" id="ong_cep" name="cep" pattern= "\d{5}-?\d{3}" required>
                     <br>
                 </fieldset>
             </div>
@@ -51,9 +51,9 @@
                         <p>Você vai usar estes dados para ter acesso ao painel de controle.</p><br>
                     </div>
                     <label for="email">E-mail</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="text" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
                     <label for="senha">Senha</label>
-                    <input type="text" id="senha" name="senha" required>
+                    <input type="password" id="senha" name="senha" required>
 
                     <br>
                     <input type="hidden" name="acc_type" value="ong">
@@ -69,6 +69,9 @@
     <?php
     require_once("includes/footer.php");
     ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="dashboard/js/validCep.js"></script>
 </body>
 
 </html>

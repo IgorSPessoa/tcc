@@ -33,7 +33,7 @@ if($acc_type == "user"){
   // Criando conta de um usuário
     $nome = $_POST["nome"];
 
-    $query = $mysql->preapare("INSERT INTO user(name, email, pwd) VALUES('$nome', '$email', '$senha');");
+    $query = $mysql->prepare("INSERT INTO user(name, email, pwd) VALUES('$nome', '$email', '$senha');");
     $query->execute();
     
 }
