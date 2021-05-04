@@ -3,8 +3,15 @@ include "connect.php";
 
 $id = $_GET['id'];
 
-$result = $mysql->query("SELECT * FROM ong WHERE id = $id;");
-$row = $result->fetch_assoc();
+$result = $mysql->prepare("SELECT * FROM ong WHERE id = $id;");
+$result->execute();
+
+while($linha = $result->fetch(PDO::FETCH_ASSOC)){
+    $name = $linha['name'];
+    $description =$linha['description'];
+    $img = $linha['img'];
+    $address = $linha['address'];
+}
 
 ?>
 
@@ -32,17 +39,31 @@ $row = $result->fetch_assoc();
 
 <body>
     <?php
-    require_once("includes/nav.php");
+        //Iniciando sessão
+        if(session_status() !== PHP_SESSION_ACTIVE){
+            session_start();
+        }
+        if(isset($_SESSION['email']) == true){
+            //Logou, então continua com as valida;'oes
+            require_once("includes/nav.php");
+        }else{//Não logou então volta para a página inicial
+            if(session_status() !== PHP_SESSION_ACTIVE){
+                session_start();
+            }
+            session_unset();
+            session_destroy();
+            require_once("includes/nav.php");
+        }
     ?>
     <main>
         <div class="p-3 justify-content-center">
             <div class="LOng">
-                <img src="./imgs/<?php echo $row['img'];  ?>" alt="">
+                <img src="./imgs/<?php echo $img;  ?>" alt="">
             </div>
             <div class="descricao bg-white lg-3 border border-3 border-primary px-5 py-2">
-                <h2><?php echo $row['name']; ?></h2>
-                <p><b>Descrição:</b> <?php echo $row['description'];  ?></p>
-                <p><b>Endereço:</b> <?php echo $row['address'];  ?></p>
+                <h2><?php echo $name; ?></h2>
+                <p><b>Descrição:</b> <?php echo $description;  ?></p>
+                <p><b>Endereço:</b> <?php echo $address;  ?></p>
             </div>
         </div>
         <div class="adocao">
@@ -51,10 +72,11 @@ $row = $result->fetch_assoc();
 
         <div class="animals">
             <?php
-            include "connect.php";
 
-            $dados = $mysql->query("SELECT name, description, img, id FROM animal_adoption WHERE ong_id = $id;");
-            while ($linha = mysqli_fetch_array($dados)) {
+            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption WHERE ong_id = $id;");
+            $dados->execute();
+
+            while ($linha = $dados->fetch(PDO::FETCH_BOTH)) {
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                             <span>$linha[0]</span>
                             <p>$linha[1]</p>
@@ -71,10 +93,6 @@ $row = $result->fetch_assoc();
     <?php
     require_once("includes/footer.php");
     ?>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
 </body>
 
 </html>

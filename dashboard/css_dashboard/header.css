@@ -1,0 +1,39 @@
+.flex-dashboard header{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    color: #fff;
+    background-color: #343a40;
+    padding: 10px 30px;
+    border-bottom: 3px solid rgba(0, 0, 0, .0625);
+}
+
+.flex-dashboard header a{
+    text-decoration: none;
+    color: #ccc;
+    transition: transform 0.3s;
+}
+
+.flex-dashboard header a > i{
+    color: #ccc;
+}
+.flex-dashboard header a:hover{
+    transform: translateX(5px);
+}
+.header-logo img{
+    width: 60px;
+    height: 60px;
+    visibility: hidden;
+}
+
+.menu-button{
+    transition: transform 0.3s;
+}
+.menu-button:hover, .log-out:hover{
+    transform: scale(1.2);
+}
+.activedMenu{
+    color: #008b94;
+}

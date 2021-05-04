@@ -1,0 +1,47 @@
+@font-face{
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto/Roboto-Regular.ttf');
+    font-weight: normal;
+}
+@font-face{
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto/Roboto-Light.ttf');
+    font-weight: 300;
+}
+@font-face{
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto/Roboto-Bold.ttf');
+    font-weight: 600;
+}
+
+@font-face{
+    font-family: 'RobotoMono';
+    src: url('../fonts/RobotoMono/RobotoMono-Regular.ttf');
+    font-weight: normal;
+}
+@font-face{
+    font-family: 'RobotoMono';
+    src: url('../fonts/RobotoMono/RobotoMono-Light.ttf');
+    font-weight: 300;
+}
+@font-face{
+    font-family: 'RobotoMono';
+    src: url('../fonts/RobotoMono/RobotoMono-Bold.ttf');
+    font-weight: 600;
+}
+
+@font-face{
+    font-family: 'Teko';
+    src: url('../fonts/Teko/Teko-Regular.ttf');
+    font-weight: 'normal';
+}
+@font-face{
+    font-family: 'Teko';
+    src: url('../fonts/RobotoMono/RobotoMono-Light.ttf');
+    font-weight: 300;
+}
+@font-face{
+    font-family: 'Teko';
+    src: url('../fonts/Teko/Teko-Bold.ttf');
+    font-weight: 600;
+}

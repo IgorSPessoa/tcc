@@ -1,12 +1,17 @@
 <?php
+//Começando a Sessão
+if(session_status() !== PHP_SESSION_ACTIVE){
+    session_start();
+}
+//conectando ao banco de dados
 include "../connect.php";
-session_start();
+
 
 $email = $_POST["email"];
 $senha = md5($_POST["senha"]);
 
 function CheckRow($query){
-    if($query->num_rows == 1){
+    if($query->rowCount() == 1){
         return True;
     }else{
         return False;
@@ -15,10 +20,12 @@ function CheckRow($query){
 
 $err = "";
 // Verificando se há conta de usuário
-$checkUserAccount = $mysql->query("SELECT pwd, id, name, email FROM user WHERE email = '$email';");
+$checkUserAccount = $mysql->prepare("SELECT pwd, id, name, email FROM user WHERE email = '$email';");
+$checkUserAccount->execute();
+
 if(CheckRow($checkUserAccount)){
     // Se existir o email na tabela de usuários, compare a senha e faça login.
-    while($row = $checkUserAccount->fetch_assoc()) {
+    while($row = $checkUserAccount->fetch(PDO::FETCH_ASSOC)) {
         // Compara Login
         if($row['pwd'] == $senha){
             $_SESSION['id'] = $row['id'];
@@ -33,12 +40,12 @@ if(CheckRow($checkUserAccount)){
         }
     }
 }else{
-    // Se não tente no sistema de ONGs.
-    $checkOngAccount = $mysql->query("SELECT ong_acess.senha, ong.id, ong_acess.email, ong.name FROM ong_acess INNER JOIN ong ON (ong_acess.ong_id = ong.id) WHERE email = '$email';");
-
+    // Se não, irá tentar no sistema de ONGs.
+    $checkOngAccount = $mysql->prepare("SELECT ong_acess.senha, ong.id, ong_acess.email, ong.name FROM ong_acess INNER JOIN ong ON (ong_acess.ong_id = ong.id) WHERE email = '$email';");
+    $checkOngAccount->execute();
     if(CheckRow($checkOngAccount)){
         // Se existir o email na tabela de ong, compare a senha e faça login.
-        while($row = $checkOngAccount->fetch_assoc()) {
+        while($row = $checkOngAccount->fetch(PDO::FETCH_ASSOC)) {
             if($row['senha'] == $senha){
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['name'] = $row['name'];

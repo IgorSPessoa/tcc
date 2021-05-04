@@ -1,7 +1,3 @@
-<?php
-session_start();
-?>
-
 <nav class="navbar navbar-expand-lg navbar-dark " style="background-color: #191970;">
 
     <a class="navbar-brand" href="./index.php">
@@ -27,18 +23,25 @@ session_start();
             <li class="nav-item">
                 <?php
                 // Verifica se está logado
-                if (isset($_SESSION['acc_type'])) {
-                    $name = $_SESSION['name'];
-                    // Verifica o tipo de conta
-                    if ($_SESSION['acc_type'] == "user") {
-                        echo "<a class='nav-link'  href='user_dashboard.php'>Conectado ($name)</a>";
-                    } else {
-                        echo "<a class='nav-link'  href='dashboard/index.php'>Conectado ($name)</a>";
+                if(isset($_SESSION['email']) == true){
+                    //Logou, então continua com as validações
+                    if (isset($_SESSION['acc_type'])) {
+                        $name = $_SESSION['name'];
+                        // Verifica o tipo de conta
+                        if ($_SESSION['acc_type'] == "user") {
+                            echo "<a class='nav-link'  href='user_dashboard.php'>Conectado ($name)</a>";
+                        } else {
+                            echo "<a class='nav-link'  href='dashboard/index.php'>Conectado ($name)</a>";
+                        }
                     }
-                } else {
+                }else{//Não logou então volta para a página inicial
+                    if(session_status() !== PHP_SESSION_ACTIVE){
+                        session_start();
+                    }
+                    session_unset();
+                    session_destroy();
                     echo "<a class='nav-link' href='login.php'>Conectar-se</a>";
                 }
-
                 ?>
             </li>
         </ul>

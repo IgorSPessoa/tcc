@@ -1,31 +1,171 @@
-<?php 
-session_start();
+<?php
+//Iniciando sessão
+if(session_status() !== PHP_SESSION_ACTIVE){
+    session_start();
+}
+if(isset($_SESSION['email']) == true){
+    //Logou, então continua com as validações
 
-if(!isset($_SESSION['id']) || $_SESSION['acc_type'] != "ong"){
-    header("Location: ../login.php?msg=need_login");
-    die("Login needed!");
+}else{//Não logou então volta para a página inicial
+    if(session_status() !== PHP_SESSION_ACTIVE){
+        session_start();
+    }
+    session_unset();
+    session_destroy();
+    require_once("logout.php");
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Panel</title>
-    <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="css_dashboard/all.css">
+    <link rel="stylesheet" href="css_dashboard/dashboard.css">
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Companheiro Fiel</title>
 </head>
 <body>
-    <?php include "include/sidenav.php"; ?>
-    <main>
-    
-        <h2>Dashboard</h2>
-        
-        <p>Aqui será um Dashboard, com algumas informações úteis para ong.</p>
-        <p>Também pensei em um chat geral entre todas ONGs.</p>
-    </main>
+    <div class="flex-dashboard">
+        <?php include "includes/sidebar.php"; ?>
+
+        <main>
+            <?php include "includes/header.php"; ?>
+            
+            <div class="main-content">
+                <h3 class="title">Dashboard</h3>
+                
+                <div class="container-info">
+                    <div class="info">
+                        <i class="fas fa-dog"></i>
+                        <div>
+                            <h1>15</h1>
+                            <span>Animais resgatados</span>         
+                        </div>
+                    </div>
+                    <div class="info">
+                        <i class="fas fa-home"></i>
+                        <div>
+                            <h1>19</h1>
+                            <span>Animais adotados</span>         
+                        </div>
+                    </div>
+                    <div class="info">
+                        <i class="fas fa-medkit"></i>
+                        <div>
+                            <h1>6</h1> 
+                            <span>Em andamento</span>         
+                        </div>
+                    </div>
+                    <div class="info">
+                        <i class="fas fa-eye"></i>
+                        <div>
+                            <h1>1064</h1>
+                            <span>Visualizações</span>         
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container-table">
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Resgates</b> (Resumo)
+                        </div>
+                        <div class="card-body"> 
+                            <table class="table_fast">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Situação</th>
+                                    <th>Ações</th>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>⏱️ Aguardando</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>📅 Agendado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>✔️ Adotado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>✔️ Adotado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <b>Adoções</b> (Resumo)
+                        </div>
+                        <div class="card-body">
+                            <table class="table_fast">
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Situação</th>
+                                    <th>Ações</th>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>⏱️ Aguardando</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>📅 Agendado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>✔️ Adotado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Alface</td>
+                                    <td>✔️ Adotado</td>
+                                    <td>
+                                        <a href="#">Verificar</a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>     
+
+                </div>
+                
+                <?php include "includes/footer.php"; ?>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/global.js"></script>
+    <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
 </body>
-</html> 
+</html>
