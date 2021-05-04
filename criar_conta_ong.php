@@ -39,7 +39,7 @@
                     <label for="ong_address">Endereço da ONG:</label>
                     <input type="text" id="ong_address" name="ong_address" required>
                     <label for="ong_cep">CEP da ONG:</label>
-                    <input type="text" id="ong_cep" name="cep" pattern= "\d{5}-?\d{3}" required>
+                    <input type="text" id="cep" name="ong_cep" pattern= "\d{5}-?\d{3}" required>
                     <br>
                 </fieldset>
             </div>
