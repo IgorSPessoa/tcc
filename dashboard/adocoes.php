@@ -30,6 +30,7 @@ if(isset($_SESSION['email']) == true){
 </head>
 <body>
     <div class="flex-dashboard">
+        <!-- Includindo a barra lateral -->
         <?php include "includes/sidebar.php"; ?>
 
         <main>
@@ -52,6 +53,7 @@ if(isset($_SESSION['email']) == true){
                     </thead>
                     <tbody>
                       <?php
+                        //Incluindo a conexão com o banco de dados
                         include '../connect.php';
 
                         // Pegando conteúdo do banco de dados e colocando na variavel
@@ -65,7 +67,7 @@ if(isset($_SESSION['email']) == true){
                             echo '<tr>'; 
                                 echo '<td>' .  $linha['name'] . '</td>';
                                 echo '<td>' .  $linha['description'] . '</td>';
-                                echo '<td><a class="btn btn-secondary" href="editarDoacao.php?id=' . $id . '" >Visualizar</a></td>';
+                                echo '<td><a class="btn btn-secondary" href="editarDoacao.php?id=' . $id . '" >Editar</a></td>';
                             echo '</tr>';
                         }    
                       ?>
