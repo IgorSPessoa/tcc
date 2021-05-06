@@ -22,21 +22,21 @@
 
 <body>
     <?php
-        //Iniciando sessão
-        if(session_status() !== PHP_SESSION_ACTIVE){
+    //Iniciando sessão
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    if (isset($_SESSION['email']) == true) {
+        //Logou, então continua com as valida;'oes
+        require_once("includes/nav.php");
+    } else { //Não logou então volta para a página inicial
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
-        if(isset($_SESSION['email']) == true){
-            //Logou, então continua com as valida;'oes
-            require_once("includes/nav.php");
-        }else{//Não logou então volta para a página inicial
-            if(session_status() !== PHP_SESSION_ACTIVE){
-                session_start();
-            }
-            session_unset();
-            session_destroy();
-            require_once("includes/nav.php");
-        }
+        session_unset();
+        session_destroy();
+        require_once("includes/nav.php");
+    }
     ?>
     <h1 class="text-center">Lista de Ongs</h1>
     <main class="p-3">
@@ -83,12 +83,45 @@
                             <br><br>
                         </div>";
             }
+            ?>
+        </div>
+        </br>
+        <div class="d-flex justify-content-center">
+            <?php
+            //set de variaveis para paginação.
+            $pagina_anterior = $page - 1;
+            $pagina_proxima = $page + 1;
+            $page_atual = $page;
 
-            //exibir o link das páginas em URL
-            for ($page = 1; $page <= $number_of_page; $page++) {
-                echo '<a href = "ongs.php?page=' . $page . '" class="button">' . $page . ' </a>';
+            //Testa se pode ter o botão de pagina anterior ou não.
+            if ($pagina_anterior != 0) {
+                echo '<a href = "ongs.php?page=' . $pagina_anterior . '" class="btn button text-center"> << </a>';
+            } else {
+                echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> << </a>';
             }
-
+            //imprime os button de paginação até 5 (para limitar bloco de paginação).
+            for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
+                echo '<a href = "ongs.php?page=' . $page . '" class="button text-center">' . $page . ' </a>';
+            }
+            /*
+            Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação),
+            se for ele imprime o button para a proxima pagina. 
+            */
+            if ($number_of_page > 5) {
+                if ($page_atual < $number_of_page) {
+                    echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
+                    echo '<a href = "ongs.php?page=' . $pagina_proxima . '" class="button text-center">' . $pagina_proxima . ' </a>';
+                } else {
+                    echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
+                    echo '<a href = "ongs.php?page=' . $page_atual . '" class="button text-center">' . $page_atual . ' </a>';
+                }
+            }
+            //Testa se pode ter o botão de proxima pagina ou não.
+            if ($pagina_proxima <= $number_of_page) {
+                echo '<a href = "ongs.php?page=' . $pagina_proxima . '" class="btn button text-center"> >> </a>';
+            } else {
+                echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> >> </a>';
+            }
             ?>
         </div>
         </br>
@@ -105,6 +138,9 @@
     <?php
     require_once("includes/footer.php");
     ?>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>

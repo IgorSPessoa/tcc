@@ -1,7 +1,9 @@
 body{
     background-image: url(../imgs/doacao.jpg);
+    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
 
 }
 main{
@@ -64,6 +66,19 @@ main{
     padding: 5px;
     border-radius: 10px;
 
+}
+.button{
+    padding: 12px 10px;
+    background-color: #2ecc71;
+    color: #FFF !important;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.4s;
+    
+}
+.button:hover{
+    background-color: #019c42;
+    text-decoration: none;
 }
 
 

@@ -22,24 +22,24 @@
 <body>
     <?php
     //Iniciando o sessão
-    if(session_status() !== PHP_SESSION_ACTIVE){
+    if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
     //verificando se tem um email por SESSION
-    if(isset($_SESSION['email']) == true){
+    if (isset($_SESSION['email']) == true) {
         //Logou, então o nav vai ser incluido
         require_once("includes/nav.php");
-    }else{//Não logou então volta para a página inicial
-    unset($_SESSION['email']);
-    unset($_SESSION['acc_type']);
-        if(session_status() !== PHP_SESSION_ACTIVE){
+    } else { //Não logou então volta para a página inicial
+        unset($_SESSION['email']);
+        unset($_SESSION['acc_type']);
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
         session_unset();
         session_destroy();
         echo "<script language='javascript' type='text/javascript'>window.location = ' login.php';</script>";
-    }        
-    ?> 
+    }
+    ?>
     <main>
         <div class="d-flex justify-content-center">
             <img src="./imgs/user.gif" alt="">
@@ -65,6 +65,9 @@
     <?php
     require_once("includes/footer.php");
     ?>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 
 </html>
