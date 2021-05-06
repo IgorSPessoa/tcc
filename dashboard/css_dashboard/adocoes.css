@@ -1,0 +1,21 @@
+#arquivo{
+    display: none;
+}
+#upload{
+    font-size: 25px;
+    color: blue;
+    margin-left: 2px;
+}
+#container_images{
+    width: 200px;
+}
+#animalView{ 
+    width: 200px;
+    height: 200px;
+}
+#imgInput > i:hover{
+    transform: scale(1.2);
+}
+.inputButton{
+    cursor: pointer;
+}

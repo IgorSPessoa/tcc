@@ -115,12 +115,12 @@ if(isset($_SESSION['email']) == true){
 
                         <div class="col-sm">
                             <h4 class="m-0">Foto animal</h4>
-                            <img class="w-100 shadow border border-dark rounded " src="images/<?php echo $imgAnimal?>">
+                            <img class="w-100 shadow border border-dark rounded " src="../imgs/<?php echo $imgAnimal?>">
                         </div>
 
                         <div class="col-sm">
                             <h4 class="m-0">Foto do local</h4>
-                            <img class="w-100 shadow border border-dark rounded" src="images/<?php echo $imgLocation?>">
+                            <img class="w-100 shadow border border-dark rounded" src="../imgs/<?php echo $imgLocation?>">
                         </div>
 
                         
