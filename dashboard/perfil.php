@@ -153,7 +153,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                             <h6>Logo <a onclick="clickInput('logo_input');" class="inputButton"><i class="fas fa-cogs"></i></a></h6>
                             <img src="../imgs/<?php echo $img;?>" class="img-thumbnail" id="logo_upload">
                             <div class="custom-file">
-                                <input type="file" name ="file" id="logo_input" onchange="loadFile(event)"/>
+                                <input type="file" name ="file" id="logo_input" onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
                             </div>
                         </div> 
                     </div>

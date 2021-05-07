@@ -68,7 +68,7 @@ if(isset($_SESSION['email']) == true){
                                 <h4>Foto do animal:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
                                 <img id="animalView">
                                 <div class="mb-2">
-                                    <input type="file" name="arquivo" id="arquivo"  onchange="loadFile(event)" required/>
+                                    <input type="file" name="arquivo" id="arquivo"  onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
                                 </div>
                             </div> 
                         </div>

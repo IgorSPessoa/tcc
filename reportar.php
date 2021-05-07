@@ -73,7 +73,7 @@
                     <img id="animalView" />
                     
                     <div>
-                        <input type="file" id="foto_animal" name="foto_animal" onchange="loadFile(event)" required><br><br>
+                        <input type="file" id="foto_animal" name="foto_animal" onchange="loadFile(event)" accept="image/png, image/jpeg" required><br><br>
                     </div>
                 </div>    
             </div>
@@ -92,7 +92,7 @@
                     <img id="addressPreview" />
 
                     <div>
-                        <input type="file" id="foto_address" name="foto_address" onchange="loadFilesnd(event)" required><br><br>
+                        <input type="file" id="foto_address" name="foto_address" onchange="loadFilesnd(event)" accept="image/png, image/jpeg" required><br><br>
                     </div>
                 </div>
             </div>
