@@ -57,8 +57,8 @@ if(isset($_SESSION['email']) == true){
                         //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
                         while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo
                             echo '<tr>'; 
-                                echo '<td>' .  $animal = $linha['animal_description'] . '</td>';
-                                echo '<td>' .  $description = $linha['animal_situation'] . '</td>';
+                                echo '<td>' .  $animal = $linha['animal_type'] . '</td>';
+                                echo '<td>' .  $description = $linha['animal_description'] . '</td>';
                                 echo '<td>' .  $localizacao = $linha['localization_lastview'] . '</td>';
                                 echo '<td><a class="btn btn-secondary" href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
                             echo '</tr>';
