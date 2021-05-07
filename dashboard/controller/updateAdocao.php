@@ -65,16 +65,20 @@ if($_FILES['arquivo']['name'] != ""){
             $newNameImg = time() . md5($nameOng) . $ext;
 
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
+            //Verificando se algum campo está vazio
+            if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
+                echo "<script language='javascript' type='text/javascript'>alert('Algum campo está vazio, tente novamente!'); window.location = ' ../editarDoacao.php?id=$id';</script>";
+            } else { //Se não, continua a operaçãp
+                $sql = "UPDATE animal_adoption SET name = ?, description = ?, img = ?, age = ?, type = ? WHERE id = ?";
+                $stmt = $mysql->prepare($sql);
 
-            $sql = "UPDATE animal_adoption SET name = ?, description = ?, img = ?, age = ?, type = ? WHERE id = ?";
-            $stmt = $mysql->prepare($sql);
-
-            $stmt->execute([$nome, $descricao, $newNameImg, $idade, $animal, $id]);
-            
-            if($stmt){
-                echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../adocoes.php';</script>";
-            }else{
-                echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../editarDoacao.php?id=$id';</script>";
+                $stmt->execute([$nome, $descricao, $newNameImg, $idade, $animal, $id]);
+                
+                if($stmt){
+                    echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../adocoes.php';</script>";
+                }else{
+                    echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../editarDoacao.php?id=$id';</script>";
+                }
             }
         } else {
             echo "<script language='javascript' type='text/javascript'>alert('Arquivo muito grande, o tamanho máximo do arquivo é 10MB. Tamanho do arquivo atual: $tamanhoImg'); window.location = ' ../editarDoacao.php?id=$id';</script>";
@@ -83,17 +87,21 @@ if($_FILES['arquivo']['name'] != ""){
         echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../editarDoacao.php?id=$id';</script>";
     }
 } elseif($_FILES['arquivo']['error'] == '4'){
-    $sql = "UPDATE animal_adoption SET name = ?, description = ?, age = ?, type = ? WHERE id = ?";
-    $stmt = $mysql->prepare($sql);
+    //Verificando se algum campo está vazio
+    if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
+        echo "<script language='javascript' type='text/javascript'>alert('Algum campo está vazio, tente novamente!'); window.location = ' ../editarDoacao.php?id=$id';</script>";
+     } else {//Se não, continua a operação
+        $sql = "UPDATE animal_adoption SET name = ?, description = ?, age = ?, type = ? WHERE id = ?";
+        $stmt = $mysql->prepare($sql);
 
-    $stmt->execute([$nome, $descricao, $idade, $animal, $id]);
-    
-    if($stmt){
-        echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../adocoes.php';</script>";
-    }else{
-        echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../editarDoacao.php';</script>";
-    }
-
+        $stmt->execute([$nome, $descricao, $idade, $animal, $id]);
+        
+        if($stmt){
+            echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../adocoes.php';</script>";
+        }else{
+            echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../editarDoacao.php';</script>";
+        }
+     }
 }
 
 
