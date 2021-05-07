@@ -41,34 +41,35 @@ if($_FILES['arquivo']['name'] != ""){
         $tamanhoImg = $_FILES['arquivo']['size']; 
         
         if($tamanhoImg <= $limite){
-            //pegando o nome da imgagem no Banco de dados
-            $img = $mysql->prepare("SELECT img FROM animal_adoption WHERE id = $id");
-            $img->execute();
-
-            //verificando se existe uma imagem no bd
-            if($linha = $img->fetch(PDO::FETCH_ASSOC)){
-                $name = $linha['img']; //Se existir vai entrar na variavel $name
-            }
-
-            if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
-                unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
-            } 
-
-            //diretorio
-            $uploaddir = "../../imgs/";
-
-            //pegando o nome da ong
-            $email = $_SESSION['email'];
-            $nameOng = strstr($email, '@', TRUE);
-
-            //definindo onovo nome da imagem como tempo e nome da ong    
-            $newNameImg = time() . md5($nameOng) . $ext;
-
-            move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
             //Verificando se algum campo está vazio
             if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
                 echo "<script language='javascript' type='text/javascript'>alert('Algum campo está vazio, tente novamente!'); window.location = ' ../editarDoacao.php?id=$id';</script>";
             } else { //Se não, continua a operaçãp
+                 //pegando o nome da imgagem no Banco de dados
+                $img = $mysql->prepare("SELECT img FROM animal_adoption WHERE id = $id");
+                $img->execute();
+
+                //verificando se existe uma imagem no bd
+                if($linha = $img->fetch(PDO::FETCH_ASSOC)){
+                    $name = $linha['img']; //Se existir vai entrar na variavel $name
+                }
+
+                if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
+                    unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
+                } 
+
+                //diretorio
+                $uploaddir = "../../imgs/";
+
+                //pegando o nome da ong
+                $email = $_SESSION['email'];
+                $nameOng = strstr($email, '@', TRUE);
+
+                //definindo onovo nome da imagem como tempo e nome da ong    
+                $newNameImg = time() . md5($nameOng) . $ext;
+
+                move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
+
                 $sql = "UPDATE animal_adoption SET name = ?, description = ?, img = ?, age = ?, type = ? WHERE id = ?";
                 $stmt = $mysql->prepare($sql);
 
