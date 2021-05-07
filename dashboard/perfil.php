@@ -14,6 +14,22 @@ if(isset($_SESSION['email']) == true){
     session_destroy();
     require_once("logout.php");
 }
+
+//incluindo a conexão com o banco de dados 
+include '../connect.php';
+
+//Pegando o id da ong logada
+$id = $_SESSION['id'];
+
+//Pegando o nome da imagem cadastrada no banco de dados
+$sql = $mysql->prepare("SELECT img FROM ong WHERE id = $id");
+$sql->execute();
+
+//Verificando se a linha de comnado retorna alguma resposta e coloca em uma variavel
+while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
+    $img = $linha['img'];
+}
+                          
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -38,7 +54,7 @@ if(isset($_SESSION['email']) == true){
             <div class="main-content">
                 <h3 class="title">Perfil da ONG</h3>
 
-                <form action="atualizarPerfil.php" method="POST">
+                <form action="controller/atualizarPerfil.php" method="POST" enctype="multipart/form-data" >
                     <h4>Informações básicas</h4>
                     <div class="row">
                         <div class="col-md-4">
@@ -58,11 +74,11 @@ if(isset($_SESSION['email']) == true){
                                 <label for="exampleFormControlSelect1">Propósito</label>
                                 <select class="form-control" id="reason">
                                     <option value="" selected disabled hidden>Selecione</option>
-                                    <option>Acolher animais</option>
-                                    <option>Socorro Animal</option>
-                                    <option>Alimentação Animal</option>
-                                    <option>Adoção Animal</option>
-                                    <option>Outros</option>
+                                    <option value="acolher_animal">Acolher animais</option>
+                                    <option value="socorro_animal">Socorro Animal</option>
+                                    <option value="alimentacao_animal">Alimentação Animal</option>
+                                    <option value="adocao_animal">Adoção Animal</option>
+                                    <option value="outros">Outros</option>
                                 </select>
                             </div>
                         </div>     
@@ -135,9 +151,9 @@ if(isset($_SESSION['email']) == true){
                     <div class="row">
                         <div class="col-md-6 container_images">
                             <h6>Logo <a onclick="clickInput('logo_input');" class="inputButton"><i class="fas fa-cogs"></i></a></h6>
-                            <img src="images/logo.png" class="img-thumbnail" id="logo_upload">
+                            <img src="../imgs/<?php echo $img;?>" class="img-thumbnail" id="logo_upload">
                             <div class="custom-file">
-                                <input type="file" id="logo_input"/>
+                                <input type="file" name ="file" id="logo_input" onchange="loadFile(event)"/>
                             </div>
                         </div> 
                     </div>
@@ -154,5 +170,7 @@ if(isset($_SESSION['email']) == true){
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/previewLogo.js"></script>    
 </body>
 </html>
