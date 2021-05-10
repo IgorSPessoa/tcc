@@ -51,19 +51,22 @@ if(isset($_SESSION['email']) == true){
                         include '../connect.php';
 
                         // Pegando conteúdo do banco de dados e colocando na variavel
-                        $sql = $mysql->prepare("SELECT * FROM animal_report");
+                        $sql = $mysql->prepare("SELECT id, animal_type, animal_description, location_address, location_number, location_district, location_state FROM animal_report;");
                         $sql->execute();
 
                         //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
                         while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo
+                            // Localização
+                            $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+
                             echo '<tr>'; 
-                                echo '<td>' .  $animal = $linha['animal_type'] . '</td>';
-                                echo '<td>' .  $description = $linha['animal_description'] . '</td>';
-                                echo '<td>' .  $localizacao = $linha['localization_lastview'] . '</td>';
+                                echo '<td>' .  ucfirst($linha['animal_type']) . '</td>';
+                                echo '<td>' .  $linha['animal_description'] . '</td>';
+                                echo '<td>' .  $localizacao . '</td>';
                                 echo '<td><a class="btn btn-secondary" href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
-                            echo '</tr>';
+                            echo '</tr>'; 
                         }    
-                        ?>
+                    ?>
                     </tbody>
                 </table>
 

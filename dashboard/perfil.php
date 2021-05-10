@@ -22,12 +22,12 @@ include '../connect.php';
 $id = $_SESSION['id'];
 
 //Pegando o nome da imagem cadastrada no banco de dados
-$sql = $mysql->prepare("SELECT img FROM ong WHERE id = $id");
+$sql = $mysql->prepare("SELECT ong_img FROM ong WHERE id = $id");
 $sql->execute();
 
 //Verificando se a linha de comnado retorna alguma resposta e coloca em uma variavel
 while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
-    $img = $linha['img'];
+    $img = $linha['ong_img'];
 }
                           
 ?>

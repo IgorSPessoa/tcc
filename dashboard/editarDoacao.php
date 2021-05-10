@@ -38,7 +38,7 @@ if(isset($_SESSION['email']) == true){
         <!-- Incluindo o cabeçalho do site -->
         <?php include "includes/header.php"; ?>
             <div class="main-content">
-                <?php
+            <?php
                     // Conectando com o banco de dados
                     include '../connect.php';
 
@@ -51,12 +51,11 @@ if(isset($_SESSION['email']) == true){
 
                     // Verificando se o conteúdo dentro da variável é maior que 0
                     while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
-                        $name = $linha['name'];
-                        $description =$linha['description'];
-                        $img = $linha['img'];
-                        $animal =$linha['type'];
-                        $idade = $linha['age'];
-                        $img = $linha['img'];
+                        $name = $linha['animal_name'];
+                        $description =$linha['animal_description'];
+                        $img = $linha['animal_photo'];
+                        $animal =$linha['animal_type'];
+                        $idade = $linha['animal_age'];
                     }    
                 ?>
                 <form action="controller/updateAdocao.php" method="POST" enctype="multipart/form-data" runat="server" novalidate> 

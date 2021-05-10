@@ -75,9 +75,9 @@ if (isset($_SESSION['email']) == true) {
             //while ($row = mysqli_fetch_array($result))
             while ($linha = $query->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                        <span>" . $linha['name'] . "</span>
+                        <span>" . $linha['animal_name'] . "</span>
                     
-                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
+                        <img src='imgs/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
                         <br><br>
                         <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                         <br><br>
