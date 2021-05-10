@@ -131,9 +131,15 @@ if($_FILES['arquivo']['name'] != ""){
             //Upando a imagem no repositorio
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
 
-            //tirando traço do cep
+            //tirando o traço do CEP
             $CEPAlterado = str_replace('-', '', $CEP);
 
+            //tirando parenteses e o traço do telefone
+            $telefoneAlterado = str_replace('(', '', $telefone);
+            $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
+            $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
+            $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
+                    
             //query para atualizar a imagem do bd
             $sql = "UPDATE ong 
                       SET ong_description = ?,
@@ -150,7 +156,7 @@ if($_FILES['arquivo']['name'] != ""){
             $stmt = $mysql->prepare($sql);
             
             //executar o update
-            $stmt->execute([$descricao, $proposito, $telefone, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $newNameImg, $id]);
+            $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $newNameImg, $id]);
             
             if($stmt){
                 echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../perfil.php'; </script>";
@@ -164,7 +170,15 @@ if($_FILES['arquivo']['name'] != ""){
         echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../perfil.php';</script>";
     }
 } elseif($_FILES['arquivo']['error'] == '4'){
+    //tirando o traço do CEP
     $CEPAlterado = str_replace('-', '',$CEP);
+    
+    //tirando parenteses e o traço do telefone
+    $telefoneAlterado = str_replace('(', '', $telefone);
+    $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
+    $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
+    $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
+
     $sql = "UPDATE ong 
               SET ong_description = ?,
               ong_purpose = ?,
@@ -178,7 +192,7 @@ if($_FILES['arquivo']['name'] != ""){
                 WHERE id = ?";
     $stmt = $mysql->prepare($sql);
 
-    $stmt->execute([$descricao, $proposito, $telefone, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $id]);
+    $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $id]);
     
     if($stmt){
         echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../perfil.php';</script>";

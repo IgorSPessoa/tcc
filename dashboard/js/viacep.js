@@ -60,3 +60,9 @@ else {
     limpa_formulário_cep();
 }
 };
+
+//mask telefone
+
+$(document).ready( function() {
+    $('#phone').mask("(99) 99999-9999");
+});
