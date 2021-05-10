@@ -22,23 +22,23 @@
     <title>Reportar</title>
 </head>
 
-<body class="bg-light">
+<body>
     <?php
-        //Iniciando sessão
-        if(session_status() !== PHP_SESSION_ACTIVE){
+    //Iniciando sessão
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    if (isset($_SESSION['email']) == true) {
+        //Logou, então continua com as valida;'oes
+        require_once("includes/nav.php");
+    } else { //Não logou então volta para a página inicial
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
-        if(isset($_SESSION['email']) == true){
-            //Logou, então continua com as valida;'oes
-            require_once("includes/nav.php");
-        }else{//Não logou então volta para a página inicial
-            if(session_status() !== PHP_SESSION_ACTIVE){
-                session_start();
-            }
-            session_unset();
-            session_destroy();
-            require_once("includes/nav.php");
-        }
+        session_unset();
+        session_destroy();
+        require_once("includes/nav.php");
+    }
     ?>
 
     <main class="p-3">
@@ -71,20 +71,20 @@
                     <label for="arquivoAnimal">Foto do animal:</label>
                     <a id="imgInput" onclick="click_the_button(foto_animal);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a>
                     <img id="animalView" />
-                    
+
                     <div>
                         <input type="file" id="foto_animal" name="foto_animal" onchange="loadFile(event)" required><br><br>
                     </div>
-                </div>    
+                </div>
             </div>
-            
+
             <h3>Localização</h3>
             <label for="address">Endereço em que foi visto pela última vez:</label>
             <input type="text" id="endereco" name="endereco" required><br><br>
 
             <label for="observation">Observações sobre localização do animal, ponto de referência:</label>
             <input type="text" id="observacao" name="observacao" required><br><br>
-                   
+
             <div class="row">
                 <div class="col-md-6 container_images">
                     <label for="arquivoAdress">Foto de um ponto de referência:</label>
@@ -104,10 +104,14 @@
     <?php
     require_once("includes/footer.php");
     ?>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="dashboard/js/report.js"></script>
     <script src="dashboard/js/previewImg.js"></script>
 </body>
+
 </html>

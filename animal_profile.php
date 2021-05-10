@@ -51,13 +51,12 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/Aniamal_Profile.css">
+    <link rel="stylesheet" href="css/Animal_Profile.css">
 
 
     <title>Adoção-Perfil</title>
 
 </head>
-
 <body>
     <main class="p-3 d-flex justify-content-center">
         <div class="Perfil">
@@ -72,7 +71,6 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 <strong> Adote este animal indo no endereço acima.</strong>
             </div>
         </div>
-        <br><br><br><br><br><br><br><br>
     </main>
     <?php
     require_once("includes/footer.php");

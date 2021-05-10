@@ -49,25 +49,25 @@
                     <a href="./adocao.php">
                         <img class="d-block w-100" src="./imgs/servico-adocao.jpg" alt="Primeiro Slide">
                     </a>
-                    <div class="carousel-caption d-none d-md-block">
+                    <!--<div class="carousel-caption d-none d-md-block">
                         <h5>Adoção</h5>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="carousel-item">
                     <a href="./reportar.php">
                         <img class="d-block w-100" src="./imgs/servico-reporte.jpg" alt="Segundo Slide">
                     </a>
-                    <div class="carousel-caption d-none d-md-block">
+                    <!--<div class="carousel-caption d-none d-md-block">
                         <h5>Reportar</h5>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="carousel-item">
                     <a href="./ongs.php">
                         <img class="d-block w-100" src="./imgs/servico-ong.jpg" alt="Terceiro Slide">
                     </a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5></h5>
-                    </div>
+                    <!--<div class="carousel-caption d-none d-md-block">
+                        <h5>Ongs</h5>
+                    </div>-->
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">

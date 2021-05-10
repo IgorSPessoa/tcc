@@ -60,13 +60,15 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             <div class="LOng p-3 d-flex justify-content-center">
                 <img src="./imgs/<?php echo $img;  ?>" alt="">
             </div>
-            <div class="descricao bg-white lg-3 border border-3 border-primary px-5 py-2">
-                <h2><?php echo $name; ?></h2>
-                <p><b>Descrição:</b> <?php echo $description;  ?></p>
-                <p><b>Endereço:</b> <?php echo $address;  ?></p>
+            <div class="d-flex justify-content-center">
+                <div class="descricao bg-white border border-3 border-primary px-5 py-2">
+                    <h2><?php echo $name; ?></h2>
+                    <p><b>Descrição:</b> <?php echo $description;  ?></p>
+                    <p><b>Endereço:</b> <?php echo $address;  ?></p>
+                </div>
             </div>
         </div>
-        <div class="adocao">
+        <div class="adocao w-auto">
             <h1>Animais para adoação nesta ONG</h1>
         </div>
 
