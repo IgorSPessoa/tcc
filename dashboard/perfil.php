@@ -22,24 +22,12 @@ include '../connect.php';
 $id = $_SESSION['id'];
 
 //Pegando o nome da imagem cadastrada no banco de dados
-$sql = $mysql->prepare("SELECT * FROM ong WHERE id = $id");
+$sql = $mysql->prepare("SELECT img FROM ong WHERE id = $id");
 $sql->execute();
 
 //Verificando se a linha de comnado retorna alguma resposta e coloca em uma variavel
 while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
-    $nome = $linha['ong_name'];
-    $email = $linha['ong_email'];
-    $proposito = $linha['ong_purpose'];
-    $dataAbertura = $linha['ong_opening_date'];
-    $horarioFunc = $linha['ong_business_hours'];
-    $telefone = $linha['ong_phone'];
-    $descricao = $linha['ong_description'];
-    $CEP = $linha['location_cep'];
-    $rua = $linha['location_address'];
-    $numero = $linha['location_number'];
-    $bairo = $linha['location_district'];
-    $estado = $linha['location_state'];
-    $img = $linha['ong_img'];
+    $img = $linha['img'];
 }
                           
 ?>
@@ -72,54 +60,54 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="first">Nome</label>
-                                <input type="text" class="form-control" id="name" name="name" value="<?php echo $nome;?>" readonly> 
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Animal Feliz"> 
                             </div>     
                         </div>  
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="first">E-mail</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $email;?>" readonly>
+                                <input type="email" class="form-control" id="name" name="name" placeholder="contato@animalfeliz.org">
                             </div>     
                         </div>                        
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="exampleFormControlSelect1">Propósito</label>
-                                <select class="form-control" id="reason" name="reason" required>
+                                <select class="form-control" id="reason">
                                     <option value="" selected disabled hidden>Selecione</option>
-                                    <option value="acolher_animal" <?php if($proposito == "acolher_animal") { echo "selected";} ?>>Acolher animais</option>
-                                    <option value="socorro_animal" <?php if($proposito == "socorro_animal") { echo "selected";} ?>>Socorro Animal</option>
-                                    <option value="alimentacao_animal" <?php if($proposito == "alimentacao_animal") { echo "selected";} ?>>Alimentação Animal</option>
-                                    <option value="adocao_animal" <?php if($proposito == "adocao_animal") { echo "selected";} ?>>Adoção Animal</option>
-                                    <option value="outros" <?php if($proposito == "outros") { echo "selected";} ?>>Outros</option>
+                                    <option value="acolher_animal">Acolher animais</option>
+                                    <option value="socorro_animal">Socorro Animal</option>
+                                    <option value="alimentacao_animal">Alimentação Animal</option>
+                                    <option value="adocao_animal">Adoção Animal</option>
+                                    <option value="outros">Outros</option>
                                 </select>
                             </div>
-                        </div>                              
+                        </div>     
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="first">Data de abertura</label>
+                                <input type="date" class="form-control" id="opening_date" name="opening_date">
+                            </div>     
+                        </div>                           
                     </div>
                     <div class="row">      
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="first">Horário de funcionamento</label>
-                                <input type="text" class="form-control" id="opening_hours" name="opening_hours" value="<?php echo $horarioFunc;?>" required>
+                                <input type="text" class="form-control" id="opening_hours" name="opening_hours" placeholder="Das 8hrs as 20hrs, de segunda-feira a sexta-feira">
                             </div>     
                         </div>   
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="first">Telefone</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $telefone;?>" required>
+                                <input type="text" class="form-control" id="phone" name="phone" placeholder="(00) 994054654">
                             </div>     
                         </div>   
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label for="first">Data de abertura</label>
-                                <input type="date" class="form-control" id="opening_date" name="opening_date" value="<?php echo $dataAbertura;?>" readonly>
-                            </div>     
-                        </div>  
                     </div>
                     <div class="row"> 
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Descrição da ONG</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Uma descrição básica sobre sua ONG" required><?php echo $descricao;?></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Uma descrição básica sobre sua ONG"></textarea>
                             </div>   
                         </div>                                
                     </div>
@@ -129,37 +117,33 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="first">Cep</label>
-                                <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $CEP;?>" onblur="pesquisacep(this.value);" required>
+                                <input type="text" class="form-control" id="cep" name="cep" placeholder="01001000">
                             </div>     
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="first">Endereço</label>
-                                <input type="text" class="form-control" id="address" name="address" value="<?php echo $rua;?>" required>
+                                <input type="text" class="form-control" id="address" name="address" placeholder="Rua são paulo">
                             </div>     
                         </div> 
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <div class="form-group">
                                 <label for="first">Nº</label>
-                                <input type="text" class="form-control" id="number" name="number" value="<?php echo $numero;?>" required>
+                                <input type="text" class="form-control" id="number" name="number" placeholder="14">
                             </div>     
-                        </div> 
-                    </div>
-
-                    <div class="row">      
-                        <div class="col-md-4">
+                        </div>       
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="first">Bairro</label>
-                                <input type="text" class="form-control" id="district" name="district"value="<?php echo $bairo;?>" required>
+                                <input type="text" class="form-control" id="district" name="district" placeholder="Bonfim">
                             </div>     
                         </div>     
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label for="first">Estado</label>
-                                <input type="text" class="form-control" id="state" name="state" value="<?php echo $estado;?>" required>
+                                <input type="text" class="form-control" id="state" name="state" placeholder="São Paulo">
                             </div>     
                         </div>                                  
                     </div>
@@ -169,7 +153,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                             <h6>Logo <a onclick="clickInput('logo_input');" class="inputButton"><i class="fas fa-cogs"></i></a></h6>
                             <img src="../imgs/<?php echo $img;?>" class="img-thumbnail" id="logo_upload">
                             <div class="custom-file">
-                                <input type="file" name ="arquivo" id="logo_input" onchange="loadFile(event)" accept="image/png, image/jpeg"/>
+                                <input type="file" name ="file" id="logo_input" onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
                             </div>
                         </div> 
                     </div>
@@ -180,16 +164,13 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
             </div>
         </main>
     </div>
+
     <script src="js/global.js"></script>
     <script src="js/perfil.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="js/viacep.js"></script>
-    <script src="js/previewLogo.js"></script>   
-    <script src="js/validCep.js"></script>
-    
+    <script src="js/previewLogo.js"></script>    
 </body>
 </html>
