@@ -1,11 +1,8 @@
 body{
-    background-image: url(../imgs/Fpegadas.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-
+    background-color:#B0E0E6;
 }
 main{
-    margin-top: 50px;
+    margin-top: 10px;
 }
 .Perfil{
     margin-left: 40rem;

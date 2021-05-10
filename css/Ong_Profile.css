@@ -1,33 +1,16 @@
 body{
-    background-image: url(../imgs/doacao.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-
-}
-main{
-    margin-top:2em;
+    background-color:#B0E0E6;
 }
 .LOng > img{
-    height:400px;
-    width: 400px;
-}
-.descricao{
-    background-color: RGBA(192,192,192,0.4);
+    height:300px;
+    width: 300px;
 }
 .descricao > h2{
     text-align: center;
 }
 .descricao{
-        box-sizing: border-box;
-        display: block;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-        padding-top: 1rem;
+    width: 65%;
 }
-
 .adocao >h1{
     text-align: center;
     color: white;
@@ -82,7 +65,7 @@ main{
 }
 
 
-@media only screen and (max-width: 1025px) {
+@media only screen and (max-width: 950px) {
     main{
         width: 700px !important;
     }
@@ -115,9 +98,6 @@ main{
     }
     
 }
-
-
-
 @media only screen and (max-width: 801px) {
     main{
         width: 600px !important;
@@ -126,29 +106,29 @@ main{
         height:300px;
         width: 300px;
     }
-    .adocao >h1{
+    .descricao > h2{
         text-align: center;
-        color: white;
     }
-    .adocao{
-        background-color: RGBA(25,25,112,1);
-        border-radius: 20px;
+    .descricao{
+        width: 65%;
     }
     .animals{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        max-width: 100px;
-        margin: 10%;
+        max-width: 1000px;
+        margin: 0 auto;
         grid-gap: 20px;
     
     }
     .animal > span{
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
     
-
-        color:black;    
-        font-size: 30px;
+    
+        color:black;
+        text-align: center;
+    
+        font-size: 20px;
         font-weight: bold;
     }
     .animal > img{
@@ -157,13 +137,11 @@ main{
     
     }
     .animal{
-        max-width: 600px;
+        max-width: 300px;
         padding: 5px;
         border-radius: 10px;
     
     }
-    
-
 }
 
 
@@ -175,6 +153,9 @@ main{
     .LOng > img{
         height:300px;
         width: 300px;
+    }
+    .descricao{
+        width: 100%;
     }
 
     .animals{

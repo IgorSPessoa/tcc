@@ -20,7 +20,7 @@
     <title>Login</title>
 </head>
 
-<body class="bg-light">
+<body>
     <?php
     require_once("includes/nav.php");
     ?>
