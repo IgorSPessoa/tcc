@@ -10,7 +10,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     $name = $linha['ong_name'];
     $description = $linha['ong_description'];
     $img = $linha['ong_img'];
-    $address = $linha['location_cep'];
+    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 
 ?>
