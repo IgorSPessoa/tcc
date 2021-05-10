@@ -10,6 +10,7 @@ include "../connect.php";
 $email = $_POST["email"];
 $senha = md5($_POST["senha"]);
 
+// Esta função verifica se há pelo menos um resultado na query
 function CheckRow($query){
     if($query->rowCount() == 1){
         return True;
@@ -20,13 +21,13 @@ function CheckRow($query){
 
 $err = "";
 // Verificando se há conta de usuário
-$checkUserAccount = $mysql->prepare("SELECT pwd, id, name, email FROM user WHERE email = '$email';");
-$checkUserAccount->execute();
+$checkUserAccount = $mysql->prepare("SELECT id, name, pwd, email FROM user WHERE email = ?");
+$checkUserAccount->execute([$email]);
 
-if(CheckRow($checkUserAccount)){
+if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma linha no resultado
     // Se existir o email na tabela de usuários, compare a senha e faça login.
     while($row = $checkUserAccount->fetch(PDO::FETCH_ASSOC)) {
-        // Compara Login
+        // Verifica se a senha está correta
         if($row['pwd'] == $senha){
             $_SESSION['id'] = $row['id'];
             $_SESSION['name'] = $row['name'];
@@ -40,16 +41,16 @@ if(CheckRow($checkUserAccount)){
         }
     }
 }else{
-    // Se não, irá tentar no sistema de ONGs.
-    $checkOngAccount = $mysql->prepare("SELECT ong_acess.senha, ong.id, ong_acess.email, ong.name FROM ong_acess INNER JOIN ong ON (ong_acess.ong_id = ong.id) WHERE email = '$email';");
-    $checkOngAccount->execute();
+    // Caso não haja e-mail cadastrado na tabela usuários, vamos tentar na tabela de ONG
+    $checkOngAccount = $mysql->prepare("SELECT id, ong_name, ong_email, ong_email, ong_password FROM ong WHERE ong_email = ?;");
+    $checkOngAccount->execute([$email]);
     if(CheckRow($checkOngAccount)){
         // Se existir o email na tabela de ong, compare a senha e faça login.
         while($row = $checkOngAccount->fetch(PDO::FETCH_ASSOC)) {
-            if($row['senha'] == $senha){
+            if($row['ong_password'] == $senha){
                 $_SESSION['id'] = $row['id'];
-                $_SESSION['name'] = $row['name'];
-                $_SESSION['email'] = $row['email'];
+                $_SESSION['name'] = $row['ong_name'];
+                $_SESSION['email'] = $row['ong_email'];
                 $_SESSION['acc_type'] = "ong";
                 
                 header('Location: ../dashboard/index.php');
