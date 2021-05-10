@@ -55,7 +55,7 @@ if(isset($_SESSION['email']) == true){
                    //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
                         $author = $linha['name'];
-                        $phone = $linha['phone'];
+                        $phone = $linha['phone']; 
                         $animal = ucfirst($linha['animal_type']); 
                         $description = $linha['animal_description'];
                         $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";

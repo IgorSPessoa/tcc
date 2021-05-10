@@ -21,7 +21,7 @@ include "connect.php";
 $id = $_GET['id'];
 
 $result = $mysql->prepare("SELECT animal_adoption.*, 
-                                  ong.location_cep
+                                  ong.*
                            FROM animal_adoption 
                             INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
                            WHERE animal_adoption.id = $id;");
@@ -31,7 +31,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     $name = $linha['animal_name'];
     $description = $linha['animal_description'];
     $img = $linha['animal_photo'];
-    $address = $linha['location_cep'];
+    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 ?>
 
