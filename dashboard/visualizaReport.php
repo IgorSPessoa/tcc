@@ -22,6 +22,7 @@ if(isset($_SESSION['email']) == true){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css_dashboard/all.css">
+    <link rel="stylesheet" href="css_dashboard/visualizarReport.css">
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -46,24 +47,27 @@ if(isset($_SESSION['email']) == true){
                     $id = $_GET['id'];
                     
                    // Pegando conteúdo do banco de dados e colocando na variavel
-                   $sql = $mysql->prepare("SELECT * FROM tcc.animal_report WHERE id = $id");
-                   $sql->execute();
-
+                   $sql = $mysql->prepare("SELECT 	ar.*, u.name, u.phone
+                                                FROM animal_report ar INNER JOIN user u ON (ar.author_id = u.id)
+                                                    WHERE ar.id = ?;");
+                   $sql->execute([$id]);
+ 
                    //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
-                        $author = $linha['author_name'];
-                        $phone = $linha['author_phone'];
-                        $animal = $linha['animal_description']; 
-                        $description = $linha['animal_situation'];
-                        $location =  $linha['localization_lastview']; 
-                        $pointOfReference = $linha['localization_observation']; 
+                        $author = $linha['name'];
+                        $phone = $linha['phone']; 
+                        $animal = ucfirst($linha['animal_type']); 
+                        $description = $linha['animal_description'];
+                        $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                        $pointOfReference = $linha['location_observation']; 
                         $imgAnimal = $linha['animal_photo'];
-                        $imgLocation = $linha['localization_photo'];
+                        $imgLocation = $linha['location_photo'];
                     }    
                 ?> 
+
                 <div class="row">    
                     <div class="col">
-                        <h3 class="text-center"><strong>Visualização do Reporte</strong></h3>
+                        <h3 class="text-center"><strong>Visualização do Reporte <a class="btn btn-warning" type="button" href="reports.php">Ingresssar</a></strong></h3>
                     </div>
                 </div>
 
@@ -131,6 +135,68 @@ if(isset($_SESSION['email']) == true){
 
                     </div>
                 </form>
+
+                <br><br>
+                <div class="row">    
+                    <div class="col">
+                        <h3 class="text-center"><strong>Gerenciamento de reports</strong></h3>
+                    </div>
+                </div>
+                <form action="">
+                    <div class="row">
+                        <div class="container">
+                            <ul class="progressbar">
+                            <li><a href="#" class="active">Report Enviado</a></li>
+                            <li><a href="#" class="active none-active">Aceito por ONG</a></li>
+                            <li><a href="#">Resgatado</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="author_name" class="m-0"><h4>Data de aceite</h4></label>
+                            <input class="form-control w-100 mb-2" type="date" id="date_aceite" name="date_aceite" value='2018-07-22' readonly>
+                        </div>
+
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Situação</label>
+                                <select class="form-control" id="reason">
+                                    <option value="waiting">Aguardando</option>
+                                    <option value="agendado">Agendado</option>
+                                    <option value="agendado">Não localizado</option>
+                                    <option value="resgatado">Resgatado</option>
+                                </select>
+                            </div>
+                        </div>    
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label for="description">Comentários</label>
+                                <textarea class="form-control" id="comments" name="comments" rows="3"></textarea> 
+                            </div>
+                        </div>    
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 container_images">
+                            <h6>Imagem de resgate <a onclick="clickInput('logo_input');" class="inputButton"><i class="fas fa-cogs"></i></a></h6>
+                            <img src="../imgs/preview.jpg" class="img-thumbnail" id="logo_upload">
+                            <div class="custom-file">
+                                <input type="file" name ="file" id="logo_input" onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
+                            </div>
+                        </div> 
+                    </div>
+ 
+                    <div class="row">
+                        <button type="button" class="btn btn-dark">Abandonar</button>
+                        <button type="button" class="btn btn-primary">Concluido</button>
+                    </div>
+                </form>
+
                 <?php include "includes/footer.php"; ?>
             </div>
         </main>

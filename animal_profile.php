@@ -21,17 +21,17 @@ include "connect.php";
 $id = $_GET['id'];
 
 $result = $mysql->prepare("SELECT animal_adoption.*, 
-                                  ong.address
+                                  ong.*
                            FROM animal_adoption 
-                           INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
+                            INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
                            WHERE animal_adoption.id = $id;");
 $result->execute();
 
 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    $name = $linha['name'];
-    $description = $linha['description'];
-    $img = $linha['img'];
-    $address = $linha['address'];
+    $name = $linha['animal_name'];
+    $description = $linha['animal_description'];
+    $img = $linha['animal_photo'];
+    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 ?>
 
@@ -51,13 +51,12 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/Aniamal_Profile.css">
+    <link rel="stylesheet" href="css/Animal_Profile.css">
 
 
     <title>Adoção-Perfil</title>
 
 </head>
-
 <body>
     <main class="p-3 d-flex justify-content-center">
         <div class="Perfil">
@@ -72,7 +71,6 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 <strong> Adote este animal indo no endereço acima.</strong>
             </div>
         </div>
-        <br><br><br><br><br><br><br><br>
     </main>
     <?php
     require_once("includes/footer.php");

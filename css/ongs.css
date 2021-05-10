@@ -1,5 +1,5 @@
 body{
-    background-color: RGBA(70,130,180); 
+    background-color:#B0E0E6; 
 }
 .animals{
     display: grid;
@@ -76,11 +76,7 @@ body{
         border-radius: 10px;
     
     }
-    
-    
-
 }
-
 
 
 @media only screen and (max-width: 801px) {

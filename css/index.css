@@ -15,21 +15,22 @@ h1,h2,h3{
 
     
     background-color:#191970;
+
+    /*width: 80%;
+    margin: 0 auto;*/
 }
 .servicos >h2{
     color: white;
 }
-
-
 .carousel-caption >h5{
     color: black;
 }
 .carousel-inner{
     max-height: 550px;
-
 }
 .carousel-item > a > img{
     max-height: 550px;
+
 }
  
 .sobre{

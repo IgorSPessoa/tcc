@@ -7,10 +7,10 @@ $result = $mysql->prepare("SELECT * FROM ong WHERE id = $id;");
 $result->execute();
 
 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    $name = $linha['name'];
-    $description = $linha['description'];
-    $img = $linha['img'];
-    $address = $linha['address'];
+    $name = $linha['ong_name'];
+    $description = $linha['ong_description'];
+    $img = $linha['ong_img'];
+    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 
 ?>
@@ -60,13 +60,15 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             <div class="LOng p-3 d-flex justify-content-center">
                 <img src="./imgs/<?php echo $img;  ?>" alt="">
             </div>
-            <div class="descricao bg-white lg-3 border border-3 border-primary px-5 py-2">
-                <h2><?php echo $name; ?></h2>
-                <p><b>Descrição:</b> <?php echo $description;  ?></p>
-                <p><b>Endereço:</b> <?php echo $address;  ?></p>
+            <div class="d-flex justify-content-center">
+                <div class="descricao bg-white border border-3 border-primary px-5 py-2">
+                    <h2><?php echo $name; ?></h2>
+                    <p><b>Descrição:</b> <?php echo $description;  ?></p>
+                    <p><b>Endereço:</b> <?php echo $address;  ?></p>
+                </div>
             </div>
         </div>
-        <div class="adocao">
+        <div class="adocao w-auto">
             <h1>Animais para adoação nesta ONG</h1>
         </div>
 
@@ -92,16 +94,16 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
             $page_first_result = ($page - 1) * $results_per_page;
 
-            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption WHERE ong_id = $id LIMIT $page_first_result, $results_per_page;");
+            $dados = $mysql->prepare("SELECT id, animal_name, animal_description, animal_photo FROM animal_adoption WHERE ong_id = $id LIMIT $page_first_result, $results_per_page;");
             $dados->execute();
 
             //exibir o resultado recuperado na página da web 
             //while ($row = mysqli_fetch_array($result))
             while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                        <span>" . $linha['name'] . "</span>
+                        <span>" . $linha['animal_name'] . "</span>
                     
-                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
+                        <img src='imgs/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
                         <br><br>
                         <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                         <br><br>
