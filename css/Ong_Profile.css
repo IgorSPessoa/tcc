@@ -10,14 +10,19 @@ body{
 }
 .descricao{
     width: 65%;
+
+    border-radius: 15px;
 }
 .adocao >h1{
     text-align: center;
-    color: white;
 }
 .adocao{
-    background-color: RGBA(25,25,112,1);
-    border-radius: 20px;
+
+    margin-bottom: 10px;
+
+    border-radius: 15px;
+    background-color: #E0FFFF;
+    box-shadow: 0 0 1em #191970;
 }
 
 .animals{
@@ -63,131 +68,30 @@ body{
     background-color: #019c42;
     text-decoration: none;
 }
-
-
-@media only screen and (max-width: 950px) {
-    main{
-        width: 700px !important;
-    }
-    .animals{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        max-width: 700px;
-        margin: 0 auto;
-        grid-gap: 20px;
-    
-    }
-    .animal > span{
-        display: flex;
-        flex-direction: row;
-    
-        color:black;    
-        font-size: 25px;
-        font-weight: bold;
-    }
-    .animal > img{
-        width: 200px;
-        height: 200px;
-    
-    }
-    .animal{
-        max-width: 300px;
-        padding: 5px;
-        border-radius: 10px;
-    
-    }
-    
-}
-@media only screen and (max-width: 801px) {
-    main{
-        width: 600px !important;
-    }
-    .LOng > img{
-        height:300px;
-        width: 300px;
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .descricao{
-        width: 65%;
-    }
+@media only screen and (max-width:992px) {
     .animals{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        max-width: 1000px;
+        max-width: 600px;
         margin: 0 auto;
         grid-gap: 20px;
-    
-    }
-    .animal > span{
-        display: flex;
-        flex-direction: column;
-    
-    
-        color:black;
-        text-align: center;
-    
-        font-size: 20px;
-        font-weight: bold;
-    }
-    .animal > img{
-        width: 200px;
-        height: 200px;
-    
-    }
-    .animal{
-        max-width: 300px;
-        padding: 5px;
-        border-radius: 10px;
-    
     }
 }
-
-
-@media only screen and (max-width: 600px) {
-   
-    main{
-        max-width: 98% !important;
-    }
+@media only screen and (max-width: 768px) {
     .LOng > img{
-        height:300px;
-        width: 300px;
+        height:200px;
+        width: 200px;
     }
     .descricao{
         width: 100%;
+    
+        border-radius: 15px;
     }
-
     .animals{
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        max-width: 100px;
-        margin: 10%;
+        max-width: 300px;
+        margin: 0 auto;
         grid-gap: 20px;
-    
-    }
-    .animal > span{
-        display: flex;
-        flex-direction: row;
-    
-
-        color:black;    
-        font-size: 30px;
-        font-weight: bold;
-    }
-    .animal > img{
-        width: 200px;
-        height: 200px;
-    
-    }
-    .animal{
-        max-width: 600px;
-        padding: 5px;
-        border-radius: 10px;
-    
-    }
-    
+    } 
 }
-
-
-
