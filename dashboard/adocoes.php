@@ -67,7 +67,7 @@ if(isset($_SESSION['email']) == true){
                             echo '<tr>'; 
                                 echo '<td>' .  $linha['animal_name'] . '</td>';
                                 echo '<td>' .  $linha['animal_description'] . '</td>';
-                                echo '<td><a class="btn btn-secondary" href="editarDoacao.php?id=' . $id . '" >Editar</a></td>';
+                                echo '<td><a class="btn btn-secondary" href="editarAdoacao.php?id=' . $id . '" >Editar</a></td>';
                             echo '</tr>';
                         }    
                       ?>
