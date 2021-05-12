@@ -28,6 +28,7 @@ $result = $mysql->prepare("SELECT animal_adoption.*,
 $result->execute();
 
 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
     //informações do animal
     $img = $linha['animal_photo'];
     $name = $linha['animal_name'];
@@ -40,6 +41,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     //informações de contato com a ong
     $animal_ong_since = $linha['animal_ong_since'];
     $ong_business_hours = $linha['ong_business_hours'];
+
     $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 ?>
