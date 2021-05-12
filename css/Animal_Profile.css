@@ -2,50 +2,45 @@ body{
     background-color:#B0E0E6;
 }
 main{
-    margin-top: 10px;
-}
-.Perfil{
-    margin-left: 40rem;
-    max-width: 400px;
+    margin-top: 20px;
 }
 .descricao > h2{
     text-align: center;
 }
+.descricao{
+    box-shadow: 0 0 1em black;
+}
+.linha-horizontal {
+    width: 100%;
+    border: 1px solid #000;
+}
 .img > img{
-    width: 400px;
-    height: 330px;
+    width: 300px;
+    height: 300px;
 }
 
 @media only screen and (min-width:1281px){
     main{
         width: 700px !important;
     }
-    .Perfil{
-        max-width: 400px;
-        margin-left: 40rem;
-    }
     .descricao > h2{
         text-align: center;
     }
     .img > img{
-        width: 400px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
     }
 }
 @media only screen and (max-width: 1281px) {
     main{
         width: 700px !important;
     }
-    .Perfil{
-        max-width: 400px;
-        margin-left: 40rem;
-    }
     .descricao > h2{
         text-align: center;
     }
     .img > img{
-        width: 400px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
     }
 }
 
@@ -53,16 +48,12 @@ main{
     main{
         width: 700px !important;
     }
-    .Perfil{
-        max-width: 400px;
-        margin-left: 20rem;
-    }
     .descricao > h2{
         text-align: center;
     }
     .img > img{
-        width: 400px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
     }
 }
 
@@ -71,16 +62,12 @@ main{
         width: 600px !important;
 
     }
-    .Perfil{
-        max-width: 400px;
-        margin-left: 7rem;
-    }
     .descricao > h2{
         text-align: center;
     }
     .img > img{
-        width: 400px;
-        height: 330px;
+        width: 300px;
+        height: 300px;
     }
 }
 
@@ -93,12 +80,6 @@ main{
     }
     .img > img{
         width: 300px;
-        height: 280px;
+        height: 300px;
     }
-    .Perfil{
-        margin-left: 1rem;
-        max-width: 300px;
-    }
-    
-    
 }

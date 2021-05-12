@@ -8,6 +8,8 @@ $result->execute();
 
 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     $name = $linha['ong_name'];
+    $ong_opening_date = $linha['ong_opening_date'];
+    $ong_business_hours = $linha['ong_business_hours'];
     $description = $linha['ong_description'];
     $img = $linha['ong_img'];
     $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
@@ -56,51 +58,51 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     }
     ?>
     <main>
-        <div class="p-3 justify-content-center">
-            <div class="LOng p-3 d-flex justify-content-center">
-                <img src="./imgs/<?php echo $img;  ?>" alt="">
-            </div>
-            <div class="d-flex justify-content-center">
-                <div class="descricao bg-white border border-3 border-primary px-5 py-2">
-                    <h2><?php echo $name; ?></h2>
-                    <p><b>Descrição:</b> <?php echo $description;  ?></p>
-                    <p><b>Endereço:</b> <?php echo $address;  ?></p>
+    <div class="p-3 d-flex justify-content-center">
+            <div class="descricao bg-white border border-3 border-primary px-5 py-2">
+                <div class="LOng p-3 d-flex justify-content-center">
+                    <img src="./imgs/<?php echo $img;  ?>" alt="">
                 </div>
+
+                <h2><?php echo $name; ?></h2>
+                <p><b>Descrição:</b> <?php echo $description;  ?></p>
+                <p><b>Aberta desde:</b> <?php echo $ong_opening_date; ?></p>
+                <p><b>Horario de Atendimento:</b> <?php echo $ong_business_hours;  ?></p>
+                <p><b>Endereço:</b> <?php echo $address;  ?></p>
             </div>
         </div>
-        <div class="adocao w-auto">
+        <div class="adocao container p-2 w-100 h-80 justify-content-center">
             <h1>Animais para adoação nesta ONG</h1>
-        </div>
 
-        <div class="animals">
-            <?php
-            //definir o número total de resultados que você deseja por página
-            $results_per_page = 9;
+            <div class="animals">
+                <?php
+                //definir o número total de resultados que você deseja por página
+                $results_per_page = 9;
 
-            //encontre o número total de resultados armazenados no banco de dados  
-            $query = $mysql->prepare("SELECT * FROM animal_adoption WHERE ong_id = $id;");
-            $query->execute();
-            $number_of_result = $query->rowCount();
-            //determinar o número total de páginas disponíveis
-            $number_of_page = ceil($number_of_result / $results_per_page);
+                //encontre o número total de resultados armazenados no banco de dados  
+                $query = $mysql->prepare("SELECT * FROM animal_adoption WHERE ong_id = $id;");
+                $query->execute();
+                $number_of_result = $query->rowCount();
+                //determinar o número total de páginas disponíveis
+                $number_of_page = ceil($number_of_result / $results_per_page);
 
-            //determinar em qual número de página o visitante está atualmente
-            if (!isset($_GET['page'])) {
-                $page = 1;
-            } else {
-                $page = $_GET['page'];
-            }
+                //determinar em qual número de página o visitante está atualmente
+                if (!isset($_GET['page'])) {
+                    $page = 1;
+                } else {
+                    $page = $_GET['page'];
+                }
 
-            //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
-            $page_first_result = ($page - 1) * $results_per_page;
+                //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
+                $page_first_result = ($page - 1) * $results_per_page;
 
-            $dados = $mysql->prepare("SELECT id, animal_name, animal_description, animal_photo FROM animal_adoption WHERE ong_id = $id LIMIT $page_first_result, $results_per_page;");
-            $dados->execute();
+                $dados = $mysql->prepare("SELECT id, animal_name, animal_description, animal_photo FROM animal_adoption WHERE ong_id = $id LIMIT $page_first_result, $results_per_page;");
+                $dados->execute();
 
-            //exibir o resultado recuperado na página da web 
-            //while ($row = mysqli_fetch_array($result))
-            while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
-                echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
+                //exibir o resultado recuperado na página da web 
+                //while ($row = mysqli_fetch_array($result))
+                while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<div class='animal justify-content-center bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                         <span>" . $linha['animal_name'] . "</span>
                     
                         <img src='imgs/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
@@ -108,8 +110,8 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                         <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                         <br><br>
                     </div>";
-            }
-            /*
+                }
+                /*
             $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption WHERE ong_id = $id;");
             $dados->execute();
 
@@ -123,48 +125,49 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                             <br><br>
                         </div>";
             }*/
-            ?>
-        </div>
-        <br>
-        <div class="d-flex justify-content-center">
-            <?php
-            //set de variaveis para paginação.
-            $pagina_anterior = $page - 1;
-            $pagina_proxima = $page + 1;
-            $page_atual = $page;
+                ?>
+            </div>
+            <br>
+            <div class="d-flex justify-content-center">
+                <?php
+                //set de variaveis para paginação.
+                $pagina_anterior = $page - 1;
+                $pagina_proxima = $page + 1;
+                $page_atual = $page;
 
-            if ($number_of_result >= 1) {
-                //Testa se pode ter o botão de pagina anterior ou não.
-                if ($pagina_anterior != 0) {
-                    echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_anterior . '" class="btn button text-center"> << </a>';
-                } else {
-                    echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> << </a>';
-                }
-                //imprime os button de paginação até 5 (para limitar bloco de paginação).
-                for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
-                    echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $page . '" class="button text-center">' . $page . ' </a>';
-                }
-                /*
+                if ($number_of_result >= 1) {
+                    //Testa se pode ter o botão de pagina anterior ou não.
+                    if ($pagina_anterior != 0) {
+                        echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_anterior . '" class="btn button text-center"> << </a>';
+                    } else {
+                        echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> << </a>';
+                    }
+                    //imprime os button de paginação até 5 (para limitar bloco de paginação).
+                    for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
+                        echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $page . '" class="button text-center">' . $page . ' </a>';
+                    }
+                    /*
             Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação),
             se for ele imprime o button para a proxima pagina. 
             */
-                if ($number_of_page > 5) {
-                    if ($page_atual < $number_of_page) {
-                        echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
-                        echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_proxima . '" class="button text-center">' . $pagina_proxima . ' </a>';
+                    if ($number_of_page > 5) {
+                        if ($page_atual < $number_of_page) {
+                            echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
+                            echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_proxima . '" class="button text-center">' . $pagina_proxima . ' </a>';
+                        } else {
+                            echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
+                            echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $page_atual . '" class="button text-center">' . $page_atual . ' </a>';
+                        }
+                    }
+                    //Testa se pode ter o botão de proxima pagina ou não.
+                    if ($pagina_proxima <= $number_of_page) {
+                        echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_proxima . '" class="btn button text-center"> >> </a>';
                     } else {
-                        echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
-                        echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $page_atual . '" class="button text-center">' . $page_atual . ' </a>';
+                        echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> >> </a>';
                     }
                 }
-                //Testa se pode ter o botão de proxima pagina ou não.
-                if ($pagina_proxima <= $number_of_page) {
-                    echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $pagina_proxima . '" class="btn button text-center"> >> </a>';
-                } else {
-                    echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true"> >> </a>';
-                }
-            }
-            ?>
+                ?>
+            </div>
         </div>
     </main>
     <?php
