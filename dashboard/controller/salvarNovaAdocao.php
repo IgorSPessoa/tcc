@@ -18,15 +18,22 @@ if(isset($_SESSION['email']) == true){
 //Concetando com o servidor mysql
 include '../../connect.php';
 
+//Pegando o id da ong logada
+$id = $_SESSION['id'];
+
 //Declarando os nomes das variáveis pegas no NovaAdocao
-$nome = "$_POST[name]";
-$descricao = "$_POST[description]";
-$animal = "$_POST[animal]";
-$idade = "$_POST[age]";
+$animal_name = "$_POST[animal_name]";
+$animal_description = "$_POST[animal_description]";
+$animal_race = "$_POST[animal_race]";
+$animal_weight = "$_POST[animal_weight]";
+$animal_category = "$_POST[animal_category]";
+$animal_gender = "$_POST[animal_gender]";
+$animal_type = "$_POST[animal_type]";
+$animal_age = "$_POST[animal_age]";
+$animal_ong_since = "$_POST[animal_ong_since]";
 
 //verificando se o arquivo está vazio
 if (isset($_FILES['arquivo'])){
-    
     //pegando a extensão da imagem
     $separa = explode(".", $_FILES['arquivo']['name']);
     $separa = array_reverse($separa);
@@ -40,7 +47,6 @@ if (isset($_FILES['arquivo'])){
         
         //Definindo o tamanho em uma variavel
         $tamanhoImg = $_FILES['arquivo']['size']; 
-        
         if($tamanhoImg <= $limite){
             //pegando o nome da ong
             $email = $_SESSION['email'];
@@ -65,18 +71,17 @@ if (isset($_FILES['arquivo'])){
         echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../novaAdocao.php';</script>";
     }
 }
-//Pegando o id da ong logada
-$id = $_SESSION['id'];
 
 //Pegando os dados enviados para o mysql
-$sql = "INSERT INTO animal_adoption 
-                            (ong_id, name, description, img, age, type) 
-                        VALUES
-                            (?,?,?,?,?,?)";
+$sql = "INSERT INTO `tcc`.`animal_adoption` (`ong_id`,  `animal_name`, `animal_description`, `animal_type`, `animal_age`, `animal_gender`, `animal_ong_since`, `animal_photo`, `animal_race`, `animal_weight`, `animal_category`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+
 $stmt = $mysql->prepare($sql);
 
+echo $nomeImg;
+
 //fazendo a inserção no banco de dados
-$stmt->execute([$id, $nome, $descricao, $nomeImg, $idade, $animal]);
+$stmt->execute([$id, $animal_name, $animal_description, $animal_type, $animal_age, $animal_gender, $animal_ong_since, $nomeImg, $animal_race, $animal_weight, $animal_category]);
 if($stmt){
     echo "<script language='javascript' type='text/javascript'>alert('Adoção cadastrada com sucesso!'); window.location = ' ../adocoes.php';</script>";
 }else{
