@@ -75,9 +75,9 @@
             //while ($row = mysqli_fetch_array($result))
             while ($linha = $query->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                            <span class='text-center'>" . $linha['name'] . "</span>
+                            <span class='text-center'>" . $linha['ong_name'] . "</span>
                             
-                            <img src='imgs/" . $linha['img'] . "' alt='Imagem da ong'>
+                            <img src='imgs/" . $linha['ong_img'] . "' alt='Imagem da ong'>
                             <br><br>
                             <a href='ong_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar perfil</a>
                             <br><br>

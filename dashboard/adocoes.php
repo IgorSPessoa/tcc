@@ -52,7 +52,7 @@ if(isset($_SESSION['email']) == true){
                         </tr>
                     </thead>
                     <tbody>
-                      <?php
+                    <?php
                         //Incluindo a conexão com o banco de dados
                         include '../connect.php';
 
@@ -65,9 +65,9 @@ if(isset($_SESSION['email']) == true){
                             $id = $linha['id'];
 
                             echo '<tr>'; 
-                                echo '<td>' .  $linha['name'] . '</td>';
-                                echo '<td>' .  $linha['description'] . '</td>';
-                                echo '<td><a class="btn btn-secondary" href="editarDoacao.php?id=' . $id . '" >Editar</a></td>';
+                                echo '<td>' .  $linha['animal_name'] . '</td>';
+                                echo '<td>' .  $linha['animal_description'] . '</td>';
+                                echo '<td><a class="btn btn-secondary" href="editarAdoacao.php?id=' . $id . '" >Editar</a></td>';
                             echo '</tr>';
                         }    
                       ?>
