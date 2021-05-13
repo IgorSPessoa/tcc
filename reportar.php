@@ -86,7 +86,7 @@ if (isset($_SESSION['email']) == true) {
                     <?php if(isset($_SESSION['email']) == true){
                                 echo ' <img id="animalView" />';
                                 } else {
-                                echo ' <img id="animalViewLogin" class="border border-secondary" />';
+                                echo ' <img id="animalViewSemLogin" class="border border-secondary" />';
                                 }
                     ?>
 

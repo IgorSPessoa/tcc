@@ -33,7 +33,7 @@
     color: white; 
     pointer-events: none;
 }
-#addressPreviewLogin, #animalViewLogin{
+#animalViewSemLogin, #addressPreviewSemLogin{
     background-color: #6c757d; 
     opacity: 0.18;
     width: 200px;

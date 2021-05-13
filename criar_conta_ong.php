@@ -119,10 +119,10 @@
                         <h2>Acesso da ONG</h2>
                         <p>Você vai usar estes dados para ter acesso ao painel de controle.</p><br>
                     </div>
-                    <label for="email">E-mail</label>
+                    <label for="email">E-mail:</label>
                     <input type="text" class="form-control" id="email" name="email" pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
-                    <label for="senha">Senha</label>
+                    <label for="senha">Senha:</label>
                     <input type="password" class="form-control" id="senha" name="senha" required>
 
                     <label for="ConfirmPwd">Confirmar Senha:</label>
