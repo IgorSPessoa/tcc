@@ -29,9 +29,9 @@
 
             <h2>Fazer login</h2>
             <label for="email">E-mail</label>
-            <input type="text" id="email" name="email" required>
+            <input type="text" class="form-control" id="email" name="email" required>
             <label for="senha">Senha</label>
-            <input type="password" id="senha" name="senha" required>
+            <input type="password" class="form-control" id="senha" name="senha" required>
 
             <br>
             <input class="btn btn-primary mb-3 w-100" type="submit" value="Fazer login">

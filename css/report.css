@@ -23,3 +23,21 @@
     width: 200px;
     height: 200px;
 }
+#buttonAcaoLogin{
+    color: white;
+    border-radius: 8px;
+}
+#buttonSemAcao{
+    opacity: 0.50; 
+    border-radius: 8px;
+    color: white; 
+    pointer-events: none;
+}
+#addressPreviewLogin, #animalViewLogin{
+    background-color: #6c757d; 
+    opacity: 0.18;
+    width: 200px;
+    height: 200px;
+}
+
+

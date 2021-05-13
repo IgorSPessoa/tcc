@@ -72,7 +72,7 @@ if(isset($_SESSION['email']) == true){
                 <div class="container-table">
                     <div class="card">
                         <div class="card-header">
-                            <b>Resgates</b> (Resumo)
+                            <b>Reports</b> <i class="fas fa-arrow-right"></i> <a href="reports.php"><i class="fas fa-exclamation-circle"></i><a>
                         </div>
                         <div class="card-body"> 
                             <table class="table_fast">
@@ -115,7 +115,7 @@ if(isset($_SESSION['email']) == true){
 
                     <div class="card">
                         <div class="card-header">
-                            <b>Adoções</b> (Resumo)
+                            <b>Adoções</b> <i class="fas fa-arrow-right"></i> <a href="adocoes.php"><i class="fas fa-cat"></i></a>
                         </div>
                         <div class="card-body">
                             <table class="table_fast">

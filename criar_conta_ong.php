@@ -32,14 +32,83 @@
                         <h2>Crie uma conta para sua ONG</h2>
                         <p>Preencha os dados solicitados, após isso vamos avaliar sua conta e entrar em contato por e-mail em até 3 dias úteis.</p>
                     </div>
+
                     <label for="ong_name">Nome da ONG:</label>
-                    <input type="text" id="ong_name" name="ong_name" required>
+                    <input type="text" class="form-control" id="ong_name" name="ong_name" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="first">Data de abertura:</label>
+                                <input type="date" style="border-radius: 8px;" class="form-control mb-2" id="opening_date" name="opening_date" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                            <label for="opening_hours">Horário de funcionamento:</label>
+                            <input type="text" class="form-control" id="opening_hours" name="opening_hours" required>   
+                    </div>   
+
                     <label for="ong_description">Descrição da ONG:</label>
-                    <input type="text" id="ong_description" name="ong_description" required>
-                    <label for="ong_address">Endereço da ONG:</label>
-                    <input type="text" id="ong_address" name="ong_address" required>
+                    <input type="text" class="form-control" id="ong_description" name="ong_description" required>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ong_reason">Propósito:</label>
+                                <select style="border-radius: 8px;" class="form-control mt-1"  id="ong_reason" name="ong_reason" required>
+                                    <option value="" selected disabled hidden>Selecione</option>
+                                    <option value="acolher_animal">Acolher animais</option>
+                                    <option value="socorro_animal">Socorro Animal</option>
+                                    <option value="alimentacao_animal">Alimentação Animal</option>
+                                    <option value="adocao_animal">Adoção Animal</option>
+                                    <option value="outros">Outros</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="phone">Telefone:</label>
+                            <input class="form-control mt-0" type="text" id="phone" name="phone" required>
+                        </div>
+                    </div> 
+
                     <label for="ong_cep">CEP da ONG:</label>
-                    <input type="text" id="cep" name="ong_cep" pattern= "\d{5}-?\d{3}" required>
+                    <input type="text" class="form-control" id="ong_cep" name="ong_cep" onblur="pesquisacep(this.value);" pattern= "\d{5}-?\d{3}" required>
+                    
+                    <div class="row ">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="ong_address">Endereço da ONG:</label>
+                                <input type="text" class="form-control" id="ong_address" name="ong_address" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="ong_number">N°:</label>
+                                <input type="text" class="form-control" id="ong_number" name="ong_number" required>
+                            </div>
+                        </div>
+                    </div>    
+
+                    <div class="row ">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ong_district">Bairro:</label>
+                                <input type="text" class="form-control" id="ong_district" name="ong_district" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="ong_state">Estado:</label>
+                                <input type="text" class="form-control" id="ong_state" name="ong_state" required>
+                            </div>
+                        </div>
+                    </div>    
+
                     <br>
                 </fieldset>
             </div>
@@ -51,9 +120,13 @@
                         <p>Você vai usar estes dados para ter acesso ao painel de controle.</p><br>
                     </div>
                     <label for="email">E-mail</label>
-                    <input type="text" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                    <input type="text" class="form-control" id="email" name="email" pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+
                     <label for="senha">Senha</label>
-                    <input type="password" id="senha" name="senha" required>
+                    <input type="password" class="form-control" id="senha" name="senha" required>
+
+                    <label for="ConfirmPwd">Confirmar Senha:</label>
+                    <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
 
                     <br>
                     <input type="hidden" name="acc_type" value="ong">
@@ -62,7 +135,7 @@
                 </fieldset>
             </div>
             <div class="links pt-3">
-                <h6>Já tem uma conta? <a class="text-primary" href="login.php">Faça login</a></h6><br>
+                <p>Já tem uma conta? <a class="text-primary" href="login.php">Faça login</a></p>
             </div>
         </form>
     </main>
@@ -71,6 +144,7 @@
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="dashboard/js/viacepOng.js"></script>
     <script src="dashboard/js/validCep.js"></script>
 </body>
 

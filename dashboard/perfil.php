@@ -71,19 +71,19 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="first">Nome</label>
+                                <label for="name">Nome</label>
                                 <input type="text" class="form-control" id="name" name="name" value="<?php echo $nome;?>" readonly> 
                             </div>     
                         </div>  
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="first">E-mail</label>
+                                <label for="email">E-mail</label>
                                 <input type="email" class="form-control" id="email" name="email" value="<?php echo $email;?>" readonly>
                             </div>     
                         </div>                        
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="exampleFormControlSelect1">Propósito</label>
+                                <label for="reason">Propósito</label>
                                 <select class="form-control" id="reason" name="reason" required>
                                     <option value="" selected disabled hidden>Selecione</option>
                                     <option value="acolher_animal" <?php if($proposito == "acolher_animal") { echo "selected";} ?>>Acolher animais</option>
@@ -98,19 +98,19 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">      
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="first">Horário de funcionamento</label>
+                                <label for="opening_hours">Horário de funcionamento</label>
                                 <input type="text" class="form-control" id="opening_hours" name="opening_hours" value="<?php echo $horarioFunc;?>" required>
                             </div>     
                         </div>   
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="first">Telefone</label>
+                                <label for="phone">Telefone</label>
                                 <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $telefone;?>" required>
                             </div>     
                         </div>   
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="first">Data de abertura</label>
+                                <label for="opening_date">Data de abertura</label>
                                 <input type="date" class="form-control" id="opening_date" name="opening_date" value="<?php echo $dataAbertura;?>" readonly>
                             </div>     
                         </div>  
@@ -128,7 +128,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="first">Cep</label>
+                                <label for="CEP">Cep</label>
                                 <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $CEP;?>" onblur="pesquisacep(this.value);" required>
                             </div>     
                         </div>
@@ -137,13 +137,13 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="first">Endereço</label>
+                                <label for="address">Endereço</label>
                                 <input type="text" class="form-control" id="address" name="address" value="<?php echo $rua;?>" required>
                             </div>     
                         </div> 
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="first">Nº</label>
+                                <label for="number">Nº</label>
                                 <input type="text" class="form-control" id="number" name="number" value="<?php echo $numero;?>" required>
                             </div>     
                         </div> 
@@ -152,13 +152,13 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">      
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="first">Bairro</label>
+                                <label for="district">Bairro</label>
                                 <input type="text" class="form-control" id="district" name="district"value="<?php echo $bairo;?>" required>
                             </div>     
                         </div>     
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="first">Estado</label>
+                                <label for="state">Estado</label>
                                 <input type="text" class="form-control" id="state" name="state" value="<?php echo $estado;?>" required>
                             </div>     
                         </div>                                  
