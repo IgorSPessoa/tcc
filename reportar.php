@@ -134,7 +134,7 @@ if (isset($_SESSION['email']) == true) {
                 ?>
                 <label for="CEP">CEP do local:</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo '<input type="text" class="form-control" id="cep" onblur="pesquisacep(this.value);" name="cep" required>';
+                        echo '<input type="text" class="form-control" id="cep" name="cep" onblur="pesquisacep(this.value);"  required>';
                         } else {
                         echo '<input type="text" class="form-control" id="cep" name="cep" disabled>';
                         }
@@ -149,17 +149,6 @@ if (isset($_SESSION['email']) == true) {
                 ?>
             </div>
             <div class="row mb-3">
-                <div class="col-md-2">
-                    <div class="form-group">
-                        <label for="number">Nº</label>
-                        <?php if(isset($_SESSION['email']) == true){
-                                echo '<input type="text" class="form-control" id="number" name="number" required>';
-                                } else {
-                                echo '<input type="text" class="form-control" id="number" name="number" disabled>';
-                                }
-                        ?>
-                    </div>     
-                </div>   
                 <div class="col-md-5">
                     <div class="form-group">
                         <label for="district">Bairro</label>
@@ -184,6 +173,17 @@ if (isset($_SESSION['email']) == true) {
                     </div>     
                 </div>     
 
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="number">Nº</label>
+                        <?php if(isset($_SESSION['email']) == true){
+                                echo '<input type="text" class="form-control" id="number" name="number" required>';
+                                } else {
+                                echo '<input type="text" class="form-control" id="number" name="number" disabled>';
+                                }
+                        ?>
+                    </div>     
+                </div>   
             </div>
             <div class="form-group"> 
                 <label for="observation">Observações sobre localização do animal, ponto de referência:</label>
