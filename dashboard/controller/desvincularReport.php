@@ -19,11 +19,16 @@ include '../../connect.php';
 
 //pegando o id da ong logada
 $idReport = $_GET['id'];
+$idOng = 0;
+$data_aceite = '0000-00-00';
+$situacao = 'pending';
+$comments = "";
+$imgReport = 'preview.jpg';
 
-$sql = "UPDATE animal_report SET ong_id = 0, report_date_accepted = 0000-00-00, report_situation = 'pending' report_comments = '', report_img = 'preview.jpg' WHERE id = ?";
+$sql = "UPDATE animal_report SET ong_id = ?, report_date_accepted = ?, report_situation = ?, report_comments = ?, report_img = ? WHERE id = ?";
 $stmt = $mysql->prepare($sql);
  
-$stmt->execute([$idReport]);
+$stmt->execute([$idOng, $data_aceite, $situacao, $comments, $imgReport, $idReport]);
 
 if($stmt){
     echo "<script language='javascript' type='text/javascript'>alert('Reporte abandonado!'); window.location = ' ../visualizaReport.php?id=$idReport';</script>";
