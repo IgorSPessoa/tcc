@@ -20,7 +20,7 @@ include '../../connect.php';
 //pegando o id da ong logada
 $idReport = $_GET['id'];
 
-$sql = "UPDATE animal_report SET ong_id = 0, report_date_accepted = 0000-00-00, report_situation = 'pending' WHERE id = ?";
+$sql = "UPDATE animal_report SET ong_id = 0, report_date_accepted = 0000-00-00, report_situation = 'pending' report_comments = '', report_img = 'preview.jpg' WHERE id = ?";
 $stmt = $mysql->prepare($sql);
  
 $stmt->execute([$idReport]);
