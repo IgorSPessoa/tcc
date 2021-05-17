@@ -114,7 +114,8 @@ if (isset($_FILES['foto_address'])){
 
 //linha de comando que irá ser chamada no bd
 $sql =" INSERT INTO animal_report (
-            author_id, 
+            author_id,
+            ong_id, 
             animal_type, 
             animal_description, 
             animal_situation,
@@ -131,11 +132,12 @@ $sql =" INSERT INTO animal_report (
             report_comments,
             report_img) 
         VALUES 
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 
 //variaveis invisiveis
+$idOng= 0;
 $reportAceito = "0000-00-00";
-$report_situacao = "";
+$report_situacao = "pending";
 $report_comentario = "";
 $report_img = "";
 
@@ -143,7 +145,7 @@ $report_img = "";
 $stmt = $mysql->prepare($sql);
 
 // executando a query
-$stmt->execute([$id, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $CEP, $rua, $numero, $bairro, $estado, $foto_address, $observacao, $reportAceito, $report_situacao, $report_comentario, $report_img]);
+$stmt->execute([$id, $idOng, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $CEP, $rua, $numero, $bairro, $estado, $foto_address, $observacao, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
 if($stmt){
     echo "<script language='javascript' type='text/javascript'>alert('Report enviado!'); window.location = ' ../reportar.php';</script>";
