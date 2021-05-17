@@ -52,10 +52,12 @@ if($_FILES['arquivo']['name'] != ""){
                 if($linha = $img->fetch(PDO::FETCH_ASSOC)){
                     $name = $linha['report_img']; //Se existir vai entrar na variavel $name
                 }
-
-                if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
-                    unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
-                } 
+                if($name != 'preview.jpg'){
+                    if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
+                        unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
+                    } 
+                }
+               
 
                 //diretorio
                 $uploaddir = "../../imgs/";
