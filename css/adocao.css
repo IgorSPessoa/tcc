@@ -1,6 +1,14 @@
 body{
     background-color: #B0E0E6; 
 }
+h1{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+span, a{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
 .animals{
     display: grid;
     grid-template-columns: repeat(3, 1fr);

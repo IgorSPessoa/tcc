@@ -36,14 +36,12 @@ if (isset($_SESSION['email']) == true) {
 
     <title>Adoção</title>
 </head>
-
 <body>
     <h1 class="text-center">Encontre animais para adotar!</h1>
     <main class="p-3">
         <div class="animals">
             <?php
             include "connect.php";
-
             //definir o número total de resultados que você deseja por página
             $results_per_page = 9;
 
@@ -83,21 +81,6 @@ if (isset($_SESSION['email']) == true) {
                         <br><br>
                     </div>";
             }
-            /*
-            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption");
-            $dados->execute();
-            while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
-                //var_dump($linha);
-                //<p>$linha[1]</p> vai depois do linha 0.
-                echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                        <span>" . $linha['name'] . "</span>
-                    
-                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
-                        <br><br>
-                        <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
-                        <br><br>
-                    </div>";
-            }*/
             ?>
         </div>
         </br>

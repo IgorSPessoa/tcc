@@ -76,7 +76,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
         </div>
         <div class="descricao bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
             <h2><?php echo $name; ?></h2>
-            <p><b>Descrição:</b> <?php echo $description; ?></p>
+            <p><b>Descrição:</b> <?php echo $description;?></p>
             <p><b>Idade:</b> <?php echo $animal_age; ?></p>
             <p><b>Gênero:</b> <?php echo $animal_gender; ?></p>
             <p><b>Raça:</b> <?php echo $animal_race; ?></p>
