@@ -1,23 +1,33 @@
 body{
     color:#1c1c1c;
+    background-color: #B0E0E6; 
 }
 
 h1,h2,h3{
     color:#000;
     
 }
-
+/*Fonte de todo site*/
+.titulo,.titulo-adote,.titulo-reporte,.titulo-sobre{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+}
+.texto-campanha,.texto-sobre,.texto-reporte,.texto-adote{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
+/*-------------------------*/
+/*Carousel*/
 .servicos{
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap; 
 
-    
     background-color:#191970;
 
-    /*width: 80%;
-    margin: 0 auto;*/
+    width: 90%;
+    margin: 0 auto;
 }
 .servicos >h2{
     color: white;
@@ -30,24 +40,357 @@ h1,h2,h3{
 }
 .carousel-item > a > img{
     max-height: 550px;
-
 }
+/*-------------------------*/
+
+/*Campanha*/
+.titulo { grid-area: header;}
+.img-campanha{ grid-area: menu; }
+.texto-campanha { grid-area: main; }
  
-.sobre{
-    display: flex;
-    flex-direction: column;
+.campanha{
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'menu main main main main main'
+        'menu main main main main main';
+    grid-gap: 10px;
     align-items: center;
-    height: 500px;
     text-align: center;
-    padding: 10px 10px 20px 20px;
+    padding: 10px 100px 20px 100px;
     background-color: #191970;
     color: #ffffff;
+
+    width: 90%;
+    margin: 1px auto;
 }
-.sobre h2{
-    color: #ffffff;
+.campanha h2{
+    color:orange;
+    text-align: center;
 }
-.sobre p{
+.campanha p{
+    font-size: 20px;
+}
+.campanha p{
     margin-bottom: 2.5rem;
     max-width: 1000px;
 }
+.texto-campanha{
+    text-align: justify;
+}
+/*-------------------------*/
 
+/*Sobre*/
+.Sobre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap; 
+
+    background-color:#191970;
+
+
+    width: 90%;
+    margin: 1px auto;
+}
+
+.Sobre h2{
+    color: white;
+    text-align: center;
+}
+.texto-sobre{
+    text-align: justify;
+    color: white;
+    font-size: 20px;
+    padding: 10px 100px 20px 100px;
+
+}
+/*-------------------------*/
+
+/*Reporte*/
+.reporte{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap; 
+
+    background-color:#191970;
+
+    width: 90%;
+    margin: 1px auto;
+}
+.reporte h2{
+    color: white;
+    text-align: center;
+}
+.texto-reporte{
+    text-align: justify;
+    color: white;
+    font-size: 20px;
+    padding: 10px 100px 20px 100px;
+
+}
+
+/*-------------------------*/
+/*Adote*/
+.titulo-adote{ grid-area: header;}
+.img-adote{ grid-area: menu; }
+.texto-adote{ grid-area: main; }
+ 
+.adote{
+    display: grid;
+    grid-template-areas:
+        'header header header header header header'
+        'main main main main main menu'
+        'main main main main main menu';
+    grid-gap: 10px;
+    align-items: center;
+    text-align: center;
+    padding: 10px 100px 20px 100px;
+    background-color: #191970;
+    color: #ffffff;
+
+    width: 90%;
+    margin: 1px auto;
+}
+.adote h2{
+    color: white;
+    text-align: center;
+}
+.texto-adote{
+    text-align: justify;
+    color: white;
+    font-size: 20px;
+    padding: 10px 10px 10px 10px;
+
+}
+/*-------------------------*/
+@media only screen and (max-width: 1000px) {
+    .servicos{
+        width: 90%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    .campanha{
+        width: 90%;
+        margin: 1 auto;
+    }
+    .Sobre{
+        width: 90%;
+        margin: 1 auto;
+    }
+    .reporte{
+        width: 90%;
+        margin: 1 auto;
+    }
+    .adote{
+        width: 90%;
+        margin: 1 auto;
+    }
+
+    .texto-adote{
+        text-align: justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-campanha{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-sobre{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .texto-reporte{
+        text-align:center;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .campanha {
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    }
+    .adote{
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    
+        width: 90%;
+        margin: 1px auto;
+    }
+
+
+}
+@media only screen and (max-width: 800px) {
+    .servicos{
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    .campanha{
+        width: 100%;
+        margin: 1 auto;
+    }
+    .Sobre{
+        width: 100%;
+        margin: 1 auto;
+    }
+    .reporte{
+        width: 100%;
+        margin: 1 auto;
+    }
+    .adote{
+        width: 100%;
+        margin: 1 auto;
+    }
+
+    .texto-adote{
+        text-align: justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-campanha{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-sobre{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .texto-reporte{
+        text-align:center;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .campanha {
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    }
+
+    .adote{
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    
+        width: 100%;
+        margin: 1px auto;
+    }
+
+
+}
+
+@media only screen and (max-width: 600px) {
+    .servicos{
+        width: 100%;
+        height: 100%;
+        margin: 0 auto;
+    }
+    .campanha{
+        width: 100%;
+        margin: 1 auto;
+    }
+    .Sobre{
+        width: 100%;
+        margin: 1 auto;
+    }
+    .reporte{
+        width: 100%;
+        margin: 1 auto;
+    }
+
+    .texto-adote{
+        text-align: justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-campanha{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+    }
+    .texto-sobre{
+        text-align:justify;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .texto-reporte{
+        text-align:center;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .campanha {
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    }
+
+    .adote{
+        display: grid;
+        grid-template-areas:
+            'header header header header header header'
+            'menu menu menu menu menu menu'
+            'main main main main main main';
+        grid-gap: 1px;
+        align-items: center;
+        text-align: center;
+        padding: 10px 10px 20px 20px;
+        background-color: #191970;
+        color: #ffffff;
+    
+        width: 100%;
+        margin: 1px auto;
+    }
+
+}

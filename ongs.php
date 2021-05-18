@@ -38,7 +38,7 @@
         require_once("includes/nav.php");
     }
     ?>
-    <h1 class="text-center">Lista de Ongs</h1>
+    <h1 class="text-center">Ongs Cadastradas</h1>
     <main class="p-3">
         <div class="animals">
             <?php
