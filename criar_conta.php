@@ -41,7 +41,6 @@
         <form style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;" class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_create_account.php" method="post">
             <fieldset>
                 <h2>Crie uma conta</h2>
-
                 <div class="row ">
                     <div class="col-md-7">
                         <div class="form-group">
@@ -56,8 +55,8 @@
                             <input type="text" class="form-control" id="phone" name="phone" required>
                         </div>
                     </div>
-                </div>    
-                
+                </div>
+
                 <label for="email">E-mail:</label>
                 <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
@@ -78,7 +77,7 @@
                             <input type="text" class="form-control" id="number" name="number" required>
                         </div>
                     </div>
-                </div>    
+                </div>
 
                 <div class="row ">
                     <div class="col-md-6">
@@ -94,7 +93,7 @@
                             <input type="text" class="form-control" id="state" name="state" required>
                         </div>
                     </div>
-                </div>    
+                </div>
 
                 <label for="senha">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha" required>
