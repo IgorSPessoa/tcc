@@ -55,3 +55,4 @@ function getLocation() { //Função chamada pelo botão no reportar.php
             alert('Sem suporte para este navegador!');
         }
     }
+    

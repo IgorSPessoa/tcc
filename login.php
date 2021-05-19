@@ -27,7 +27,7 @@
     <main class="p-5">
         <form style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;" class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_login.php" method="post">
 
-            <h2>Fazer login</h2> 
+            <h2>Fazer login</h2>
             <label for="email">E-mail</label>
             <input type="text" class="form-control" id="email" name="email" required>
             <label for="senha">Senha</label>
