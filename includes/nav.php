@@ -27,6 +27,8 @@
                     //Logou, então continua com as validações
                     if (isset($_SESSION['acc_type'])) {
                         $name = $_SESSION['name'];
+                        $name = explode(" ", $name);
+                        $name = $name[0];
                         // Verifica o tipo de conta
                         if ($_SESSION['acc_type'] == "user") {
                             echo "<a class='nav-link'  href='user_dashboard.php'>Conectado ($name)</a>";

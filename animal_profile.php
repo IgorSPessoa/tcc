@@ -1,51 +1,3 @@
-<?php
-
-//Iniciando sessão
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-if (isset($_SESSION['email']) == true) {
-    //Logou, então continua com as valida;'oes
-    require_once("includes/nav.php");
-} else { //Não logou então volta para a página inicial
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
-    session_unset();
-    session_destroy();
-    require_once("includes/nav.php");
-}
-
-include "connect.php";
-
-$id = $_GET['id'];
-
-$result = $mysql->prepare("SELECT animal_adoption.*, 
-                                  ong.*
-                           FROM animal_adoption 
-                            INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
-                           WHERE animal_adoption.id = $id;");
-$result->execute();
-
-while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-
-    //informações do animal
-    $img = $linha['animal_photo'];
-    $name = $linha['animal_name'];
-    $description = $linha['animal_description'];
-    $animal_age = $linha['animal_age'];
-    $animal_gender = $linha['animal_gender'];
-    $animal_race = $linha['animal_race'];
-    $animal_category = $linha['animal_category'];
-
-    //informações de contato com a ong
-    $animal_ong_since = $linha['animal_ong_since'];
-    $ong_business_hours = $linha['ong_business_hours'];
-
-    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-}
-?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -70,6 +22,53 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 </head>
 
 <body>
+    <?php
+
+    //Iniciando sessão
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    if (isset($_SESSION['email']) == true) {
+        //Logou, então continua com as valida;'oes
+        require_once("includes/nav.php");
+    } else { //Não logou então volta para a página inicial
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        session_unset();
+        session_destroy();
+        require_once("includes/nav.php");
+    }
+
+    include "connect.php";
+
+    $id = $_GET['id'];
+
+    $result = $mysql->prepare("SELECT animal_adoption.*, 
+                                    ong.*
+                            FROM animal_adoption 
+                                INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
+                            WHERE animal_adoption.id = $id;");
+    $result->execute();
+
+    while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+
+        //informações do animal
+        $img = $linha['animal_photo'];
+        $name = $linha['animal_name'];
+        $description = $linha['animal_description'];
+        $animal_age = $linha['animal_age'];
+        $animal_gender = $linha['animal_gender'];
+        $animal_race = $linha['animal_race'];
+        $animal_category = $linha['animal_category'];
+
+        //informações de contato com a ong
+        $animal_ong_since = $linha['animal_ong_since'];
+        $ong_business_hours = $linha['ong_business_hours'];
+
+        $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+    }
+    ?>
     <main class="container p-2 w-100 h-80 justify-content-center">
         <div class="img">
             <img src="./imgs/<?php echo $img; ?>" class="p-2 rounded float-left" alt="Foto de um animal">

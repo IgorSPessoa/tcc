@@ -24,6 +24,7 @@ if(isset($_SESSION['email']) == true){
     <link rel="stylesheet" href="css_dashboard/all.css">
     <link rel="stylesheet" href="css_dashboard/report.css">
     <link rel="stylesheet" href="css_dashboard/maps.css">
+    <link rel="stylesheet" href="css_dashboard/progressbar.css">
     <link rel="stylesheet" href="css_dashboard/visualizarReport.css">
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
@@ -152,8 +153,12 @@ if(isset($_SESSION['email']) == true){
                     </div>
                 </form>
                 <?php 
-                // <div class="progress-bar bg-success" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
-                // <div class="progress-bar bg-info" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                // px-0 pt-4 pb-0 mt-3 mb-3
+                //  <ul class='progressbar'>
+                //  <li><a href='#' class='active'>Report Enviado</a></li>
+                //  <li><a href='#' class='active none-active'>Aceito por ONG</a></li>
+                //  <li><a href='#' " . ($situaReport == 'rescued' ? "class='active'" : "") . ">Resgatado</a></li>
+                //  </ul>
                     if( $idOngReport != 0 && $idOng == $idOngReport){
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
@@ -233,30 +238,11 @@ if(isset($_SESSION['email']) == true){
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/perfil.js"></script>
     <script src="js/previewLogo.js"></script>
-    <script src="http://maps.google.com/maps/api/js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo&callback=initMap"></script>
-    <script>
-        const chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
-        const address = "<?php echo $location; ?>";
-
-        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${chave}`;
-        fetch(url)
-        .then(response => response.json())
-        .then( data => {
-            let LatLng = data.results[0].geometry.location;
-            let latLocation = data.results[0].geometry.location.lat;
-            let lngLocation = data.results[0].geometry.location.lng;
-
-            map = new google.maps.Map(document.getElementById('map'),{
-                center: {lat: latLocation, lng: lngLocation},
-                zoom: 18      
-              });
-        })
-        .catch(err => console.warn(err.message));
-       
-    </script>
-
+    <script src="js/mapsReport.js"></script>
 </body>
 </html>

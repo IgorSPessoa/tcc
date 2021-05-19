@@ -39,5 +39,7 @@
     width: 200px;
     height: 200px;
 }
-
+.pac-container {
+    z-index: 10000 !important;
+}
 

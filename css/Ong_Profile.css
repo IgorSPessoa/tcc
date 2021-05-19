@@ -68,7 +68,23 @@ body{
     background-color: #019c42;
     text-decoration: none;
 }
-@media only screen and (max-width:992px) {
+#container_mapAddress, #container_descriptionOng{
+    box-shadow: 0 0 1em #191970;
+}
+@media only screen and (min-width:1200px) {
+    #map{
+        height: 300px !important;
+    }
+}
+@media only screen and (max-width:1200px) {
+    #map{
+        height: 300px !important;
+    }
+}
+@media only screen and (max-width:1024px) {
+    #map{
+        height: 300px !important;
+    }
     .animals{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -78,13 +94,22 @@ body{
     }
 }
 @media only screen and (max-width: 768px) {
+    #container-map{
+        padding: 0px !important;
+    }
+    #map{
+        width: 200% !important;
+        height: 300px !important;
+    } 
+    p{
+        font-size: 15px;
+    }
     .LOng > img{
         height:200px;
         width: 200px;
     }
     .descricao{
         width: 100%;
-    
         border-radius: 15px;
     }
     .animals{
@@ -93,5 +118,26 @@ body{
         max-width: 300px;
         margin: 0 auto;
         grid-gap: 20px;
-    } 
+    }
+}
+@media only screen and (max-width: 480px) {
+    #container_mapAddress{
+        padding: 0px !important;
+    }
+    p{
+        font-size: 15px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        padding-bottom: 10px !important;
+    }
+    #container-map{
+        padding-top: 10px!important;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        padding-bottom: 2px !important;
+    }
+    #map{
+        width: 200% !important;
+        height: 300px !important;
+    }
 }

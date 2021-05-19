@@ -58,7 +58,6 @@ if($_FILES['arquivo']['name'] != ""){
                     } 
                 }
                
-
                 //diretorio
                 $uploaddir = "../../imgs/";
 

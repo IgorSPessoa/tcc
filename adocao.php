@@ -1,20 +1,3 @@
-<?php
-//Iniciando sessão
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
-if (isset($_SESSION['email']) == true) {
-    //Logou, então continua com as valida;'oes
-    require_once("includes/nav.php");
-} else { //Não logou então volta para a página inicial
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
-    session_unset();
-    session_destroy();
-    require_once("includes/nav.php");
-}
-?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -33,11 +16,27 @@ if (isset($_SESSION['email']) == true) {
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/adocao.css">
 
-
     <title>Adoção</title>
 </head>
 
 <body>
+    <?php
+    //Iniciando sessão
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    if (isset($_SESSION['email']) == true) {
+        //Logou, então continua com as valida;'oes
+        require_once("includes/nav.php");
+    } else { //Não logou então volta para a página inicial
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        session_unset();
+        session_destroy();
+        require_once("includes/nav.php");
+    }
+    ?>
     <h1 class="text-center">Encontre animais para adotar!</h1>
     <main class="p-3">
         <div class="animals">

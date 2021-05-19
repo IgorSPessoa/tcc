@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/ongs.css">
-
-
     <title>Ongs</title>
 </head>
 
@@ -124,15 +122,6 @@
             }
             ?>
         </div>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
         </br>
     </main>
     <?php

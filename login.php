@@ -25,7 +25,7 @@
     require_once("includes/nav.php");
     ?>
     <main class="p-5">
-        <form class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_login.php" method="post">
+        <form style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;" class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_login.php" method="post">
 
             <h2>Fazer login</h2>
             <label for="email">E-mail</label>

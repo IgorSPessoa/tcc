@@ -35,6 +35,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     $telefone = $linha['ong_phone'];
     $descricao = $linha['ong_description'];
     $CEP = $linha['location_cep'];
+    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
     $rua = $linha['location_address'];
     $numero = $linha['location_number'];
     $bairo = $linha['location_district'];
@@ -51,6 +52,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css_dashboard/all.css">
     <link rel="stylesheet" href="css_dashboard/perfil.css">
+    <link rel="stylesheet" href="css_dashboard/maps.css">
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
@@ -163,6 +165,16 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                             </div>     
                         </div>                                  
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group" id="container_map">
+                                <label for="map" class="m-0">Maps</label>
+                                <div class="w-100 shadow border border-dark rounded" id="map"></div>
+                            </div>     
+                        </div>
+                    </div>
+
                     <h4>Imagem</h4>
                     <div class="row">
                         <div class="col-md-6 container_images">
@@ -187,9 +199,11 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/viacep.js"></script>
     <script src="js/previewLogo.js"></script>   
     <script src="js/validCep.js"></script>
-    
+    <script src="js/maps.js"></script>
 </body>
 </html>

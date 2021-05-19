@@ -19,12 +19,26 @@
     <title>Criar conta</title>
 </head>
 
-<body class="bg-light">
+<body>
     <?php
-    require_once("includes/nav.php");
+    //Iniciando sessão
+    if (session_status() !== PHP_SESSION_ACTIVE) {
+        session_start();
+    }
+    if (isset($_SESSION['email']) == true) {
+        //Logou, então continua com as valida;'oes
+        require_once("includes/nav.php");
+    } else { //Não logou então volta para a página inicial
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        session_unset();
+        session_destroy();
+        require_once("includes/nav.php");
+    }
     ?>
     <main class="p-5">
-        <form class="bg-white shadow lg-3 border border-3 border-secondary px-5 py-5" action="controller/emulator_create_account.php" method="post">
+        <form style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;" class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_create_account.php" method="post">
             <fieldset>
                 <h2>Crie uma conta</h2>
 
