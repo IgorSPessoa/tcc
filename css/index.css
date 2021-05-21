@@ -97,6 +97,7 @@ h1,h2,h3{
 .Sobre h2{
     color: white;
     text-align: center;
+    padding: 5px;
 }
 .texto-sobre{
     text-align: justify;
@@ -122,6 +123,7 @@ h1,h2,h3{
 .reporte h2{
     color: white;
     text-align: center;
+    padding: 5px;
 }
 .texto-reporte{
     text-align: justify;
