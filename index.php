@@ -87,7 +87,7 @@
         <div>
             <p class="texto-reporte">
                 Companheiro Fiel conta com uma função de reporte, o reporte é uma forma de aproximar uma pessoa
-                do dia-dia com uma ong, funciona da seguinte maneira: Atraves do nosso site ou do nosso aplicativo,
+                do dia-dia com uma ong, funciona da seguinte maneira: Através do nosso site ou do nosso aplicativo,
                 você pode reportar de qualquer lugar, desde que, esteja conectado a internet.
                 <a href="./reportar.php">Reporte agora!</a>
             </p>
