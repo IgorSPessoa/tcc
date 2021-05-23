@@ -45,7 +45,7 @@ if($_FILES['arquivo']['name'] != ""){
             header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
         } else { //Se não, continua a operaçãp
                 //pegando o nome da imgagem no Banco de dados
-            $img = $mysql->prepare("SELECT img FROM animal_adoption WHERE id = $id");
+            $img = $mysql->prepare("SELECT animal_age FROM animal_adoption WHERE id = $id");
             $img->execute();
 
             //verificando se existe uma imagem no bd
@@ -69,7 +69,7 @@ if($_FILES['arquivo']['name'] != ""){
 
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
 
-            $sql = "UPDATE animal_adoption SET name = ?, description = ?, img = ?, age = ?, type = ? WHERE id = ?";
+            $sql = "UPDATE animal_adoption SET animal_name = ?, animal_description = ?, animal_photo = ?, animal_age = ?, animal_type = ? WHERE id = ?";
             $stmt = $mysql->prepare($sql);
 
             $stmt->execute([$nome, $descricao, $newNameImg, $idade, $animal, $id]);
@@ -86,7 +86,7 @@ if($_FILES['arquivo']['name'] != ""){
 } elseif($_FILES['arquivo']['error'] == '4'){
     //Verificando se algum campo está vazio
     if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
-        header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field')
+        header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
      } else {//Se não, continua a operação
         $sql = "UPDATE animal_adoption SET animal_name = ?, animal_description = ?, animal_age = ?, animal_type = ? WHERE id = ?";
         $stmt = $mysql->prepare($sql);

@@ -40,7 +40,10 @@ if (isset($_FILES['arquivo'])){
     $separa = array_reverse($separa);
     $tipoimg = $separa[0];
     $ext = strtolower("." . $tipoimg);
-        
+    
+    // Definindo o limite do tamanho do arquivo
+    $limite = 10240000; 
+    
     //Definindo o tamanho em uma variavel
     $tamanhoImg = $_FILES['arquivo']['size']; 
     if($tamanhoImg <= $limite){
