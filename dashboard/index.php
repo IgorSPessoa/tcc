@@ -158,7 +158,10 @@ if(isset($_SESSION['email']) == true){
 
                 </div>
                 
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //incluindo o footer da página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
@@ -167,5 +170,20 @@ if(isset($_SESSION['email']) == true){
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
+    <?php
+    //verificando se existe uma mensagem para o usúario
+        if(isset($_GET['msg'])) {
+            
+            $msg = $_GET['msg']; // colocando a mensagem em uma variavel
+            $_COOKIE['msg'] = $msg; // Colocando a variavel em um cookie, para conseguir pegar no outro script
+            
+            $name = "Ong " . $_SESSION['name']; //Colocando o nome da ong em uma variavel
+            $_COOKIE['nome'] = $name; //Mandando o nome da variável por cookie para outro script
+
+            if ($msg == "sucess_login") { //Se a mensagem for de sucesso
+                include '../includes/modal.php'; //O modal irá aparecer
+            }
+        }
+    ?>
 </body>
 </html>

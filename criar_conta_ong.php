@@ -154,13 +154,30 @@
             </div>
         </form>
     </main>
-    <?php
-    require_once("includes/footer.php");
-    ?>
+    <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="dashboard/js/viacepOng.js"></script>
     <script src="dashboard/js/validCep.js"></script>
+    <?php
+    //colocando o footer na página
+    require_once("includes/footer.php");
+
+   //verificando se existe uma mensagem na URL da página
+   if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+        if ($msg == "invalid_email") {//Se a mensagem for de login invalido cairá aqui
+            include 'includes/modal.php';
+        } elseif ($msg == "invalid_create_pwd") {//Se a mensagem for de password invalido cairá aqui
+            include 'includes/modal.php';
+        } elseif ($msg == "error_create"){//Se a mensagem for de erro ao criar conta cairá aqui
+            include 'includes/modal.php';
+        } 
+    }
+    ?>
 </body>
 
 </html>

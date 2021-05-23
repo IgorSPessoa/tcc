@@ -15,8 +15,6 @@
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/responsiveToBoot.css">
-
-
     <title>Login</title>
 </head>
 
@@ -28,10 +26,14 @@
         <form style="box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;" class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_login.php" method="post">
 
             <h2>Fazer login</h2>
-            <label for="email">E-mail</label>
-            <input type="text" class="form-control" id="email" name="email" required>
-            <label for="senha">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" required>
+            <div class="input-block">
+                <label for="email">E-mail</label>
+                <input type="text" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="input-block">
+                <label for="senha">Senha</label>
+                <input type="password" class="form-control" id="senha" name="senha" required>
+            </div>
 
             <br>
             <input class="btn btn-primary mb-3 w-100" type="submit" value="Fazer login">
@@ -42,24 +44,30 @@
             </div>
         </form>
     </main>
-    <?php
-    require_once("includes/footer.php");
-    if (isset($_GET['msg'])) {
-        $msg = $_GET['msg'];
-        $msg_text = "";
-
-        if ($msg == "invalid_login") {
-            $msg_text = "Login ou senha inválidos!";
-        } else if ($msg == "need_login") {
-            $msg_text = "Você precisa fazer login novamente!";
-        }
-
-        echo "<script>alert('$msg_text');</script>";
-    }
-    ?>
+    <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <?php
+    //Colocando o footer na página
+    require_once("includes/footer.php");
+
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+        if ($msg == "invalid_login") {//Se a mensagem for de erro de login cairá aqui
+            include 'includes/modal.php';
+        } elseif ($msg == "invalid_login_pwd") {//Se a mensagem for de erro de password cairá aqui
+            include 'includes/modal.php';
+        } elseif($msg == "sucess_create"){//Se a mensagem for de sucesso cairá aqui
+            include 'includes/modal.php';
+        }
+    }
+    ?>
 </body>
 
 </html>

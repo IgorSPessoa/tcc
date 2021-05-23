@@ -32,35 +32,30 @@ if (isset($_FILES['foto_animal'])){
     $tipoimg = $separa[0];
     $ext = strtolower("." . $tipoimg);
 
+    // Definindo o limite do tamanho do arquivo
+    $limite = 10240000;  
+    
+    //Definindo o tamanho em uma variavel
+    $tamanhoImgAnimal = $_FILES['foto_animal']['size']; 
+    
+    if($tamanhoImgAnimal <= $limite){
 
-    if($ext == '.jpg' || $ext == '.jpeg' || $ext == '.png' || $ext == '.svg'){ //Verificando se o arquivo é uma img
-        // Definindo o limite do tamanho do arquivo
-        $limite = 10240000; 
-        
-        //Definindo o tamanho em uma variavel
-        $tamanhoImg = $_FILES['foto_animal']['size']; 
-        
-        if($tamanhoImg <= $limite){
+        //definindo o nome da img como tempo e nome da ong    
+        $email = $_SESSION['email'];
+        $name = strstr($email, '@', TRUE);
+        $id = $_SESSION['id'];
+        $foto_animal = md5(time()) . $name . $id . $ext;
 
-            //definindo o nome da img como tempo e nome da ong    
-            $email = $_SESSION['email'];
-            $name = strstr($email, '@', TRUE);
-            $id = $_SESSION['id'];
-            $foto_animal = md5(time()) . $name . $id . $ext;
+        //define onde a imgagem vai ser levada
+        $diretorio = '../imgs/';
 
-            //define onde a imgagem vai ser levada
-            $diretorio = '../imgs/';
+        //pegando nome temporario
+        $tpmName = $_FILES['foto_animal']['tmp_name'];
 
-            //pegando nome temporario
-            $tpmName = $_FILES['foto_animal']['tmp_name'];
-
-            //Mudar a localização do arquivo
-            move_uploaded_file($tpmName, $diretorio . $foto_animal);
-        }else{//Se o arquivo for maior que 10mb
-            echo "<script language='javascript' type='text/javascript'>alert('Arquivo muito grande, o tamanho máximo do arquivo é 10MB. Tamanho do arquivo atual: $tamanhoImg'); window.location = ' ../report.php';</script>";
-        }
-    }else{//se o arquivo não tiver a extensão desejada
-        echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../report.php';</script>";
+        //Mudar a localização do arquivo
+        move_uploaded_file($tpmName, $diretorio . $foto_animal);
+    } else{//Se o arquivo for maior que 10mb
+        header('Location: ../reportar.php?msg=invalid_size_animal&size=' . $tamanhoImgAnimal . '');
     }
 }
 //pegando as variaveis depois da primeira imagem
@@ -83,31 +78,26 @@ if (isset($_FILES['foto_address'])){
     $tipoimg = $separa[0];
     $ext = strtolower("." . $tipoimg);
 
+    // Definindo o limite do tamanho do arquivo
+    $limite = 10240000; 
+    
+    //Definindo o tamanho em uma variavel
+    $tamanhoImgLocation = $_FILES['foto_address']['size']; 
+    
+    if($tamanhoImgLocation <= $limite){
+        //definindo o nome da img como tempo e nome da ong    
+        $foto_address = md5(time()) . $id  . $name . $ext;
 
-    if($ext == '.jpg' || $ext == '.jpeg' || $ext == '.png' || $ext == '.svg'){ //Verificando se o arquivo é uma img
-        // Definindo o limite do tamanho do arquivo
-        $limite = 10240000; 
-        
-        //Definindo o tamanho em uma variavel
-        $tamanhoImg = $_FILES['foto_address']['size']; 
-        
-        if($tamanhoImg <= $limite){
-            //definindo o nome da img como tempo e nome da ong    
-            $foto_address = md5(time()) . $id  . $name . $ext;
+        //define onde a imgagem vai ser levada
+        $diretorio = '../imgs/';
 
-            //define onde a imgagem vai ser levada
-            $diretorio = '../imgs/';
+        //pegando nome temporario
+        $tpmName = $_FILES['foto_address']['tmp_name'];
 
-            //pegando nome temporario
-            $tpmName = $_FILES['foto_address']['tmp_name'];
-
-            //Mudar a localização do arquivo
-            move_uploaded_file($tpmName, $diretorio . $foto_address);
-        }else{//Se o arquivo for maior que 10mb
-            echo "<script language='javascript' type='text/javascript'>alert('Arquivo muito grande, o tamanho máximo do arquivo é 10MB. Tamanho do arquivo atual: $tamanhoImg'); window.location = ' ../report.php';</script>";
-        }
-    }else{//se o arquivo não tiver a extensão desejada
-        echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../report.php';</script>";
+        //Mudar a localização do arquivo
+        move_uploaded_file($tpmName, $diretorio . $foto_address);
+    } else{//Se o arquivo for maior que 10mb
+        header('Location: ../reportar.php?msg=invalid_size_location&size=' . $tamanhoImgLocation . '');
     }
 }
 
@@ -148,8 +138,8 @@ $stmt = $mysql->prepare($sql);
 $stmt->execute([$id, $idOng, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $CEP, $rua, $numero, $bairro, $estado, $foto_address, $observacao, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
 if($stmt){
-    echo "<script language='javascript' type='text/javascript'>alert('Report enviado!'); window.location = ' ../reportar.php';</script>";
+    header('Location: ../reportar.php?msg=sucess_report');
 }else{
-    echo "<script language='javascript' type='text/javascript'>alert('Falha ao enviar o report!'); window.location = ' ../reportar.php';</script>";
+    header('Location: ../reportar.php?msg=error_report');   
 }
 ?>

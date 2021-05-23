@@ -109,7 +109,10 @@ if(isset($_SESSION['email']) == true){
                         </div>
                     </div>
                 </form>
-            <?php include "includes/footer.php"; ?>
+            <?php 
+            //Incluindo o footer da página
+            include "includes/footer.php"; 
+            ?>
             </div>
         </main>
     </div>
@@ -117,9 +120,27 @@ if(isset($_SESSION['email']) == true){
     <script src="js/global.js"></script>
     <script src="js/upload.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/previewImg.js"></script>      
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/previewImg.js"></script>     
+    <?php 
+        //Verificar se existe uma mensagem para abrir um modal
+        if(isset($_GET['msg'])) { //Verificando se existe mensagem
+            
+            $msg = $_GET['msg']; //pegando a mensagem
+            $_COOKIE['msg'] = $msg; //Transformando ela em cookie para enviar para outro script
+    
+            if ($msg == "invalid_field") { //verificando se a msg deu como algum campo sem preencher
+                include '../includes/modal.php';
+            } elseif($msg == "error_updateAdoption"){//verificando se a msg deu como algum erro 
+                include '../includes/modal.php';
+            } elseif($msg == "invalid_size_animal"){//verficiando se a msg deu como tamanho da imagem do animal invalida 
+                $tamanho = $_GET['size'];
+                $_COOKIE['size'] = $tamanho;
+                include '../includes/modal.php';
+            }
+        }
+    ?> 
 </body>
 </html>

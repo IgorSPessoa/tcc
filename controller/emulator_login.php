@@ -34,10 +34,11 @@ if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma l
             $_SESSION['email'] = $row['email'];
             $_SESSION['acc_type'] = "user";
 
-            header('Location: ../user_dashboard.php');
+            //redirecionando para o dashboard do usúario 
+            header('Location: ../user_dashboard.php?msg=sucess_login');
             die("user login");
-        }else{
-            $err = "invalid_login";
+        }else{ //caso a senha esteja errada, mandará uma variavel via GET
+            $err = "invalid_login_pwd";
         }
     }
 }else{
@@ -52,11 +53,12 @@ if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma l
                 $_SESSION['name'] = $row['ong_name'];
                 $_SESSION['email'] = $row['ong_email'];
                 $_SESSION['acc_type'] = "ong";
-                
-                header('Location: ../dashboard/index.php');
+
+                //redirecionando para o dashboard da ONG 
+                header('Location: ../dashboard/index.php?msg=sucess_login');
                 die("ONG LOGIN");
-            }else{
-                $err = "invalid_login";
+            }else{//caso a senha esteja errada, mandará uma variavel via GET
+                $err = "invalid_login_pwd";
             }
         }
     }else{
@@ -65,7 +67,7 @@ if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma l
     }
 }
 
-if(!empty($err)){
+if(!empty($err)){//Se estiver com erro, enviará para o login com a varivavel setada
     header("Location: ../login.php?msg=$err");
 }else{
     die("Internal error");

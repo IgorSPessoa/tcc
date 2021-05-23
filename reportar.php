@@ -39,13 +39,13 @@
         require_once("includes/nav.php");
     }
     ?>
-    <main class="p-3">
+    <main class="pb-3">
         <div class="text-center">
             <h1>Animal em perigo? Reporte aqui!</h1>
             <p>Nossas ONG cadastradas serão informadas sobre isto.</p>
         </div>
 
-        <?php if(isset($_SESSION['email']) != true){ echo '<center> Não está logado? <a href="login.php">Logue aqui</a>, Não tem uma conta? <a href="criar_conta.php">Crie aqui</a> </center>';} ?>
+        <?php if(isset($_SESSION['email']) != true){ echo '<center> Não está logado? <a href="login.php">Logue aqui</a>, Não tem uma conta? <a href="criar_conta.php">Crie aqui</a> </center>'; }?>
         <form class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_animal_report.php" enctype="multipart/form-data" runat="server" method="POST">
 
             <div class="form-group">
@@ -55,20 +55,19 @@
                         echo '<input type="text" class="form-control" id="situacao_animal" name="situacao_animal" required>';
                     } else {
                         echo '<input type="text" class="form-control" id="situacao_animal" name="situacao_animal" disabled>';
-                        
                     }
                 ?>
             
                 <label for="description">Descreva o animal:</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo '<input type="text" class="form-control" id="animal_descrição" name="animal_descrição" required>';
+                        echo '<textarea class="form-control " id="animal_descrição" name="animal_descrição" rows="3" maxlength="200" required></textarea>';
                     } else {
-                        echo '<input type="text" class="form-control" id="animal_descrição" name="animal_descrição" disabled>';
+                        echo '<textarea class="form-control" id="animal_descrição" name="animal_descrição" rows="3" disabled></textarea>';
                         
                     }
                 ?>
 
-                <label for="animal">Animal:</label>
+                <label class="pt-3" for="animal">Animal:</label>
                 <?php if(isset($_SESSION['email']) == true){
                         echo '<input type="text" class="form-control" id="animal_tipo" name="animal_tipo" required>';
                     } else {
@@ -94,7 +93,7 @@
                                 echo '<input type="file" id="foto_animal" name="foto_animal" onchange="loadFile(event)" accept="image/png, image/jpeg" required><br>';
                                 } else {
                                 echo '<input type="file" id="foto_animal" name="foto_animal" onchange="loadFile(event)" accept="image/png, image/jpeg" disabled><br>';
-                                }
+                                }                 
                         ?>
                     </div>
                 </div>
@@ -187,9 +186,9 @@
             <div class="form-group"> 
                 <label for="observation">Observações sobre localização do animal, ponto de referência:</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo ' <input type="text" class="form-control" id="observacao" name="observacao" required>';
+                        echo ' <textarea type="text" class="form-control" id="observacao" name="observacao" rows="3" maxlength="200" required></textarea>';
                         } else {
-                        echo ' <input type="text" class="form-control" id="observacao" name="observacao" disabled>';
+                        echo ' <textarea type="text" class="form-control" id="observacao" name="observacao" rows="3" disabled></textarea>';
                         }
                 ?>
             </div>
@@ -239,14 +238,14 @@
                             <form id="form_modal" onsubmit = "return false">
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">Nome da rua onde o animal está</label>
-                                    <input type="text" class="form-control" id="modalAddress" name="modalAddress" value="" required>
+                                    <input type="text" class="form-control" id="modalAddress" name="modalAddress" value="" >
                                 </div>
                             </form>
                         </div>
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal" required>Fechar</button>
-                            <button type="button" class="btn btn-primary"  data-dismiss="modal" id="valueAddress" required>Enviar</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fechar</button>
+                            <button type="button" class="btn btn-primary"  data-dismiss="modal" id="valueAddress" >Enviar</button>
                         </div>
                     </div>
                 </div>
@@ -272,14 +271,48 @@
     <?php
     //Adicionando o footer
     require_once("includes/footer.php");
+     
+    //Verificando se existe um email logado, se não irá enviar uma mensagem de error de login
+    if(isset($_SESSION['email']) != TRUE){
+        //definindo a mensagem
+        $msg = "errorLoginReport"; 
 
-    //Entrando em contato com os modais
-    include 'includes/modal.php';
+        // Colocando ela em cookie para conseguir pegar em outro script
+        $_COOKIE['msg'] = $msg; 
 
-    //Verificar se tem alguma conta logada nesta sessão
-    if(isset($_SESSION['email']) != true){ 
-        echo "<script> $('#modalLogin').modal('toggle'); </script>"; 
+        //incluindo o modal 
+        include 'includes/modal.php';
     }
+    
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+
+    $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+    $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+    if ($msg == "invalid_size_animal") {//Se a mensagem for de erro do tamanho da imagem do animal cairá aqui
+        
+        $tamanho = $_GET['size'];
+        $_COOKIE['size'] = $tamanho;
+        include 'includes/modal.php';
+
+    } elseif ($msg == "invalid_size_location") {//Se a mensagem for de erro do tamanho da imagem do localização cairá aqui
+        
+        $tamanho = $_GET['size'];
+        $_COOKIE['size'] = $tamanho;
+        include 'includes/modal.php';
+
+    } elseif ($msg == "sucess_report"){//Se a mensagem for de sucesso ao fazer o reporte cariá aqui
+        
+        include 'includes/modal.php';
+
+    } elseif ($msg == "error_report"){//Se a mensagem for de erro ao fazer o reporte cariá aqui
+        
+        include 'includes/modal.php';
+
+    } 
+}
+
     ?>
 </body>
 

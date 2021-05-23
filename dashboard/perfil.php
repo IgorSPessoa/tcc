@@ -170,7 +170,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-8">
                             <div class="form-group" id="container_map">
                                 <label for="map" class="m-0">Maps</label>
-                                <div class="w-100 shadow border border-dark rounded" id="map"></div>
+                                <div class="w-100 border border-dark rounded shadow" id="map"></div>
                             </div>     
                         </div>
                     </div>
@@ -188,22 +188,44 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
 
                     <input type="submit" class="btn btn-primary" value="Atualizar dados">
                 </form>
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //incluindo o footer da página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
     <script src="js/global.js"></script>
     <script src="js/perfil.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/viacep.js"></script>
     <script src="js/previewLogo.js"></script>   
     <script src="js/validCep.js"></script>
     <script src="js/maps.js"></script>
+    <?php
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+        if ($msg == "sucess_perfil") {//Se a mensagem for de sucesso cairá aqui
+            include '../includes/modal.php';
+        } elseif ($msg == "error_perfil") {//Se a mensagem for de erro em alterar o perfil cairá aqui
+            include '../includes/modal.php';
+        } elseif($msg == "invalid_size_logo"){//Se a mensagem for de tamnanho inválido cariá aqui
+
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+            include '../includes/modal.php';
+        }
+    }
+    ?>
 </body>
 </html>

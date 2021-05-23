@@ -42,59 +42,17 @@
             <fieldset>
                 <h2>Crie uma conta</h2>
 
-                <div class="row ">
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label for="name">Nome:</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
-                        </div>
-                    </div>
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" id="name" name="name" required>
 
-                    <div class="col-md-5">
-                        <div class="form-group">
-                            <label for="phone">Telefone(Celular):</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required>
-                        </div>
-                    </div>
-                </div>    
-                
-                <label for="email">E-mail:</label>
-                <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                <label for="phone">Celular:</label>
+                <input type="text" class="form-control" id="phone" name="phone" required>
 
                 <label for="CEP">CEP:</label>
-                <input type="text" class="form-control" id="cep" name="cep" onblur="pesquisacep(this.value);" required>
+                <input type="text" class="form-control" id="cep" name="cep" required>
 
-                <div class="row ">
-                    <div class="col-md-10">
-                        <div class="form-group">
-                            <label for="address">Rua:</label>
-                            <input type="text" class="form-control" id="address" name="address" required>
-                        </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label for="number">N°:</label>
-                            <input type="text" class="form-control" id="number" name="number" required>
-                        </div>
-                    </div>
-                </div>    
-
-                <div class="row ">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="district">Bairro:</label>
-                            <input type="text" class="form-control" id="district" name="district" required>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="state">Estado:</label>
-                            <input type="text" class="form-control" id="state" name="state" required>
-                        </div>
-                    </div>
-                </div>    
+                <label for="email">E-mail:</label>
+                <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
                 <label for="senha">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha" required>
@@ -113,16 +71,31 @@
             </fieldset>
         </form>
     </main>
-    <?php
-    require_once("includes/footer.php");
-    ?>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="dashboard/js/viacep.js"></script>
+    <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="dashboard/js/validCep.js"></script>
+    <?php
+    //colocando o footer na página
+    require_once("includes/footer.php");
+
+   //verificando se existe uma mensagem na URL da página
+   if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+        if ($msg == "invalid_email") {//Se a mensagem for de login inválido cairá aqui
+            include 'includes/modal.php';
+        } elseif ($msg == "invalid_create_pwd") {//Se a mensagem for de password inválido cairá aqui
+            include 'includes/modal.php';
+        } elseif ($msg == "error_create"){//Se a mensagem for de erro ao criar conta cairá aqui
+            include 'includes/modal.php';
+        } 
+    }
+    ?>
 </body>
 
 </html>

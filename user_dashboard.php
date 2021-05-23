@@ -65,9 +65,27 @@
     <?php
     require_once("includes/footer.php");
     ?>
+    <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <?php 
+        //verificando se existe uma mensagem para o usúario
+        if(isset($_GET['msg'])) {
+            
+            $msg = $_GET['msg']; // colocando a mensagem em uma variavel
+            $_COOKIE['msg'] = $msg; // Colocando a variavel em um cookie, para conseguir pegar no outro script
+
+            $name = $_SESSION['name'];// Colocando o nome do usúario em uma variavel 
+            $_COOKIE['nome'] = $name; // Pegando a variavel e enviando para outro script via SESSION 
+
+            if ($msg == "sucess_login") {//Se a mensagem for de sucesso, entrará no if
+                include 'includes/modal.php'; //incluindo o modal para a página
+            }
+        }
+    ?>
 </body>
 
 </html>

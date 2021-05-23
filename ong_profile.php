@@ -75,7 +75,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <div class="p-3 d-flex justify-content-center">
         <div class="descricao bg-white border border-3 border-primary px-5 py-2" id="container_mapAddress"> 
             <h2 class="m-0">Mapa</h2>
-            <div class="LOng pt-3 pb-3 d-flex justify-content-center"id="container-map" >
+            <div class="LOng pt-3 pb-3 d-flex justify-content-center" id="container-map" >
                 <div class="w-100 shadow border border-dark rounded" id="map"></div>
             </div>
 

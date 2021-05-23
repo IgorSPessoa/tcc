@@ -46,10 +46,13 @@ function getLocation() { //Função chamada pelo botão no reportar.php
                         state.value = estado;
                         
                     })
-                    .catch(err => console.warn("Error VIACEP: " + err.message));
-                        
+                    .catch(err => {
+                        document.cookie = 'msg=error_viacep';
+                    });   
                 })
-                .catch(err => console.warn("Error API geocoding: " + err.message));
+                .catch(err => {
+                    vdocument.cookie = 'msg=error_API';
+                });
         });
         } else {//Se o dispositivo não tiver suporte cairá no alert
             alert('Sem suporte para este navegador!');
