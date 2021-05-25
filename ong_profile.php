@@ -75,7 +75,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <div class="p-3 d-flex justify-content-center">
         <div class="descricao bg-white border border-3 border-primary px-5 py-2" id="container_mapAddress"> 
             <h2 class="m-0">Mapa</h2>
-            <div class="LOng pt-3 pb-3 d-flex justify-content-center"id="container-map" >
+            <div class="LOng pt-3 pb-3 d-flex justify-content-center" id="container-map" >
                 <div class="w-100 shadow border border-dark rounded" id="map"></div>
             </div>
 
@@ -183,10 +183,8 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
         </div>
     </main>
     <?php
+    //incluindo o modal na página
     require_once("includes/footer.php");
-
-    //pegando o nome do script
-    $namePage = "ong_profile";
     ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -194,7 +192,8 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script type="text/javascript">var address = "<?= $address ?>";</script>
-    <script src="dashboard/js/maps.js"></script>
+    <script src="js/ong_profile.js"></script>
+    <script src="js/global.js"></script>
 </body>
 
 </html>

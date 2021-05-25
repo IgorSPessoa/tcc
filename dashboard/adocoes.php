@@ -55,15 +55,12 @@ if(isset($_SESSION['email']) == true){
                     <?php
                         //Incluindo a conexão com o banco de dados
                         include '../connect.php';
-
                         // Pegando conteúdo do banco de dados e colocando na variavel
-                        $sql = $mysql->prepare("SELECT * FROM animal_adoption");
+                        $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE NOT adoption_situation = 'adopted';");
                         $sql->execute();
-
                         // Verificando se o conteúdo dentro da variável é maior que 0
                         while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
                             $id = $linha['id'];
-
                             echo '<tr>'; 
                                 echo '<td>' .  $linha['animal_name'] . '</td>';
                                 echo '<td>' .  $linha['animal_description'] . '</td>';
@@ -74,16 +71,32 @@ if(isset($_SESSION['email']) == true){
                     </tbody>
                 </table>
         
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //adicionando o footer na página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
-
     <script src="js/global.js"></script>
+    <script src="js/SemUrl.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="js/adocoes.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="plugins/datatable/jquery.dataTables.js"></script>
+    <?php 
+    //Verificar se existe uma mensagem para abrir um modal
+    if(isset($_GET['msg'])) { //Verificando se existe mensagem
+        $msg = $_GET['msg']; //pegando a mensagem
+        $_COOKIE['msg'] = $msg; //Transformando ela em cookie para enviar para outro script
+
+        if($msg == "invalid_size_animal"){//verficiando se a msg deu como tamanho da imagem do animal invalida 
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+        }
+        include '../includes/modal.php'; //incluindo o modal para a página
+    }
+    ?>
 </body>
 </html>

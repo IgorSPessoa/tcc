@@ -16,7 +16,8 @@ $query_mail_users->execute();
 $CountUser = $query_mail_users->rowCount();
 
 if($CountUser >= 1){
-    echo "<script language='javascript' type='text/javascript'>alert('O e-mail já está em uso! Tente novamente com outro e-mail'); window.location = ' ../criar_conta.php';</script>";
+    $msg = "invalid_email";
+    header('Location: ../criar_conta.php?msg=invalid_email');
     die();
 }
 
@@ -26,7 +27,8 @@ $query_mail_ongs->execute();
 $CountOng = $query_mail_ongs->rowCount();
 
 if($CountOng >= 1){
-    echo "<script language='javascript' type='text/javascript'>alert('O e-mail já está em uso! Tente novamente com outro e-mail'); window.location = ' ../criar_conta_ong.php';</script>"; 
+    $msg = "invalid_email";
+    header('Location: ../criar_conta_ong.php?msg=invalid_email');
     die();
 }
 
@@ -66,12 +68,12 @@ if($acc_type == "user"){
 
         
         if($query){
-            echo "<script language='javascript' type='text/javascript'>alert('Conta criada com sucesso!'); window.location = ' ../login.php';</script>";
+            header('Location: ../login.php?msg=sucess_create');
         }else{
-            echo "<script language='javascript' type='text/javascript'>alert('Ocorreu um erro ao criar a conta!'); window.location = ' ../criar_conta.php';</script>";
+            header('Location: ../criar_conta.php?msg=error_create');
         }
     } else {
-        echo "<script language='javascript' type='text/javascript'>alert('As senhas não se coincidem, tente novamente!'); window.location = ' ../criar_conta.php';</script>";
+        header('Location: ../criar_conta.php?msg=invalid_create_pwd');
     } 
 }
 if($acc_type == "ong"){
@@ -187,14 +189,14 @@ if($acc_type == "ong"){
 
         //executando a querry com as variaveis necessárias
         $query->execute([$ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $ong_CEP, $ong_rua, $ong_numero,  $ong_bairro, $ong_estado]);
-
+    
         if($query){
-            echo "<script language='javascript' type='text/javascript'>alert('Conta criada com sucesso!'); window.location = ' ../login.php';</script>";
+            header('Location: ../login.php?msg=sucess_create');
         }else{
-            echo "<script language='javascript' type='text/javascript'>alert('Ocorreu um erro ao criar a conta!'); window.location = ' ../criar_conta_ong.php';</script>";
+            header('Location: ../criar_conta_ong.php?msg=error_create');
         }
     } else {
-        echo "<script language='javascript' type='text/javascript'>alert('As senhas não se coincidem, tente novamente!'); window.location = ' ../criar_conta_ong.php';</script>";
+        header('Location: ../criar_conta_ong.php?msg=invalid_create_pwd');
     }
 }
 

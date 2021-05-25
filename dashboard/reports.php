@@ -23,6 +23,7 @@ if(isset($_SESSION['email']) == true){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css_dashboard/all.css">
+    <link rel="stylesheet" href="css_dashboard/report.css">
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="plugins/datatable/jquery.dataTables.css">
@@ -35,7 +36,6 @@ if(isset($_SESSION['email']) == true){
 
         <main>
             <?php include "includes/header.php"; ?>
-
             <div class="main-content">
                 <h4 class="text-center">Seus reports</h4>
                 <table id="table_id" class="display">
@@ -71,8 +71,8 @@ if(isset($_SESSION['email']) == true){
                     ?>
                     </tbody>
                 </table>
-
-                <br /><br />
+                        
+                <br /><hr /><br /><hr/>
                 <h4 class="text-center">Todos os reports</h4>
                 <table id="table_idsnd" class="display">
                     <thead>
@@ -108,12 +108,16 @@ if(isset($_SESSION['email']) == true){
                     </tbody>
                 </table>
 
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //incluindo o footer na página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
 
-    <script src="js/global.js"></script>                   
+    <script src="js/global.js"></script>
+    <script src="js/SemUrl.js"></script>                   
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="js/reports.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>

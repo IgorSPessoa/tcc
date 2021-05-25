@@ -31,9 +31,9 @@ $stmt = $mysql->prepare($sql);
 $stmt->execute([$idOng, $data_aceite, $situacao, $comments, $imgReport, $idReport]);
 
 if($stmt){
-    echo "<script language='javascript' type='text/javascript'>alert('Reporte abandonado!'); window.location = ' ../visualizaReport.php?id=$idReport';</script>";
+    header('Location: ../visualizaReport.php?id=' . $idReport . '&msg=sucess_unlinkReport');
 } else {
-    echo "<script language='javascript' type='text/javascript'>alert('Não foi possível abandonar o reporte!'); window.location = ' ../visualizarReport.php?id=$idReport';</script>";
+    header('Location: ../visualizaReport.php?id=' . $idReport . '&msg=error_unlinkReport');
 }
 
 ?>

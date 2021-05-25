@@ -97,79 +97,76 @@ if($_FILES['arquivo']['name'] != ""){
     $tipoimg = $separa[0];
     $ext = strtolower("." . $tipoimg);
     
-    if($ext == '.jpg' || $ext == '.jpeg' || $ext == '.png' || $ext == '.svg'){
-        // Definindo o limite do tamanho do arquivo
-        $limite = 10240000; 
+    // Definindo o limite do tamanho do arquivo
+    $limite = 10240000; 
+    
+    //Definindo o tamanho em uma variavel
+    $tamanhoImg = $_FILES['arquivo']['size']; 
+    
+    if($tamanhoImg <= $limite){
+        //pegando o nome da imgagem no Banco de dados
+        $img = $mysql->prepare("SELECT ong_img FROM ong WHERE id = $id");
+        $img->execute();
+
+        //verificando se existe uma imagem no bd
+        if($linha = $img->fetch(PDO::FETCH_ASSOC)){
+            $name = $linha['ong_img']; //Se existir vai entrar na variavel $name
+        }
+        if($name != "default_avatar.jpg"){
+            if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
+                unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
+            } 
+        }
         
-        //Definindo o tamanho em uma variavel
-        $tamanhoImg = $_FILES['arquivo']['size']; 
+        //diretorio
+        $uploaddir = "../../imgs/";
+
+        //pegando o nome da ong
+        $email = $_SESSION['email'];
+        $nameOng = strstr($email, '@', TRUE);
+
+        //definindo onovo nome da imagem como tempo e nome da ong    
+        $newNameImg = md5($nameOng) . time() . $ext;
+
+        //Upando a imagem no repositorio
+        move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
+
+        //tirando o traço do CEP
+        $CEPAlterado = str_replace('-', '', $CEP);
+
+        //tirando parenteses e o traço do telefone
+        $telefoneAlterado = str_replace('(', '', $telefone);
+        $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
+        $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
+        $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
+                
+        //query para atualizar a imagem do bd
+        $sql = "UPDATE ong 
+                    SET ong_description = ?,
+                    ong_purpose = ?,
+                    ong_phone = ?,
+                    ong_business_hours = ?,
+                    location_cep = ?,
+                    location_address = ?,
+                    location_number = ?,
+                    location_district = ?,
+                    location_state = ?,
+                    ong_img = ? 
+                    WHERE id = ?";
+        $stmt = $mysql->prepare($sql);
         
-        if($tamanhoImg <= $limite){
-            //pegando o nome da imgagem no Banco de dados
-            $img = $mysql->prepare("SELECT ong_img FROM ong WHERE id = $id");
-            $img->execute();
-
-            //verificando se existe uma imagem no bd
-            if($linha = $img->fetch(PDO::FETCH_ASSOC)){
-                $name = $linha['ong_img']; //Se existir vai entrar na variavel $name
-            }
-            if($name != "default_avatar.jpg"){
-                if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
-                    unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
-                } 
-            }
-           
-            //diretorio
-            $uploaddir = "../../imgs/";
-
-            //pegando o nome da ong
-            $email = $_SESSION['email'];
-            $nameOng = strstr($email, '@', TRUE);
-
-            //definindo onovo nome da imagem como tempo e nome da ong    
-            $newNameImg = md5($nameOng) . time() . $ext;
-
-            //Upando a imagem no repositorio
-            move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
-
-            //tirando o traço do CEP
-            $CEPAlterado = str_replace('-', '', $CEP);
-
-            //tirando parenteses e o traço do telefone
-            $telefoneAlterado = str_replace('(', '', $telefone);
-            $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
-            $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
-            $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
-                    
-            //query para atualizar a imagem do bd
-            $sql = "UPDATE ong 
-                      SET ong_description = ?,
-                      ong_purpose = ?,
-                      ong_phone = ?,
-                      ong_business_hours = ?,
-                      location_cep = ?,
-                      location_address = ?,
-                      location_number = ?,
-                      location_district = ?,
-                      location_state = ?,
-                      ong_img = ? 
-                        WHERE id = ?";
-            $stmt = $mysql->prepare($sql);
-            
-            //executar o update
-            $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $newNameImg, $id]);
-            
-            if($stmt){
-                echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../perfil.php'; </script>";
-            }else{
-                echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../perfil.php';</script>";
-            }
-        } else {
-            echo "<script language='javascript' type='text/javascript'>alert('Arquivo muito grande, o tamanho máximo do arquivo é 10MB. Tamanho do arquivo atual: $tamanhoImg'); window.location = ' ../perfil.php';</script>";
-        }  
+        //executar o update
+        $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $newNameImg, $id]);
+        
+        if($stmt){
+            header('Location: ../perfil.php?msg=sucess_perfil');
+        }else{
+           header('Location: ../perfil.php?msg=error_perfil');
+        }
     } else {
-        echo "<script language='javascript' type='text/javascript'>alert('O arquivo não é uma imagem, por favor faça o upload de uma imagem .png, .jpg ou .svg . Extensão atual: $ext'); window.location = ' ../perfil.php';</script>";
-    }
+            header('Location: ../perfil.php?msg=invalid_size_logo&size=' . $tamanhoImg . '');
+    }  
+    
 } elseif($_FILES['arquivo']['error'] == '4'){
     //tirando o traço do CEP
     $CEPAlterado = str_replace('-', '',$CEP);
@@ -196,9 +193,9 @@ if($_FILES['arquivo']['name'] != ""){
     $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $id]);
     
     if($stmt){
-        echo "<script language='javascript' type='text/javascript'>alert('Atualização feita com sucesso!'); window.location = ' ../perfil.php';</script>";
+        header('Location: ../perfil.php?msg=sucess_perfil');
     }else{
-        echo "<script language='javascript' type='text/javascript'>alert('Não foi possivel fazer a atualização da adoção!'); window.location = ' ../perfil.php';</script>";
+        header('Location: ../perfil.php?msg=error_perfil');
     }
 }
 

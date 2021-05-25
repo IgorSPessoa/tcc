@@ -24,7 +24,6 @@ if(isset($_SESSION['email']) == true){
     <link rel="stylesheet" href="css_dashboard/all.css">
     <link rel="stylesheet" href="css_dashboard/report.css">
     <link rel="stylesheet" href="css_dashboard/maps.css">
-    <link rel="stylesheet" href="css_dashboard/progressbar.css">
     <link rel="stylesheet" href="css_dashboard/visualizarReport.css">
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="plugins/fontawesome/css/all.min.css">
@@ -209,10 +208,10 @@ if(isset($_SESSION['email']) == true){
 
                         <div class='row'>
                             <div class='col-md-6 container_images'>
-                                <p>Imagem de resgate <a onclick='clickInput(`logo_input`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
+                                <p>Imagem de resgate <a onclick='clickInput(`animal_upload`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
                                 <img src='../imgs/$imagemReport' class='img-thumbnail' id='logo_upload'>
                                 <div class='custom-file'>
-                                    <input type='file' name='arquivo' id='logo_input' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
+                                    <input type='file' name='arquivo' id='animal_upload' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
                                 </div>
                             </div> 
                         </div>
@@ -229,20 +228,41 @@ if(isset($_SESSION['email']) == true){
                         }
                 ?>
 
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //Incluindo o footer na página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
 
     <script src="js/global.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
-    <script src="js/perfil.js"></script>
-    <script src="js/previewLogo.js"></script>
-    <script src="js/mapsReport.js"></script>
-</body>
+    <script src="js/visualizaReport.js"></script>
+    <?php
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+
+        if ($msg == "sucess_acceptedReport") {//Se a mensagem for de sucesso ao vincular cairá aqui
+            $nameOng = $_SESSION['name'];
+            $_COOKIE['name'] = $nameOng;
+        } elseif($msg == "sucess_unlinkReport"){//Se a mensagem for de de sucesso ao desvincular cairá aqui 
+            $nameOng = $_SESSION['name'];
+            $_COOKIE['name'] = $nameOng;
+        } elseif($msg == "invalid_size_animal"){//se a mensagem for de tamanho inválido cairá aqui
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+        }
+        include '../includes/modal.php'; //incluindo o modal para a página
+    }    
+    ?>
+</body> 
 </html>
