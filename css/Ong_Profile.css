@@ -80,20 +80,7 @@ p,span,a{
 #container_mapAddress, #container_descriptionOng{
     box-shadow: 0 0 1em #191970;
 }
-@media only screen and (min-width:1200px) {
-    #map{
-        height: 300px !important;
-    }
-}
-@media only screen and (max-width:1200px) {
-    #map{
-        height: 300px !important;
-    }
-}
 @media only screen and (max-width:1024px) {
-    #map{
-        height: 300px !important;
-    }
     .animals{
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -108,7 +95,6 @@ p,span,a{
     }
     #map{
         width: 200% !important;
-        height: 300px !important;
     } 
     p{
         font-size: 15px;
@@ -147,6 +133,5 @@ p,span,a{
     }
     #map{
         width: 200% !important;
-        height: 300px !important;
     }
 }

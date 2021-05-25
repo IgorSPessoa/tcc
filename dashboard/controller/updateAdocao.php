@@ -19,10 +19,16 @@ if(isset($_SESSION['email']) == true){
 include '../../connect.php';
 
 //Declarando os nomes das variáveis pegas no NovaAdocao
-$nome = "$_POST[name]";
-$descricao = "$_POST[description]";
-$animal = "$_POST[animal]";
-$idade = "$_POST[age]";
+$nome = "$_POST[animal_name]";
+$descricao = "$_POST[animal_description]";
+$raca = "$_POST[animal_race]";
+$peso = "$_POST[animal_weight]";
+$categoria = "$_POST[animal_category]";
+$sexo = "$_POST[animal_gender]";
+$animal = "$_POST[animal_type]";
+$idade = "$_POST[animal_age]";
+$data_chegada = "$_POST[animal_ong_since]";
+$situacao = "$_POST[animal_status]";
 $id = "$_POST[id]";
 
 //Se houver um novo avatar enviado, delete o antigo e atualize um novo
@@ -69,10 +75,22 @@ if($_FILES['arquivo']['name'] != ""){
 
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
 
-            $sql = "UPDATE animal_adoption SET animal_name = ?, animal_description = ?, animal_photo = ?, animal_age = ?, animal_type = ? WHERE id = ?";
+            $sql = "UPDATE animal_adoption 
+                    SET animal_name = ?, 
+                        animal_description = ?, 
+                        animal_type = ?, 
+                        animal_age = ?, 
+                        animal_gender = ?, 
+                        animal_ong_since = ?,
+                        animal_photo = ?, 
+                        animal_race = ?, 
+                        animal_weight = ?, 
+                        animal_category = ?,
+                        adoption_situation = ?
+                    WHERE id = ?";
             $stmt = $mysql->prepare($sql);
 
-            $stmt->execute([$nome, $descricao, $newNameImg, $idade, $animal, $id]);
+            $stmt->execute([$nome, $descricao, $animal, $idade, $sexo, $data_chegada, $newNameImg, $raca, $peso, $categoria, $situacao, $id]);
             
             if($stmt){
                 header('Location: ../adocoes.php?msg=sucess_updateAdoption');
@@ -88,10 +106,21 @@ if($_FILES['arquivo']['name'] != ""){
     if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
         header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
      } else {//Se não, continua a operação
-        $sql = "UPDATE animal_adoption SET animal_name = ?, animal_description = ?, animal_age = ?, animal_type = ? WHERE id = ?";
+        $sql = "UPDATE animal_adoption 
+                    SET animal_name = ?, 
+                        animal_description = ?, 
+                        animal_type = ?, 
+                        animal_age = ?, 
+                        animal_gender = ?, 
+                        animal_ong_since = ?, 
+                        animal_race = ?, 
+                        animal_weight = ?, 
+                        animal_category = ?,
+                        adoption_situation = ?
+                    WHERE id = ?";
         $stmt = $mysql->prepare($sql);
 
-        $stmt->execute([$nome, $descricao, $idade, $animal, $id]);
+        $stmt->execute([$nome, $descricao, $animal, $idade, $sexo, $data_chegada, $raca, $peso, $categoria, $situacao, $id]);
         
         if($stmt){
             header('Location: ../adocoes.php?msg=sucess_updateAdoption');

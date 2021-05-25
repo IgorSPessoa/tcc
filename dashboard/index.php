@@ -167,6 +167,7 @@ if(isset($_SESSION['email']) == true){
     </div>
 
     <script src="js/global.js"></script>
+    <script src="js/SemUrl.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
@@ -180,9 +181,7 @@ if(isset($_SESSION['email']) == true){
             $name = "Ong " . $_SESSION['name']; //Colocando o nome da ong em uma variavel
             $_COOKIE['nome'] = $name; //Mandando o nome da variável por cookie para outro script
 
-            if ($msg == "sucess_login") { //Se a mensagem for de sucesso
-                include '../includes/modal.php'; //O modal irá aparecer
-            }
+            include '../includes/modal.php'; //incluindo o modal para a página
         }
     ?>
 </body>

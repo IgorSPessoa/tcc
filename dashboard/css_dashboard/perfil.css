@@ -17,3 +17,6 @@
 .inputButton > i:hover{
     transform: scale(1.2);
 }
+#map{
+    height: 500px !important;
+}

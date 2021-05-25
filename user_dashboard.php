@@ -71,6 +71,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="js/global.js"></script>
     <?php 
         //verificando se existe uma mensagem para o usúario
         if(isset($_GET['msg'])) {
@@ -80,10 +81,8 @@
 
             $name = $_SESSION['name'];// Colocando o nome do usúario em uma variavel 
             $_COOKIE['nome'] = $name; // Pegando a variavel e enviando para outro script via SESSION 
-
-            if ($msg == "sucess_login") {//Se a mensagem for de sucesso, entrará no if
-                include 'includes/modal.php'; //incluindo o modal para a página
-            }
+ 
+            include 'includes/modal.php'; //incluindo o modal para a página
         }
     ?>
 </body>

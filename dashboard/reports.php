@@ -108,12 +108,16 @@ if(isset($_SESSION['email']) == true){
                     </tbody>
                 </table>
 
-                <?php include "includes/footer.php"; ?>
+                <?php 
+                //incluindo o footer na página
+                include "includes/footer.php"; 
+                ?>
             </div>
         </main>
     </div>
 
-    <script src="js/global.js"></script>                   
+    <script src="js/global.js"></script>
+    <script src="js/SemUrl.js"></script>                   
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="js/reports.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>

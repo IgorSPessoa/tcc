@@ -136,25 +136,25 @@ if(isset($_SESSION['email']) == true){
         </main>
     </div>
     <script src="js/global.js"></script>
-    <script src="js/upload.js"></script>
+    <script src="js/SemUrl.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="js/previewImg.js"></script>     
+    <script src="js/novaAdocao.js"></script> 
     <?php 
-        //Verificar se existe uma mensagem para abrir um modal
-        if(isset($_GET['msg'])) { //Verificando se existe mensagem
-            
-            $msg = $_GET['msg']; //pegando a mensagem
-            $_COOKIE['msg'] = $msg; //Transformando ela em cookie para enviar para outro script
-    
-            if ($msg == "invalid_size_animal"){//verificando se a msg deu 'tamanho inválido do animal' 
-                $tamanho = $_GET['size'];
-                $_COOKIE['size'] = $tamanho;
-                include '../includes/modal.php';
-            }
+    //Verificar se existe uma mensagem para abrir um modal
+    if(isset($_GET['msg'])) { //Verificando se existe mensagem
+        
+        $msg = $_GET['msg']; //pegando a mensagem
+        $_COOKIE['msg'] = $msg; //Transformando ela em cookie para enviar para outro script
+
+        if ($msg == "invalid_size_animal"){//verificando se a msg deu 'tamanho inválido do animal' 
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
         }
+        include '../includes/modal.php'; //incluindo o modal para a página
+    }
     ?>
 </body>
 </html>

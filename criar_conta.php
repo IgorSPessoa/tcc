@@ -77,7 +77,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="dashboard/js/validCep.js"></script>
+    <script src="js/criar_conta.js"></script>
+    <script src="js/global.js"></script>
     <?php
     //colocando o footer na página
     require_once("includes/footer.php");
@@ -87,13 +88,7 @@
         $msg = $_GET['msg'];// Colocando a mensagem em uma variável
         $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
-        if ($msg == "invalid_email") {//Se a mensagem for de login inválido cairá aqui
-            include 'includes/modal.php';
-        } elseif ($msg == "invalid_create_pwd") {//Se a mensagem for de password inválido cairá aqui
-            include 'includes/modal.php';
-        } elseif ($msg == "error_create"){//Se a mensagem for de erro ao criar conta cairá aqui
-            include 'includes/modal.php';
-        } 
+        include 'includes/modal.php'; //incluindo o modal para a página
     }
     ?>
 </body>

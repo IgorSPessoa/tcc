@@ -196,7 +196,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
         </main>
     </div>
     <script src="js/global.js"></script>
-    <script src="js/perfil.js"></script>
+    <script src="js/SemUrl.js"></script>
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -204,28 +204,20 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
-    <script src="js/viacep.js"></script>
-    <script src="js/previewLogo.js"></script>   
-    <script src="js/validCep.js"></script>
-    <script src="js/maps.js"></script>
+    <script src="js/perfil.js"></script>
     <?php
     //verificando se existe uma mensagem na URL da página
     if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
-
         $msg = $_GET['msg'];// Colocando a mensagem em uma variável
         $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
-        if ($msg == "sucess_perfil") {//Se a mensagem for de sucesso cairá aqui
-            include '../includes/modal.php';
-        } elseif ($msg == "error_perfil") {//Se a mensagem for de erro em alterar o perfil cairá aqui
-            include '../includes/modal.php';
-        } elseif($msg == "invalid_size_logo"){//Se a mensagem for de tamnanho inválido cariá aqui
-
+        if($msg == "invalid_size_logo"){//Se a mensagem for de tamnanho inválido cariá aqui
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
-            include '../includes/modal.php';
         }
     }
+    // Precisa ficar aqui embaixo para verificar o cookie
+    include '../includes/modal.php';
     ?>
 </body>
 </html>

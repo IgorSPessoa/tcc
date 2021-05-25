@@ -112,9 +112,6 @@
         } elseif($result == "error_updateReport"){
             echo "<script>CreateModal('Erro ', 'Algo deu errado ao alterar o report, tente novamente!');</script>";
         }
-    } else {
-        
-        echo "<script>CreateModal('Erro ', 'Não foi possível pegar a mensagem, tente novamente!');</script>";
     }
 ?>
 

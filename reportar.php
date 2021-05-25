@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="css/report.css">
     <link rel="stylesheet" href="dashboard/plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="dashboard/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="css/responsiveToBoot.css">
     <title>Reportar</title>
 </head>
 
@@ -46,7 +45,7 @@
         </div>
 
         <?php if(isset($_SESSION['email']) != true){ echo '<center> Não está logado? <a href="login.php">Logue aqui</a>, Não tem uma conta? <a href="criar_conta.php">Crie aqui</a> </center>'; }?>
-        <form class="bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_animal_report.php" enctype="multipart/form-data" runat="server" method="POST">
+        <form class="w-100 bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_animal_report.php" enctype="multipart/form-data" runat="server" method="POST">
 
             <div class="form-group">
                 <h3>Sobre o animal</h3>
@@ -69,9 +68,19 @@
 
                 <label class="pt-3" for="animal">Animal:</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo '<input type="text" class="form-control" id="animal_tipo" name="animal_tipo" required>';
+                        echo '<select class="form-control" id="animal_tipo" name="animal_tipo" required>
+                                <option selected>Selecione...</option>
+                                <option value="dog">Cachorro</option>
+                                <option value="cat">Gato</option>
+                                <option value="others">Outros</option>
+                            </select>';
                     } else {
-                        echo '<input type="text" class="form-control" id="animal_tipo" name="animal_tipo" disabled>';
+                        echo '<select class="form-control" id="animal_tipo" name="animal_tipo" disabled>
+                                <option selected>Selecione...</option>
+                                <option value="dog">Cachorro</option>
+                                <option value="cat">Gato</option>
+                                <option value="others">Outros</option>
+                            </select>';
                         
                     }
                 ?>
@@ -82,7 +91,7 @@
                     <label for="arquivoAnimal">Foto do animal:</label>
                     <a id="imgInput" onclick="click_the_button(foto_animal);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a>
                     <?php if(isset($_SESSION['email']) == true){
-                                echo ' <img id="animalView" />';
+                                echo ' <img src="imgs/preview.jpg" id="animalView" />';
                                 } else {
                                 echo ' <img id="animalViewSemLogin" class="border border-secondary" />';
                                 }
@@ -198,7 +207,7 @@
                     <label for="arquivoAdress">Foto de um ponto de referência:</label>
                     <a id="imgInput" onclick="click_the_button(foto_address);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a>
                     <?php if(isset($_SESSION['email']) == true){
-                                echo ' <img id="addressPreview" />';
+                                echo ' <img src="imgs/preview.jpg" id="addressPreview" />';
                                 } else {
                                 echo ' <img id="addressPreviewSemLogin" class="border border-secondary" />';
                                 }
@@ -261,13 +270,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="dashboard/js/report.js"></script>
-    <script src="dashboard/js/previewImg.js"></script>
-    <script src="dashboard/js/validCep.js"></script>
-    <script src="dashboard/js/viacep.js"></script>
-    <script src="dashboard/js/gps.js"></script>
-    <script src="dashboard/js/autocomplete.js"></script>
-    <script src="dashboard/js/nomeDaRua.js"></script>
+    <script src="js/reportar.js"></script>
+    <script src="js/global.js"></script>
     <?php
     //Adicionando o footer
     require_once("includes/footer.php");
@@ -279,40 +283,24 @@
 
         // Colocando ela em cookie para conseguir pegar em outro script
         $_COOKIE['msg'] = $msg; 
-
-        //incluindo o modal 
-        include 'includes/modal.php';
     }
     
     //verificando se existe uma mensagem na URL da página
-    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+    if(isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
-    $msg = $_GET['msg'];// Colocando a mensagem em uma variável
-    $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+        if($msg == "invalid_size_animal") {//Se a mensagem for de erro do tamanho da imagem do animal cairá aqui  
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+        }else if($msg == "invalid_size_location") {//Se a mensagem for de erro do tamanho da imagem do localização cairá aqui    
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+        }
+    }
 
-    if ($msg == "invalid_size_animal") {//Se a mensagem for de erro do tamanho da imagem do animal cairá aqui
-        
-        $tamanho = $_GET['size'];
-        $_COOKIE['size'] = $tamanho;
-        include 'includes/modal.php';
-
-    } elseif ($msg == "invalid_size_location") {//Se a mensagem for de erro do tamanho da imagem do localização cairá aqui
-        
-        $tamanho = $_GET['size'];
-        $_COOKIE['size'] = $tamanho;
-        include 'includes/modal.php';
-
-    } elseif ($msg == "sucess_report"){//Se a mensagem for de sucesso ao fazer o reporte cariá aqui
-        
-        include 'includes/modal.php';
-
-    } elseif ($msg == "error_report"){//Se a mensagem for de erro ao fazer o reporte cariá aqui
-        
-        include 'includes/modal.php';
-
-    } 
-}
-
+    // Precisa ficar aqui embaixo para verificar o cookie
+    include 'includes/modal.php';
     ?>
 </body>
 

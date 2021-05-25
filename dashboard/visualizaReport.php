@@ -208,10 +208,10 @@ if(isset($_SESSION['email']) == true){
 
                         <div class='row'>
                             <div class='col-md-6 container_images'>
-                                <p>Imagem de resgate <a onclick='clickInput(`logo_input`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
+                                <p>Imagem de resgate <a onclick='clickInput(`animal_upload`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
                                 <img src='../imgs/$imagemReport' class='img-thumbnail' id='logo_upload'>
                                 <div class='custom-file'>
-                                    <input type='file' name='arquivo' id='logo_input' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
+                                    <input type='file' name='arquivo' id='animal_upload' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
                                 </div>
                             </div> 
                         </div>
@@ -243,9 +243,7 @@ if(isset($_SESSION['email']) == true){
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
-    <script src="js/perfil.js"></script>
-    <script src="js/previewLogo.js"></script>
-    <script src="js/mapsReport.js"></script>
+    <script src="js/visualizaReport.js"></script>
     <?php
     //verificando se existe uma mensagem na URL da página
     if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
@@ -256,28 +254,14 @@ if(isset($_SESSION['email']) == true){
         if ($msg == "sucess_acceptedReport") {//Se a mensagem for de sucesso ao vincular cairá aqui
             $nameOng = $_SESSION['name'];
             $_COOKIE['name'] = $nameOng;
-            include '../includes/modal.php';
-        } elseif ($msg == "error_acceptedReport") {//Se a mensagem for de erro em aceitar reporte cairá aqui
-            include '../includes/modal.php';
-        } elseif($msg == "sucess_unlinkReport"){//Se a mensagem for de de sucesso ao desvincular cairá aqui
-            
+        } elseif($msg == "sucess_unlinkReport"){//Se a mensagem for de de sucesso ao desvincular cairá aqui 
             $nameOng = $_SESSION['name'];
             $_COOKIE['name'] = $nameOng;
-            include '../includes/modal.php';
-        
-        } elseif($msg == "error_unlinkReport"){//Se a mensagem for de de erro ao desvincular cairá aqui
-            include '../includes/modal.php';
-        } elseif($msg == "sucess_updateReport"){
-            include '../includes/modal.php';
-        } elseif($msg == "error_updateReport"){
-            include '../includes/modal.php';
-        } elseif($msg == "invalid_field"){
-            include '../includes/modal.php';
-        } elseif($msg == "invalid_size_animal"){
+        } elseif($msg == "invalid_size_animal"){//se a mensagem for de tamanho inválido cairá aqui
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
-            include '../includes/modal.php';
         }
+        include '../includes/modal.php'; //incluindo o modal para a página
     }    
     ?>
 </body> 

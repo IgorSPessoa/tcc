@@ -1,22 +1,31 @@
+//Máscara do inputs cep e telefone
+$(document).ready( function() {
+    $('#phone').mask("(99) 99999-9999");
+});
+$(document).ready( function() {
+    $('#ong_cep').mask("99999-999");
+});
+
+//Função oferecida pelo VIACEP para uso externos
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
-    document.getElementById('address').value=("");
-    document.getElementById('number').value=("");
-    document.getElementById('district').value=("");
-    document.getElementById('state').value=("");
+    document.getElementById('ong_address').value=("");
+    document.getElementById('ong_number').value=("");
+    document.getElementById('ong_district').value=("");
+    document.getElementById('ong_state').value=("");
 }
 
 function meu_callback(conteudo) {
 if (!("erro" in conteudo)) {
     //Atualiza os campos com os valores.
-    document.getElementById('address').value=(conteudo.logradouro);
-    document.getElementById('district').value=(conteudo.bairro);
-    document.getElementById('state').value=(conteudo.uf);
+    document.getElementById('ong_address').value=(conteudo.logradouro);
+    document.getElementById('ong_district').value=(conteudo.bairro);
+    document.getElementById('ong_state').value=(conteudo.uf);
 } //end if.
 else {
     //CEP não Encontrado.
     limpa_formulário_cep();
-    alert("CEP não encontrado.");
+    CreateModal('Error', 'CEP não encontrado.');
 }
 }
 
@@ -35,9 +44,9 @@ if (cep != "") {
     if(validacep.test(cep)) {
 
         //Preenche os campos com "..." enquanto consulta webservice.
-        document.getElementById('address').value="...";
-        document.getElementById('district').value="...";
-        document.getElementById('state').value="...";
+        document.getElementById('ong_address').value="...";
+        document.getElementById('ong_district').value="...";
+        document.getElementById('ong_state').value="...";
 
         //Cria um elemento javascript.
         var script = document.createElement('script');
@@ -52,7 +61,7 @@ if (cep != "") {
     else {
         //cep é inválido.
         limpa_formulário_cep();
-        alert("Formato de CEP inválido.");
+        CreateModal('Error', 'Formato de CEP inválido.');
     }
 } //end if.
 else {
