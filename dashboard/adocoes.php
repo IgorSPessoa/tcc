@@ -55,9 +55,14 @@ if(isset($_SESSION['email']) == true){
                     <?php
                         //Incluindo a conexão com o banco de dados
                         include '../connect.php';
+
+                        //Pegando o id da ong
+                        $idOng = $_SESSION['id'];
+
                         // Pegando conteúdo do banco de dados e colocando na variavel
-                        $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE NOT adoption_situation = 'adopted';");
+                        $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE NOT adoption_situation = 'adopted' AND ong_id = $idOng;");
                         $sql->execute();
+
                         // Verificando se o conteúdo dentro da variável é maior que 0
                         while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
                             $id = $linha['id'];

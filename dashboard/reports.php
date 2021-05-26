@@ -60,9 +60,21 @@ if(isset($_SESSION['email']) == true){
                         while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo
                             // Localização
                             $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                           
+                            //Colocando o resultado da linha em uma variavel
+                            $animal = $linha['animal_type'];
+
+                            //mudando a variavel para português
+                            if($animal == "dog"){
+                                $animal = "Cachorro";
+                            }else if($animal == "cat"){
+                                $animal = "Gato";
+                            }else if($animal == "others"){
+                                $animal  = "Outro";
+                            }
 
                             echo '<tr>'; 
-                                echo '<td>' .  ucfirst($linha['animal_type']) . '</td>';
+                                echo '<td>' .  $animal . '</td>';
                                 echo '<td>' .  $linha['animal_description'] . '</td>';
                                 echo '<td>' .  $localizacao . '</td>';
                                 echo '<td><a class="btn btn-secondary" href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
@@ -97,8 +109,20 @@ if(isset($_SESSION['email']) == true){
                             // Localização
                             $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 
+                            //Colocando o resultado da linha em uma variavel
+                            $animal = $linha['animal_type'];
+
+                            //mudando a variavel para português
+                            if($animal == "dog"){
+                                $animal = "Cachorro";
+                            }else if($animal == "cat"){
+                                $animal = "Gato";
+                            }else if($animal == "others"){
+                                $animal  = "Outro";
+                            }
+
                             echo '<tr>'; 
-                                echo '<td>' .  ucfirst($linha['animal_type']) . '</td>';
+                                echo '<td>' .  $animal . '</td>';
                                 echo '<td>' .  $linha['animal_description'] . '</td>';
                                 echo '<td>' .  $localizacao . '</td>';
                                 echo '<td><a class="btn btn-secondary" href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
