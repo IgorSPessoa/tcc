@@ -52,13 +52,13 @@ if($_FILES['arquivo']['name'] != ""){
                 $name = $linha['report_img']; //Se existir vai entrar na variavel $name
             }
             if($name != 'preview.jpg'){
-                if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
-                    unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
+                if(file_exists("../../imgsUpdate/$name")) { //verificando se ela existe no diretorio
+                    unlink("../../imgsUpdate/$name"); //Tirando a imgagem do diretorio
                 } 
             }
             
             //diretorio
-            $uploaddir = "../../imgs/";
+            $uploaddir = "../../imgsUpdate/";
 
             //definindo onovo nome da imagem como tempo e nome da ong    
             $nameImg = time() . $id . md5($data) . $ext;

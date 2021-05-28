@@ -76,7 +76,7 @@
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                         <span>" . $linha['animal_name'] . "</span>
                     
-                        <img src='imgs/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
+                        <img src='imgsUpdate/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
                         <br><br>
                         <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                         <br><br>

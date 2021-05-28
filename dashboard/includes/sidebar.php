@@ -25,7 +25,7 @@
             </li>           
             <li class="menu-item" id="logout-mobile">
                 <i class="fas fa-sign-out-alt"></i> 
-                <a href="#">Logout</a>
+                <a href="../logout.php">Logout</a>
             </li>                
         </ul>
     </div>

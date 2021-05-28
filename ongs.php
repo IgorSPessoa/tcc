@@ -75,7 +75,7 @@
                 echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                             <span class='text-center'>" . $linha['ong_name'] . "</span>
                             
-                            <img src='imgs/" . $linha['ong_img'] . "' alt='Imagem da ong'>
+                            <img src='imgsUpdate/" . $linha['ong_img'] . "' alt='Imagem da ong'>
                             <br><br>
                             <a href='ong_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar perfil</a>
                             <br><br>

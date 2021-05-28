@@ -42,7 +42,7 @@
     ?>
     <main>
         <div class="d-flex justify-content-center">
-            <img src="./imgs/user.gif" alt="">
+            <img src="./imgsUpdate/user.gif" alt="">
         </div>
         <div class="User bg-dark">
             <h2><?php echo $_SESSION['name']; ?></h2>
@@ -63,6 +63,7 @@
         </div>
     </main>
     <?php
+    //incluindo o footer na página
     require_once("includes/footer.php");
     ?>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>

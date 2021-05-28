@@ -51,7 +51,7 @@
                 <h3>Sobre o animal</h3>
                 <label for="situation">Qual é a situação do animal?</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo '<input type="text" class="form-control" id="situacao_animal" name="situacao_animal" required>';
+                        echo '<input type="text" class="form-control" id="situacao_animal" maxlength="200" name="situacao_animal" required>';
                     } else {
                         echo '<input type="text" class="form-control" id="situacao_animal" name="situacao_animal" disabled>';
                     }
@@ -89,7 +89,7 @@
             <div class="row">
                 <div class="col-md-6 container_images">
                     <label for="arquivoAnimal">Foto do animal:</label>
-                    <a id="imgInput" onclick="click_the_button(foto_animal);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a>
+                    <a id="imgInput" onclick="click_the_button(foto_animal);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a><br />
                     <?php if(isset($_SESSION['email']) == true){
                                 echo ' <img src="imgs/preview.jpg" id="animalView" />';
                                 } else {
@@ -149,7 +149,7 @@
 
                 <label for="address">Endereço em que foi visto pela última vez:</label>
                 <?php if(isset($_SESSION['email']) == true){
-                        echo '<input type="text" class="form-control" id="address" name="address" value="" required>';
+                        echo '<input type="text" class="form-control" id="address" name="address" maxlength="150" value="" required>';
                         } else {
                         echo '<input type="text" class="form-control" id="address" name="address" disabled>';
                         }
@@ -160,7 +160,7 @@
                     <div class="form-group">
                         <label for="district">Bairro</label>
                         <?php if(isset($_SESSION['email']) == true){
-                                echo '<input type="text" class="form-control" id="district" name="district" value="" required>';
+                                echo '<input type="text" class="form-control" id="district" maxlength="50" name="district" value="" required>';
                                 } else {
                                 echo '<input type="text" class="form-control" id="district" name="district" disabled>';
                                 }
@@ -172,7 +172,7 @@
                     <div class="form-group">
                         <label for="state">Estado</label>
                         <?php if(isset($_SESSION['email']) == true){
-                                echo '<input type="text" class="form-control" id="state" name="state" value="" required>';
+                                echo '<input type="text" class="form-control" id="state" maxlength="50" name="state" value="" required>';
                                 } else {
                                 echo '<input type="text" class="form-control" id="state" name="state" disabled>';
                                 }
@@ -184,7 +184,7 @@
                     <div class="form-group">
                         <label for="number">Nº</label>
                         <?php if(isset($_SESSION['email']) == true){
-                                echo '<input type="text" class="form-control" id="number" name="number" required>';
+                                echo '<input type="text" class="form-control" id="number" maxlength="10" name="number" required>';
                                 } else {
                                 echo '<input type="text" class="form-control" id="number" name="number" disabled>';
                                 }

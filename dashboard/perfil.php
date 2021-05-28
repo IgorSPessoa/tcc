@@ -121,7 +121,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="description">Descrição da ONG</label>
-                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Uma descrição básica sobre sua ONG" required><?php echo $descricao;?></textarea>
+                                <textarea class="form-control" id="description" name="description" rows="3" placeholder="Uma descrição básica sobre sua ONG" maxlength="300" required><?php echo $descricao;?></textarea>
                             </div>   
                         </div>                                
                     </div>
@@ -140,13 +140,13 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="address">Endereço</label>
-                                <input type="text" class="form-control" id="address" name="address" value="<?php echo $rua;?>" required>
+                                <input type="text" class="form-control" id="address" name="address" value="<?php echo $rua;?>" maxlength="150" required>
                             </div>     
                         </div> 
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="number">Nº</label>
-                                <input type="text" class="form-control" id="number" name="number" value="<?php echo $numero;?>" required>
+                                <input type="text" class="form-control" id="number" name="number" value="<?php echo $numero;?>" maxlength="50" required>
                             </div>     
                         </div> 
                     </div>
@@ -155,13 +155,13 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="district">Bairro</label>
-                                <input type="text" class="form-control" id="district" name="district"value="<?php echo $bairo;?>" required>
+                                <input type="text" class="form-control" id="district" name="district" value="<?php echo $bairo;?>" maxlength="50" required>
                             </div>     
                         </div>     
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="state">Estado</label>
-                                <input type="text" class="form-control" id="state" name="state" value="<?php echo $estado;?>" required>
+                                <input type="text" class="form-control" id="state" name="state" value="<?php echo $estado;?>" maxlength="50" required>
                             </div>     
                         </div>                                  
                     </div>
@@ -179,7 +179,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">
                         <div class="col-md-6 container_images">
                             <h6>Logo <a onclick="clickInput('logo_input');" class="inputButton"><i class="fas fa-cogs"></i></a></h6>
-                            <img src="../imgs/<?php echo $img;?>" class="img-thumbnail" id="logo_upload">
+                            <img src="../imgsUpdate/<?php echo $img;?>" class="img-thumbnail" id="logo_upload">
                             <div class="custom-file">
                                 <input type="file" name ="arquivo" id="logo_input" onchange="loadFile(event)" accept="image/png, image/jpeg"/>
                             </div>

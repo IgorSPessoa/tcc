@@ -71,7 +71,7 @@
     ?>
     <main class="container p-2 w-100 h-80 justify-content-center">
         <div class="img">
-            <img src="./imgs/<?php echo $img; ?>" class="p-2 rounded float-left" alt="Foto de um animal">
+            <img src="./imgsUpdate/<?php echo $img; ?>" class="p-2 rounded float-left" alt="Foto de um animal">
         </div>
         <div class="descricao bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
             <h2><?php echo $name; ?></h2>
@@ -88,12 +88,12 @@
         </div>
     </main>
     <?php
+    //incluindo o footer na página
     require_once("includes/footer.php");
     ?>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="js/global.js"></script>
 </body>
 
 </html>

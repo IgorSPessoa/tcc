@@ -43,23 +43,23 @@ if(isset($_SESSION['email']) == true){
                         <h3 class="text-center"><strong>Cadastrar adoção</strong></h3>
                         <div class="form-group">
                             <label for="name" class="mb-0"><h4>Nome:</h4></label>
-                            <input class="form-control w-100" type="text" id="animal_name" name="animal_name" placeholder="Ex: Bolinha" autocomplete="off" required>
+                            <input class="form-control w-100" type="text" id="animal_name" name="animal_name" placeholder="Ex: Bolinha" autocomplete="off" maxlength="50" required>
                         </div>
 
                         <div class="form-group"> 
                             <label for="description" class="text-md"><h4>Descrição do Animal:</h4></label>
-                            <input class="form-control w-100" id="animal_description" name="animal_description" autocomplete="off" placeholder="Ex: Bolinha é um gatinho muito preguiçoso, que gosta de carinho e brincar com bolinhas de pelo" required> 
+                            <textarea class="form-control " id="animal_description" name="animal_description" rows="2" placeholder="Ex: Bolinha é um gatinho muito preguiçoso, que gosta de carinho e brincar com bolinhas de pelo"  maxlength="200" required></textarea>
                         </div>
 
                         <div class="row mb-4">
                             <div class="col">
                                 <label for="animal" class="text-md"><h4>Raça:</h4></label>
-                                <input type="text" class="form-control" name="animal_race" id="animal_race" placeholder="Ex: Buldogue-campeiro" autocomplete="off" required>
+                                <input type="text" class="form-control" name="animal_race" id="animal_race" placeholder="Ex: Buldogue-campeiro" autocomplete="off" maxlength="50" required>
                             </div>
 
                             <div class="col">
                                 <label for="age" class="text-md"><h4>Peso:</h4></label>
-                                <input type="text" class="form-control" name="animal_weight" id="animal_weight" placeholder="Ex: 10.5kg" autocomplete="off" required>
+                                <input type="text" class="form-control" name="animal_weight" id="animal_weight" placeholder="Ex: 10.5kg" autocomplete="off" maxlength="50" required>
                             </div>
 
                             <div class="col">
@@ -95,7 +95,7 @@ if(isset($_SESSION['email']) == true){
 
                             <div class="col">
                                 <label for="age" class="text-md"><h4>Idade:</h4></label>
-                                <input type="text" class="form-control" name="animal_age" id="animal_age" placeholder="Ex: 1 ano e 2 meses" autocomplete="off">
+                                <input type="text" class="form-control" name="animal_age" id="animal_age" placeholder="Ex: 1 ano e 2 meses" autocomplete="off" maxlength="30" required>
                                 <small>Não obrigatório</small>
                             </div>
 
@@ -108,7 +108,7 @@ if(isset($_SESSION['email']) == true){
                         <div class="row">
                             <div class="col-md-6 container_images">
                                 <h4>Foto do animal:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
-                                <img id="animalView">
+                                <img src="../imgsUpdate/preview.jpg" id="animalView">
                                 <div class="mb-2">
                                     <input type="file" name="arquivo" id="arquivo"  onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
                                 </div>
