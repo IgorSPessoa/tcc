@@ -42,28 +42,87 @@ if(isset($_SESSION['email']) == true){
                     <div class="info">
                         <i class="fas fa-dog"></i>
                         <div>
-                            <h1>15</h1>
+                            <?php
+                            // Fazendo conexão com o banco de dados
+                            include '../connect.php';
+
+                            //Pegando o id da ong
+                            $idOng = $_SESSION['id'];
+
+                            // Pegando conteúdo do banco de dados e colocando na variavel
+                            $sql = $mysql->prepare("SELECT count(report_situation) FROM animal_report WHERE report_situation = 'rescued' AND ong_id = $idOng;");
+                            $sql->execute();    
+                            
+                            //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                            while($linha = $sql->fetch(PDO::FETCH_BOTH)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                $count = $linha[0];
+                            }
+
+                            echo '<h1> ' . $count . '</h1>';
+                            ?>
                             <span>Animais resgatados</span>         
                         </div>
                     </div>
                     <div class="info">
                         <i class="fas fa-home"></i>
                         <div>
-                            <h1>19</h1>
+                            <?php
+                            // Fazendo conexão com o banco de dados
+                            include '../connect.php';
+
+                            // Pegando conteúdo do banco de dados e colocando na variavel
+                            $sql = $mysql->prepare("SELECT count(adoption_situation) FROM animal_adoption WHERE adoption_situation = 'adopted' AND ong_id = $idOng;");
+                            $sql->execute();    
+                            
+                            //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                            while($linha = $sql->fetch(PDO::FETCH_BOTH)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                $count = $linha[0];
+                            }
+
+                            echo '<h1> ' . $count . '</h1>';
+                            ?>
                             <span>Animais adotados</span>         
                         </div>
                     </div>
                     <div class="info">
                         <i class="fas fa-medkit"></i>
                         <div>
-                            <h1>6</h1> 
+                            <?php
+                            // Fazendo conexão com o banco de dados
+                            include '../connect.php';
+
+                            // Pegando conteúdo do banco de dados e colocando na variavel
+                            $sql = $mysql->prepare("SELECT count(report_situation) FROM animal_report WHERE report_situation = 'scheduled' AND ong_id = $idOng;");
+                            $sql->execute();    
+                            
+                            //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                            while($linha = $sql->fetch(PDO::FETCH_BOTH)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                $count = $linha[0];
+                            }
+
+                            echo '<h1> ' . $count . '</h1>';
+                            ?>
                             <span>Em andamento</span>         
                         </div>
                     </div>
                     <div class="info">
                         <i class="fas fa-eye"></i>
                         <div>
-                            <h1>1064</h1>
+                            <?php
+                            // Fazendo conexão com o banco de dados
+                            include '../connect.php';
+
+                            // Pegando conteúdo do banco de dados e colocando na variavel
+                            $sql = $mysql->prepare("SELECT ong_view FROM ong WHERE id = $idOng;");
+                            $sql->execute();    
+                            
+                            //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                            while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                $count = $linha['ong_view'];
+                            }
+
+                            echo '<h1> ' . $count . '</h1>';
+                            ?>
                             <span>Visualizações</span>         
                         </div>
                     </div>
@@ -81,34 +140,49 @@ if(isset($_SESSION['email']) == true){
                                     <th>Situação</th>
                                     <th>Ações</th>
                                 </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>⏱️ Aguardando</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>📅 Agendado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>✔️ Adotado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>✔️ Adotado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
+                                <?php
+                                    // Fazendo conexão com o banco de dados
+                                    include '../connect.php';
+
+                                    // Pegando conteúdo do banco de dados e colocando na variavel
+                                    $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT report_situation = 'rescued' LIMIT 8;");
+                                    $sql->execute();
+
+                                    //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                        //Colocando o resultado da linha em uma variavel
+                                        $situacao = $linha['report_situation'];
+                                        $animal = $linha['animal_type'];
+
+                                        //mudando a variavel para português
+                                        if($situacao == "pending"){
+                                            $situacao = "pendente";
+                                        }else if($situacao == "waiting"){
+                                            $situacao = "aguardando";
+                                        }else if($situacao == "scheduled"){
+                                            $situacao = "agendado";
+                                        }else if($situacao == "not_found"){
+                                            $situacao = "Não localizado";
+                                        }else if($situacao == "rescued"){
+                                            $situacao = "resgatado";
+                                        }
+
+                                        //mudando a variavel para português
+                                        if($animal == "dog"){
+                                            $animal = "Cachorro";
+                                        }else if($animal == "cat"){
+                                            $animal = "Gato";
+                                        }else if($animal == "others"){
+                                            $animal  = "Outro";
+                                        }
+
+                                        echo '<tr>'; 
+                                            echo '<td>' .  $animal . '</td>';
+                                            echo '<td>' .  $situacao . '</td>';
+                                            echo '<td><a href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
+                                        echo '</tr>'; 
+                                    }    
+                                ?>
                             </table>
                         </div>
                     </div>
@@ -124,34 +198,35 @@ if(isset($_SESSION['email']) == true){
                                     <th>Situação</th>
                                     <th>Ações</th>
                                 </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>⏱️ Aguardando</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>📅 Agendado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>✔️ Adotado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Alface</td>
-                                    <td>✔️ Adotado</td>
-                                    <td>
-                                        <a href="#">Verificar</a>
-                                    </td>
-                                </tr>
+                                <?php
+                                    //Incluindo a conexão com o banco de dados
+                                    include '../connect.php';
+
+                                    // Pegando conteúdo do banco de dados e colocando na variavel
+                                    $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE NOT adoption_situation = 'adopted' AND ong_id = $idOng LIMIT 8;");
+                                    $sql->execute();
+
+                                    // Verificando se o conteúdo dentro da variável é maior que 0
+                                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
+                                        //Colocando o resultado da linha em uma variavel
+                                        $situacao = $linha['adoption_situation'];
+
+                                        //mudando a variavel para português
+                                        if($situacao == "waiting"){
+                                            $situacao = "aguardando";
+                                        }else if($situacao == "scheduled"){
+                                            $situacao = "agendado";
+                                        }
+
+                                        //colocando o id para conseguir acessar o visualizar
+                                        $id = $linha['id'];
+                                        echo '<tr>'; 
+                                            echo '<td>' .  $linha['animal_name'] . '</td>';
+                                            echo '<td>' .  $situacao . '</td>';
+                                            echo '<td><a href="editarAdoacao.php?id=' . $id . '" >Vizualizar</a></td>';
+                                        echo '</tr>';
+                                    }    
+                                ?>
                             </table>
                         </div>
                     </div>     
