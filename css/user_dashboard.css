@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-p{
+main > p{
     color: black;
-=======
-body{
-    background-image: url(../imgsUpdate/perfil.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-
->>>>>>> 8004da185c392e3aef75332d3775ee16cb00a304
 }
 .User > h2{
     text-align: center;
@@ -35,4 +27,8 @@ body{
     padding-top: 2px;
     padding-bottom: 2px;
     text-align: left;
+}
+.perfilimg{
+    max-width:300px ;
+    max-height:300px ;
 }

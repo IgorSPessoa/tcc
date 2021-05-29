@@ -42,83 +42,80 @@
     }
     ?>
     <main class="bg-dark">
-        <div class="d-flex justify-content-center ">
-            <img src="./imgs/user.gif" class="perfilimg rounded-circle" alt="foto">
+        <?php
+        //conexão com banco de dados
+        include "connect.php";
+
+        $id_user = $_SESSION['id'];
+        $name = $_SESSION['name'];
+        $email = $_SESSION['email'];
+
+        $sql = $mysql->prepare("SELECT * FROM tcc.user where id= $id_user");
+        $sql->execute();
+        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+            $pwd_user = $linha['pwd'];
+            $img_user = $linha['img'];
+            $phone_user = $linha['phone'];
+            $cep_user = $linha['cep'];
+            $dataconta_user = $linha['created_at'];
+        }
+        echo "
+        <div class='d-flex justify-content-center'>
+            <img src='./imgs/$img_user' class='perfilimg rounded-circle' alt='foto'>
         </div>
-        <div class="d-flex justify-content-center">
-<<<<<<< HEAD
-            <div class="w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
-                <div class="d-flex flex-row-reverse">
-                    <a href="logout.php" class="button btn btn-danger"> Sair</a>
+        <div class='d-flex justify-content-center'>
+            <div class='w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
+                <div class='d-flex flex-row-reverse'>
+                    <a href='logout.php' class='button btn btn-danger'> Sair</a>
                 </div>
-                <div class="User ">
-                    <h2><?php echo $_SESSION['name']; ?></h2>
-                </div>
-                <?php
-                //conexão com banco de dados
-                include "connect.php";
-
-                $id_user = $_SESSION['id'];
-                $name = $_SESSION['name'];
-                $email = $_SESSION['email'];
-
-                $sql = $mysql->prepare("SELECT * FROM tcc.user where id= $id_user");
-                $sql->execute();
-                while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
-                    $pwd_user = $linha['pwd'];
-                    $img_user = $linha['img'];
-                    $phone_user = $linha['phone'];
-                    $cep_user = $linha['cep'];
-                    $dataconta_user = $linha['created_at'];
-
-                    echo "<h3>Informações</h3>
+                <div class='User'>
+                    <h2> $name</h2>
+                </div>";
+        echo "<h3>Informações</h3>
                     <p>Email: $email</p>
                     <p>Telefone: $phone_user</p>
                     <p>Cep: $cep_user</p>
                     <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
-                }
-                ?>
-                <!--inicio modal-->
-                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+
+        ?>
+        <!--inicio modal-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="controller/emulator_user_update.php" method="post">
+                            <div class="form-group">
+                                <label for="phone">Celular:</label>
+                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone_user; ?>" required>
                             </div>
-                            <div class="modal-body">
-                                <form action="controller/emulator_user_update.php" method="post">
-                                    <div class="form-group">
-                                        <label for="phone">Celular:</label>
-                                        <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone_user; ?>" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="senha">Senha:</label>
-                                        <input type="password" class="form-control" id="senha" name="senha" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="ConfirmPwd">Confirmar Senha:</label>
-                                        <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="CEP">CEP:</label>
-                                        <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $cep_user; ?>" required>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                        <input class="btn btn-success" type="submit" value="Atualizar">
-                                    </div>
-                                </form>
+                            <div class="form-group">
+                                <label for="senha">Senha:</label>
+                                <input type="password" class="form-control" id="senha" name="senha" required>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label for="ConfirmPwd">Confirmar Senha:</label>
+                                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="CEP">CEP:</label>
+                                <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $cep_user; ?>" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <input class="btn btn-success" type="submit" value="Atualizar">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-=======
-            <img src="./imgsUpdate/user.gif" alt="">
->>>>>>> 8004da185c392e3aef75332d3775ee16cb00a304
+        </div>
+        </div>
         </div>
         <!--fim modal-->
 
@@ -282,6 +279,7 @@
                                     </div>
                                 </div>
                             </div>";
+
                             //Fim modal
                             //cont map
                             $idmap = $idmap + 1;
@@ -330,7 +328,6 @@
             </div>
         </div>
         </br>
-        </div>
     </main>
     <?php
     //incluindo o footer na página
