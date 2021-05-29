@@ -90,7 +90,7 @@ footer {
 }
 @media only screen and (min-width:1281px){
     main{
-        width: 60% !important;
+        width: 75% !important;
     }
 }
 @media only screen and (max-width: 1281px) {

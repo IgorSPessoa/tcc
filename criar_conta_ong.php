@@ -49,13 +49,13 @@
                     </div>
 
                     <label for="ong_name">Nome da ONG:</label>
-                    <input type="text" class="form-control" id="ong_name" name="ong_name" required>
+                    <input type="text" class="form-control" id="ong_name" name="ong_name" maxlength="50" required>
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="first">Data de abertura:</label>
-                                <input type="date" style="border-radius: 8px;" class="form-control mb-2" id="opening_date" name="opening_date" required>
+                                <input type="date" style="border-radius: 8px;" class="form-control mb-2" id="opening_date" maxlength="300" name="opening_date" required>
                             </div>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                     </div>   
 
                     <label for="ong_description">Descrição da ONG:</label>
-                    <input type="text" class="form-control" id="ong_description" name="ong_description" required>
+                    <input type="text" class="form-control" id="ong_description" name="ong_description" maxlength="300" required>
 
                     <div class="row">
                         <div class="col-md-6">
@@ -96,14 +96,14 @@
                         <div class="col-md-10">
                             <div class="form-group">
                                 <label for="ong_address">Endereço da ONG:</label>
-                                <input type="text" class="form-control" id="ong_address" name="ong_address" required>
+                                <input type="text" class="form-control" id="ong_address" name="ong_address" maxlength="150" required>
                             </div>
                         </div>
 
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label for="ong_number">N°:</label>
-                                <input type="text" class="form-control" id="ong_number" name="ong_number" required>
+                                <input type="text" class="form-control" id="ong_number" name="ong_number" maxlength="50" required>
                             </div>
                         </div>
                     </div>    
@@ -112,14 +112,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="ong_district">Bairro:</label>
-                                <input type="text" class="form-control" id="ong_district" name="ong_district" required>
+                                <input type="text" class="form-control" id="ong_district" name="ong_district" maxlength="50" required>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="ong_state">Estado:</label>
-                                <input type="text" class="form-control" id="ong_state" name="ong_state" required>
+                                <input type="text" class="form-control" id="ong_state" name="ong_state" maxlength="50" required>
                             </div>
                         </div>
                     </div>    
@@ -135,13 +135,13 @@
                         <p>Você vai usar estes dados para ter acesso ao painel de controle.</p><br>
                     </div>
                     <label for="email">E-mail:</label>
-                    <input type="text" class="form-control" id="email" name="email" pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                    <input type="text" class="form-control" id="email" name="email" maxlength="100" pattern="[aA-zZ0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
 
                     <label for="senha">Senha:</label>
-                    <input type="password" class="form-control" id="senha" name="senha" required>
+                    <input type="password" class="form-control" id="senha" name="senha" maxlength="200" required>
 
                     <label for="ConfirmPwd">Confirmar Senha:</label>
-                    <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                    <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" maxlength="200" required>
 
                     <br>
                     <input type="hidden" name="acc_type" value="ong">

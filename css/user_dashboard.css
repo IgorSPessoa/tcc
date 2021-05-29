@@ -1,5 +1,13 @@
+<<<<<<< HEAD
 p{
     color: black;
+=======
+body{
+    background-image: url(../imgsUpdate/perfil.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+
+>>>>>>> 8004da185c392e3aef75332d3775ee16cb00a304
 }
 .User > h2{
     text-align: center;

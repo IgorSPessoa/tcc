@@ -43,22 +43,22 @@
                 <h2>Crie uma conta</h2>
 
                 <label for="name">Nome:</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" maxlength="500" required>
 
                 <label for="phone">Celular:</label>
-                <input type="text" class="form-control" id="phone" name="phone" required>
+                <input type="text" class="form-control" id="phone" name="phone" maxlength="45" required>
 
                 <label for="CEP">CEP:</label>
                 <input type="text" class="form-control" id="cep" name="cep" required>
 
                 <label for="email">E-mail:</label>
-                <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="500" required>
 
                 <label for="senha">Senha:</label>
-                <input type="password" class="form-control" id="senha" name="senha" required>
+                <input type="password" class="form-control" id="senha" name="senha" maxlength="500" required>
 
                 <label for="ConfirmPwd">Confirmar Senha:</label>
-                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" maxlength="500" required>
 
                 <br>
                 <input type="hidden" name="acc_type" value="user">

@@ -67,14 +67,13 @@ if(isset($_SESSION['email']) == true){
                 <form action="controller/updateAdocao.php" method="POST" enctype="multipart/form-data" runat="server" novalidate> 
                     <div class="form-group mb-4">
                         <label for="animal_name" class="mb-1"><h4>Nome:</h4></label>
-                        <input class="form-control w-100" type="text" id="animal_name" name="animal_name" value='<?php echo $name; ?>' autocomplete="off" required>
+                        <input class="form-control w-100" type="text" id="animal_name" name="animal_name" value='<?php echo $name; ?>' autocomplete="off" maxlength="50" required>
                     </div>
 
                     <div class="row mb-3">
                         <div class="col-md-9 mb-3"> 
                             <label for="animal_description" class="text-md"><h4>Descrição do Animal:</h4></label>
                             <textarea class="form-control " id="animal_description" name="animal_description" rows="2" maxlength="200" required><?php echo $description; ?></textarea>
-                            <!-- <input class="form-control w-100" id="animal_description" name="animal_description" autocomplete="off" value='<?php echo $description; ?>' required>  -->    
                         </div>
 
                         <div class="col-md-3">
@@ -90,12 +89,12 @@ if(isset($_SESSION['email']) == true){
                     <div class="row mb-4">
                         <div class="col-md-3 mb-3">
                             <label for="animal_race" class="text-md"><h4>Raça:</h4></label>
-                            <input type="text" class="form-control" name="animal_race" id="animal_race" value='<?php echo $raca; ?>' autocomplete="off" required>
+                            <input type="text" class="form-control" name="animal_race" id="animal_race" value='<?php echo $raca; ?>' autocomplete="off"  maxlength="50" required>
                         </div>
 
                         <div class="col-md-3 mb-3">
                             <label for="animal_weight" class="text-md"><h4>Peso:</h4></label>
-                            <input type="text" class="form-control" name="animal_weight" id="animal_weight" value='<?php echo $peso; ?>' autocomplete="off" required>
+                            <input type="text" class="form-control" name="animal_weight" id="animal_weight" value='<?php echo $peso; ?>' autocomplete="off" maxlength="50" required>
                         </div>
 
                         <div class="col-md-3 mb-3">
@@ -128,7 +127,7 @@ if(isset($_SESSION['email']) == true){
 
                         <div class="col-md-4 mb-3">
                             <label for="animal_age" class="text-md"><h4>Idade:</h4></label>
-                            <input type="text" class="form-control" name="animal_age" id="animal_age" value='<?php echo $idade; ?>' autocomplete="off">
+                            <input type="text" class="form-control" name="animal_age" id="animal_age" value='<?php echo $idade; ?>' autocomplete="off" maxlength="30" required>
                             <small>Não obrigatório</small>
                         </div>
 
@@ -141,7 +140,7 @@ if(isset($_SESSION['email']) == true){
                     <div class="row">
                         <div class="col-md-6 container_images">
                             <h4>Foto do animal:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
-                            <img src="<?php echo "../imgs/$img"; ?>" id="animalView">
+                            <img src="<?php echo "../imgsUpdate/$img"; ?>" id="animalView">
                             <div class="mb-2">
                                 <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg" required/>
                             </div>

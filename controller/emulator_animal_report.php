@@ -47,7 +47,7 @@ if (isset($_FILES['foto_animal'])){
         $foto_animal = md5(time()) . $name . $id . $ext;
 
         //define onde a imgagem vai ser levada
-        $diretorio = '../imgs/';
+        $diretorio = '../imgsUpdate/';
 
         //pegando nome temporario
         $tpmName = $_FILES['foto_animal']['tmp_name'];
@@ -89,7 +89,7 @@ if (isset($_FILES['foto_address'])){
         $foto_address = md5(time()) . $id  . $name . $ext;
 
         //define onde a imgagem vai ser levada
-        $diretorio = '../imgs/';
+        $diretorio = '../imgsUpdate/';
 
         //pegando nome temporario
         $tpmName = $_FILES['foto_address']['tmp_name'];

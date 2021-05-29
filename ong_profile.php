@@ -61,7 +61,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <div class="p-3 d-flex justify-content-center">
         <div class="descricao bg-white shadow-lg border border-3 border-primary px-5 py-2" id="container_descriptionOng">
             <div class="LOng p-3 d-flex justify-content-center">
-                <img src="./imgs/<?php echo $img;  ?>" alt="">
+                <img src="./imgsUpdate/<?php echo $img;  ?>" alt="">
             </div>
 
             <h2><?php echo $name; ?></h2>
@@ -117,7 +117,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal justify-content-center bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                     <span>" . $linha['animal_name'] . "</span>
                 
-                    <img src='imgs/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
+                    <img src='imgsUpdate/" . $linha['animal_photo'] . "' alt='Imagem de um cachorro'>
                     <br><br>
                     <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
                     <br><br>

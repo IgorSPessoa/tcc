@@ -135,12 +135,12 @@ if(isset($_SESSION['email']) == true){
 
                         <div class="col-sm">
                             <h4 class="m-0">Foto animal</h4>
-                            <img class="w-100 shadow border border-dark rounded " src="../imgs/<?php echo $imgAnimal?>">
+                            <img class="w-100 shadow border border-dark rounded " src="../imgsUpdate/<?php echo $imgAnimal?>">
                         </div>
 
                         <div class="col-sm">
                             <h4 class="m-0">Foto do local</h4>
-                            <img class="w-100 shadow border border-dark rounded" src="../imgs/<?php echo $imgLocation?>">
+                            <img class="w-100 shadow border border-dark rounded" src="../imgsUpdate/<?php echo $imgLocation?>">
                         </div>
 
                         
@@ -201,7 +201,7 @@ if(isset($_SESSION['email']) == true){
                             <div class='col-sm'>
                                 <div class='form-group'>
                                     <label for='comments'>Comentários</label>
-                                    <textarea class='form-control' id='comments' name='comments' rows='3' required>" . $comments . "</textarea> 
+                                    <textarea class='form-control' id='comments' name='comments' rows='3' maxlength='350' required>" . $comments . "</textarea> 
                                 </div>
                             </div>    
                         </div>
@@ -209,7 +209,7 @@ if(isset($_SESSION['email']) == true){
                         <div class='row'>
                             <div class='col-md-6 container_images'>
                                 <p>Imagem de resgate <a onclick='clickInput(`animal_upload`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
-                                <img src='../imgs/$imagemReport' class='img-thumbnail' id='logo_upload'>
+                                <img src='../imgsUpdate/$imagemReport' class='img-thumbnail' id='logo_upload'>
                                 <div class='custom-file'>
                                     <input type='file' name='arquivo' id='animal_upload' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
                                 </div>

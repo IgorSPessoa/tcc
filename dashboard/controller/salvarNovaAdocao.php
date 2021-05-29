@@ -55,7 +55,7 @@ if (isset($_FILES['arquivo'])){
         $nomeImg = time() . md5($nameOng) . $ext;
 
         //define onde a imgagem vai ser levada
-        $diretorio = '../../imgs/';
+        $diretorio = '../../imgsUpdate/';
 
         //pegando nome temporario
         $tpmName = $_FILES['arquivo']['tmp_name'];

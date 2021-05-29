@@ -46,6 +46,7 @@
             <img src="./imgs/user.gif" class="perfilimg rounded-circle" alt="foto">
         </div>
         <div class="d-flex justify-content-center">
+<<<<<<< HEAD
             <div class="w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
                 <div class="d-flex flex-row-reverse">
                     <a href="logout.php" class="button btn btn-danger"> Sair</a>
@@ -115,6 +116,9 @@
                     </div>
                 </div>
             </div>
+=======
+            <img src="./imgsUpdate/user.gif" alt="">
+>>>>>>> 8004da185c392e3aef75332d3775ee16cb00a304
         </div>
         <!--fim modal-->
 
@@ -329,6 +333,7 @@
         </div>
     </main>
     <?php
+    //incluindo o footer na página
     require_once("includes/footer.php");
     ?>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>

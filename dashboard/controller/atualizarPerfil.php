@@ -113,13 +113,13 @@ if($_FILES['arquivo']['name'] != ""){
             $name = $linha['ong_img']; //Se existir vai entrar na variavel $name
         }
         if($name != "default_avatar.jpg"){
-            if(file_exists("../../imgs/$name")) { //verificando se ela existe no diretorio
-                unlink("../../imgs/$name"); //Tirando a imgagem do diretorio
+            if(file_exists("../../imgsUpdate/$name")) { //verificando se ela existe no diretorio
+                unlink("../../imgsUpdate/$name"); //Tirando a imgagem do diretorio
             } 
         }
         
         //diretorio
-        $uploaddir = "../../imgs/";
+        $uploaddir = "../../imgsUpdate/";
 
         //pegando o nome da ong
         $email = $_SESSION['email'];
