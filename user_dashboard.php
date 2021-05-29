@@ -71,14 +71,52 @@
                     $dataconta_user = $linha['created_at'];
 
                     echo "<h3>Informações</h3>
-                    <p>Email:$email</p>
-                    <p>Telefone:$phone_user</p>
-                    <p>Cep:$cep_user</p>
-                    <a hef='#' class='btn btn-danger'>Mudar dados</a>";
+                    <p>Email: $email</p>
+                    <p>Telefone: $phone_user</p>
+                    <p>Cep: $cep_user</p>
+                    <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
                 }
                 ?>
+                <!--inicio modal-->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="controller/emulator_user_update.php" method="post">
+                                    <div class="form-group">
+                                        <label for="phone">Celular:</label>
+                                        <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone_user; ?>" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="senha">Senha:</label>
+                                        <input type="password" class="form-control" id="senha" name="senha" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ConfirmPwd">Confirmar Senha:</label>
+                                        <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="CEP">CEP:</label>
+                                        <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $cep_user; ?>" required>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                        <input class="btn btn-success" type="submit" value="Atualizar">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        <!--fim modal-->
 
 
         <div class="d-flex justify-content-center">
@@ -240,6 +278,8 @@
                                     </div>
                                 </div>
                             </div>";
+                            //Fim modal
+                            //cont map
                             $idmap = $idmap + 1;
                         }
                         ?>
