@@ -1,12 +1,9 @@
-body{
-    background-image: url(../imgsUpdate/perfil.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-
+main > p{
+    color: black;
 }
 .User > h2{
     text-align: center;
-    color: white;
+    color: black;
 }
 .User >p {
     color: white;
@@ -14,4 +11,24 @@ body{
 }
 .button{
     padding: 5px 20px;
+    position:absolute;
+}
+.display {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+.display td,th {
+    border-bottom: 2px solid #ddd;
+    padding: 2px;
+}
+.display th{
+    padding-top: 2px;
+    padding-bottom: 2px;
+    text-align: left;
+}
+.perfilimg{
+    max-width:300px ;
+    max-height:300px ;
 }
