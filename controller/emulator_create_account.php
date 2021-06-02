@@ -39,6 +39,7 @@ if($acc_type == "user"){
     $telefone = $_POST["phone"];
     $confirSenha = $_POST['ConfirmPwd'];
     $senha = $_POST["senha"];
+    $img = "preview.jpg";
 
     //verificação de senha
     if($senha == $confirSenha){
@@ -56,15 +57,15 @@ if($acc_type == "user"){
         
         //query de criação de user
         $sql = "INSERT INTO user
-                              (name, email, pwd, phone, cep, created_at ) 
+                              (name, email, pwd, img, phone, cep, created_at ) 
                         VALUES
-                              (?, ?, ?, ?, ?, CURRENT_DATE());";
+                              (?, ?, ?, ?, ?, ?, CURRENT_DATE());";
 
         //preparando a query                      
         $query = $mysql->prepare($sql);
 
         //executando a querry com as variaveis necessárias
-        $query->execute([$nome, $email, $senha, $telefone, $CEP]);
+        $query->execute([$nome, $email, $senha, $img, $telefone, $CEP]);
 
         
         if($query){
