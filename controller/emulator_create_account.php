@@ -92,7 +92,8 @@ if($acc_type == "ong"){
     $ong_bairro = $_POST["ong_district"]; 
     $ong_estado = $_POST["ong_state"]; 
     $senha = $_POST["senha"];
-    $confirmarSenha = $_POST["ConfirmPwd"]; 
+    $confirmarSenha = $_POST["ConfirmPwd"];
+    $visualizacao = "0"; 
 
 
     //Colocando o estado(por escrito) no $estado, pois no VIACEP não está disponibilizado esta função (apenas em o UF)
@@ -177,6 +178,7 @@ if($acc_type == "ong"){
                               ong_opening_date, 
                               ong_business_hours,
                               ong_img, 
+                              ong_view,
                               location_cep, 
                               location_address, 
                               location_number, 
@@ -189,7 +191,7 @@ if($acc_type == "ong"){
         $query = $mysql->prepare($sql);
 
         //executando a querry com as variaveis necessárias
-        $query->execute([$ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $ong_CEP, $ong_rua, $ong_numero,  $ong_bairro, $ong_estado]);
+        $query->execute([$ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $visualizacao, $ong_CEP, $ong_rua, $ong_numero,  $ong_bairro, $ong_estado]);
     
         if($query){
             header('Location: ../login.php?msg=sucess_create');

@@ -145,7 +145,7 @@ if(isset($_SESSION['email']) == true){
                                     include '../connect.php';
 
                                     // Pegando conteúdo do banco de dados e colocando na variavel
-                                    $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT report_situation = 'rescued';");
+                                    $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT report_situation = 'rescued' LIMIT 8;");
                                     $sql->execute();
 
                                     //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
