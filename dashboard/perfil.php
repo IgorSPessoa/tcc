@@ -17,7 +17,7 @@ if(isset($_SESSION['email']) == true){
 
 //incluindo a conexão com o banco de dados 
 include '../connect.php';
-
+ 
 //Pegando o id da ong logada
 $id = $_SESSION['id'];
 

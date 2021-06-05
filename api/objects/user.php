@@ -16,7 +16,7 @@ class Usuario{
     // Construtor com $db como conexão
     public function __construct($db){
         $this->conn = $db;
-    }
+    } 
 
     function createUser(){
         // Construindo a query

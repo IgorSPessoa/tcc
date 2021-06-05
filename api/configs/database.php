@@ -6,7 +6,7 @@ class Database{
     private $host = "localhost";
     private $db_name = "tcc";
     private $username = "root";
-    private $password = "igor1337";
+    private $password = "lord@12";
     private $charset = "utf8";
     public $conn;
  

@@ -15,15 +15,24 @@ $db = $database->getConnection();
 include_once "../../objects/report.php";
 $report = new Report($db);
 
+// Verifica e armazena campos
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+}else{
+    // Define código de resposta como: 400 Bad Request
+    http_response_code(400);     
+    die(json_encode(array("message" => "missing_required_data")));
+}
+
 // Solicita todas a ONGs
-$allReports = $report->getAll();
+$allReports = $report->getAllByUser($id);
 if(count($allReports) >= 1){
     // Define código de resposta como: 200 Ok
     http_response_code(200);
     echo json_encode($allReports);
 }else{
     // Define código de resposta como: 500 Internal Server Error
-    http_response_code(500);
-    echo json_encode(array("message" => "internal_error"));   
+    http_response_code(404);
+    echo json_encode(array("message" => "not_found"));   
 }
 ?>

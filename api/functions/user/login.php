@@ -36,6 +36,7 @@ if($user->id != null){
     if($user->pwd == $data_pwd){
         // Popula o array
         $user_data = array( 
+            "id" => $user->id,
             "nome" => $user->name,
             "email" => $user->email,
             "img" => $user->img,
