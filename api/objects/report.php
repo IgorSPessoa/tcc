@@ -1,6 +1,7 @@
 <?php
+include_once "address.php";
 
-class Report{
+class Report extends Address{
     private $conn;
 
     public $id;
@@ -34,18 +35,19 @@ class Report{
                             ar.animal_description, 
                             ar.animal_situation, 
                             ar.animal_photo, 
-                            ar.location_cep, 
-                            ar.location_address, 
-                            ar.location_number, 
-                            ar.location_district, 
-                            ar.location_state, 
-                            ar.location_photo, 
-                            ar.location_observation, 
+                            a.location_cep, 
+                            a.location_address, 
+                            a.location_number, 
+                            a.location_district, 
+                            a.location_state, 
+                            a.location_photo, 
+                            a.location_observation, 
                             ar.report_situation,
                             ar.report_date_accepted,
                             ar.report_img
                         FROM animal_report ar
-                            WHERE ar.id = :id";
+                            INNER JOIN address a ON (ar.address_id = a.id)
+                        WHERE ar.id = :id";
 
         // Preparando a query
         $stmt = $this->conn->prepare($query);
@@ -89,18 +91,19 @@ class Report{
                     ar.animal_description, 
                     ar.animal_situation, 
                     ar.animal_photo, 
-                    ar.location_cep, 
-                    ar.location_address, 
-                    ar.location_number, 
-                    ar.location_district, 
-                    ar.location_state, 
-                    ar.location_photo, 
-                    ar.location_observation, 
+                    a.location_cep, 
+                    a.location_address, 
+                    a.location_number, 
+                    a.location_district, 
+                    a.location_state, 
+                    a.location_photo, 
+                    a.location_observation, 
                     ar.report_date_accepted,
                     ar.report_situation,
                     ar.report_date_accepted,
                     ar.report_img
                 FROM animal_report ar
+                        INNER JOIN address a ON (ar.address_id = a.id)
                     WHERE ar.author_id = :id";
 
         // Preparando a query
@@ -122,15 +125,14 @@ class Report{
 
     function createReport(){
         // Construindo a query
-        $query = "INSERT INTO animal_report (author_id, ong_id, animal_type, animal_description, animal_situation, animal_photo, location_cep, location_address, location_number, location_district, location_state, location_photo, location_observation, report_date_accepted, report_situation, report_comments, report_img)
-                                VALUES (:author_id, :ong_id, :animal_type, :animal_description, :animal_situation, :animal_photo, :location_cep, :location_address, :location_number, :location_district, :location_state, :location_photo, :location_observation, :report_date_accepted, :report_situation, :report_comments, :report_img);";
+        $query = "INSERT INTO animal_report (author_id, address_id, animal_type, animal_description, animal_situation, animal_photo, report_created_data, report_date_accepted, report_situation, report_comments, report_img)
+                        VALUES (:author_id, :address_id, :animal_type, :animal_description, :animal_situation, :animal_photo, current_date(), :report_date_accepted, :report_situation, :report_comments, :report_img);";
 
         // Preparando a query
         $stmt = $this->conn->prepare($query);
 
         // Limpando a query;
-        $this->author_id = htmlspecialchars(strip_tags($this->author_id));
-        $this->ong_id = 0;
+        $this->author_id = (int)htmlspecialchars(strip_tags($this->author_id));
         $this->animal_type = htmlspecialchars(strip_tags($this->animal_type));
         $this->animal_description = htmlspecialchars(strip_tags($this->animal_description));
         $this->animal_situation = htmlspecialchars(strip_tags($this->animal_situation));
@@ -145,29 +147,26 @@ class Report{
         $this->report_date_accepted = "0000-00-00";
         $this->report_situation = "pending";
         $this->report_comments = "";
-        $this->report_img = "";
+        $this->report_img = ""; 
 
         // Preparando nome das imagens
         $name_animal_photo = $this->author_id . "_animal_photo_" . md5(time()) . ".jpeg";
         $name_location_photo = $this->author_id . "_location_photo_" . md5(time()) . ".jpeg";
 
+        // Covertendo para jpeg e salvando
         $this->base64_to_jpeg($this->animal_photo, $name_animal_photo);
         $this->base64_to_jpeg($this->location_photo, $name_location_photo);
 
+        // Gravando o endereço
+        $address_id = $this->RecordAddress($this->conn, $this->location_cep, $this->location_address, $this->location_number, $this->location_district, $this->location_state, $name_location_photo, $this->location_observation);
+
         // Atualizando os valores
         $stmt->bindParam(":author_id", $this->author_id);
-        $stmt->bindParam(":ong_id", $this->ong_id);
+        $stmt->bindParam(":address_id", $address_id);
         $stmt->bindParam(":animal_type", $this->animal_type);
         $stmt->bindParam(":animal_description", $this->animal_description);
         $stmt->bindParam(":animal_situation", $this->animal_situation);
         $stmt->bindParam(":animal_photo", $name_animal_photo);
-        $stmt->bindParam(":location_cep", $this->location_cep);
-        $stmt->bindParam(":location_address", $this->location_address);
-        $stmt->bindParam(":location_number", $this->location_number);
-        $stmt->bindParam(":location_district", $this->location_district);
-        $stmt->bindParam(":location_state", $this->location_state);
-        $stmt->bindParam(":location_photo", $name_location_photo);
-        $stmt->bindParam(":location_observation", $this->location_observation);
         $stmt->bindParam(":report_date_accepted", $this->report_date_accepted);
         $stmt->bindParam(":report_situation", $this->report_situation);
         $stmt->bindParam(":report_comments", $this->report_comments);
@@ -177,10 +176,8 @@ class Report{
         if($stmt->execute()){
             return True;
         }
-        // else{
-        //     print_r($stmt->errorInfo());
-        // }
-
+        
+        print_r($stmt->errorInfo());
         return False;
     }
 

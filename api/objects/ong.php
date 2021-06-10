@@ -24,12 +24,31 @@ class Ong{
     // Construtor com $db como conexão
     public function __construct($db){
         $this->conn = $db;
-    }
+    } 
 
     public function LoadById($id){
         // Construindo a query
-        $query = "SELECT o.id, o.ong_name, o.ong_description, o.ong_email, o.ong_purpose, o.ong_phone, o.ong_opening_date, o.ong_business_hours, o.ong_img, o.location_cep, o.location_address, o.location_number, o.location_district, o.location_state
-                        FROM ong o WHERE id = :id;";
+        $query = "SELECT    o.id,
+                            o.ong_name,
+                            o.ong_description, 
+                            o.ong_email, 
+                            o.ong_purpose, 
+                            o.ong_phone, 
+                            o.ong_opening_date, 
+                            o.ong_business_hours, 
+                            o.ong_img, 
+                            o.ong_view,
+                            a.location_cep, 
+                            a.location_address, 
+                            a.location_number, 
+                            a.location_district,
+                            a.location_state,
+                            (SELECT count(report_situation) FROM animal_report ar WHERE ar.report_situation = 'rescued' AND ar.ong_id = o.id) as ong_rescue_count, 
+                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count,
+                            (SELECT '0') as ong_likes
+                                FROM ong o
+                                    INNER JOIN address a ON (o.address_id = a.id)
+                                WHERE o.id = :id";
 
         // Preparando a query
         $stmt = $this->conn->prepare($query);
@@ -58,10 +77,9 @@ class Ong{
         $this->location_number = $row['location_number'];
         $this->location_district = $row['location_district'];
         $this->location_state = $row['location_state'];
-        // Missing
-        $this->ong_rescue_count = "0";
-        $this->ong_adoptions_count = "0";
-        $this->ong_likes = "0";
+        $this->ong_rescue_count = $row['ong_rescue_count'];
+        $this->ong_adoptions_count = $row['ong_adoptions_count'];
+        $this->ong_likes = $row['ong_likes'];
         
         return True;        
     }
@@ -77,15 +95,17 @@ class Ong{
                             o.ong_opening_date, 
                             o.ong_business_hours, 
                             o.ong_img, 
-                            o.location_cep, 
-                            o.location_address, 
-                            o.location_number, 
-                            o.location_district,
-                            o.location_state,
-                            (SELECT '0') as ong_rescue_count, 
-                            (SELECT '0') as ong_adoptions_count, 
+                            o.ong_view,
+                            a.location_cep, 
+                            a.location_address, 
+                            a.location_number, 
+                            a.location_district,
+                            a.location_state,
+                            (SELECT count(report_situation) FROM animal_report ar WHERE ar.report_situation = 'rescued' AND ar.ong_id = o.id) as ong_rescue_count, 
+                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count,
                             (SELECT '0') as ong_likes
-                        FROM ong o;";
+                                FROM ong o
+                                    INNER JOIN address a ON (o.address_id = a.id);";
 
         // Preparando a query
         $stmt = $this->conn->prepare($query);

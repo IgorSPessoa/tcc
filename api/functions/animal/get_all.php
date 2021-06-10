@@ -27,3 +27,4 @@ if(count($allAnimal) >= 1){
     echo json_encode(array("message" => "internal_error"));   
 }
 ?>
+ 

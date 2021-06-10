@@ -13,7 +13,7 @@ $db = $database->getConnection();
 
 // Instância do objeto de ong
 include_once "../../objects/ong.php";
-$ong = new Ong($db);
+$ong = new Ong($db); 
 
 // Solicita todas a ONGs
 $allOngs = $ong->getAll();
