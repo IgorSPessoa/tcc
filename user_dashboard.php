@@ -68,7 +68,7 @@
         </div>
         </br>
         <div class='d-flex justify-content-center'>
-            <div class='w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
+            <div class='infoUser bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                 <div class='User'>
                     <h2> $name</h2>
                 </div>";
@@ -79,7 +79,7 @@
                     <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
 
         ?>
-        <!--inicio modal-->
+        <!--inicio modal que faz atualização de informações-->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -122,68 +122,58 @@
 
 
         <div class="d-flex justify-content-center">
-            <div class="w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
+            <div class="reportes bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
                 <h4 class="text-center">Todos seus reports</h4>
 
                 <?php
+                // Cabeçario da tabela que exibe os reportes.
+                echo "
+                <div class='d-flex justify-content-center'>
+                 <table class='table table-striped table-dark'>
+                        <thead>
+                            <tr>
+                            <th scope='col'>Data reporte</th>
+                            <th scope='col'>Animal</th>
+                            <th scope='col'>Localização</th>
+                            </tr>
+                        </thead>";
+
                 //chave para o api map.
                 $chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
                 $idmap = 1;
 
-<<<<<<< HEAD
+                /*
+                *  contador do sistema de paginação
+                */
+
                 //definir o número total de resultados que você deseja por página
                 $results_per_page = 6;
-=======
-                        //encontre o número total de resultados armazenados no banco de dados  
-                        $query = $mysql->prepare("SELECT ar.*, a.* FROM animal_report ar INNER JOIN address a ON(ar.address_id = a.id) where ar.author_id= $id_user");
-                        $query->execute();
-                        $number_of_result = $query->rowCount();
->>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
-
                 //encontre o número total de resultados armazenados no banco de dados  
                 $query = $mysql->prepare("SELECT * FROM animal_report where author_id= $id_user");
                 $query->execute();
                 $number_of_result = $query->rowCount();
-
                 //determinar o número total de páginas disponíveis
                 $number_of_page = ceil($number_of_result / $results_per_page);
+
                 //determinar em qual número de página o visitante está atualmente
                 if (!isset($_GET['page'])) {
                     $page = 1;
                 } else {
                     $page = $_GET['page'];
                 }
-
                 //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
                 $page_first_result = ($page - 1) * $results_per_page;
 
-<<<<<<< HEAD
-                //preparando querry com banco de dados, para pegar os reports feito pelo usuario
-                $result = $mysql->prepare("SELECT * FROM animal_report where author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
-                $result->execute();
-                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                    $id = $linha['id'];
-                    $author_id = $linha['author_id'];
-                    $idOngReport = $linha['ong_id'];
-                    $animal = ucfirst($linha['animal_type']);
-                    $description = $linha['animal_description'];
-                    $situacaoReport = $linha['report_situation'];
-                    $imgAnimal = $linha['animal_photo'];
-                    $cep = $linha['location_cep'];
-                    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-                    $imgLocation = $linha['location_photo'];
-                    $pointOfReference = $linha['location_observation'];
-                    $data_aceite = $linha['report_date_accepted'];
-                    $situaReport = $linha['report_situation'];
-                    $comments = $linha['report_comments'];
-                    $imagemReport = $linha['report_img'];
-=======
-                        //preparando querry com banco de dados, para pegar os reports feito pelo usuario
-                        $result = $mysql->prepare("SELECT ar.id,
+                /*
+                *preparando querry com banco de dados, para pegar os reports feito pelo usuario
+                *já com limitador por pagina, com sistema de paginação.
+                */
+                $result = $mysql->prepare("SELECT ar.id,
                                                           ar.author_id,
                                                           ar.animal_type,
                                                           ar.animal_description,
                                                           ar.animal_photo,
+                                                          ar.report_created_data,
                                                           a.location_cep,
                                                           a.location_address,
                                                           a.location_number,
@@ -191,18 +181,18 @@
                                                           a.location_state,
                                                           a.location_photo,
                                                           a.location_observation FROM animal_report ar INNER JOIN address a ON(ar.address_id = a.id) where ar.author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
-                        $result->execute();
-                        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                            $id = $linha['id'];
-                            $author_id = $linha['author_id'];
-                            $animal = ucfirst($linha['animal_type']);
-                            $description = $linha['animal_description'];
-                            $imgAnimal = $linha['animal_photo'];
-                            $cep = $linha['location_cep'];
-                            $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-                            $imgLocation = $linha['location_photo'];
-                            $pointOfReference = $linha['location_observation'];
->>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
+                $result->execute();
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $id = $linha['id'];
+                    $author_id = $linha['author_id'];
+                    $animal = ucfirst($linha['animal_type']);
+                    $description = $linha['animal_description'];
+                    $imgAnimal = $linha['animal_photo'];
+                    $dataReporte = $linha['report_created_data'];
+                    $cep = $linha['location_cep'];
+                    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                    $imgLocation = $linha['location_photo'];
+                    $pointOfReference = $linha['location_observation'];
 
                     //mudando a variavel para português
                     if ($animal == "dog") {
@@ -213,28 +203,19 @@
                         $animal  = "Outro";
                     }
 
-                    //se tiver reportes ira montar tabela
+                    //se tiver reportes ira montar tabela que exibe os reportes do usuario.
                     if ($number_of_result >= 1) {
-                        echo "<table id='table_idsnd' class='display'>
-                                <thead>
-                                <tr>
-                                    <th>Data reporte</th>
-                                    <th>Animal</th>
-                                    <th>Localização</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                            <tbody>";
-                        echo '<tr>';
-                        echo '<td>' .  $ainda . '</td>';
-                        echo '<td>' .  $animal  . '</td>';
-                        echo '<td>' .  $location . '</td>';
-                        echo "<td><a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>";
-                        echo '</tr>';
-                        //modal
                         echo "
-                            <div class='modal fade bd-example-modal-xl' id='Modal$id' tabindex='1' role='dialog' aria-labelledby='myExtraLargeModalLabel' aria-hidden='true'>
-                                <div class='modal-dialog modal-xl'>
+                          <tr>
+                            <td> $dataReporte </td>
+                            <td> $animal </td>
+                            <td> $linha[location_district], $linha[location_state] <a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>
+                          </tr>";
+
+                        //modal de cada reporte, toda estrutura.
+                        echo "
+                        <div class='modal fade bd-example-modal-lg' id='Modal$id' tabindex='1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>
+                            <div class='modal-dialog modal-lg'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
                                             <h5 class='modal-title' id='TituloModalCentralizado'>Visualizar Report</h5>
@@ -289,7 +270,7 @@
     
                                                 <!-- divs para colocar as imagens em linhas até 576px -->
                                                 <div class='row'>
-    
+
                                                     <div class='col-sm'>
                                                         <h4 class='m-0'>Foto animal</h4>
                                                         <img class='w-100 shadow border border-dark rounded ' src='./imgsUpdate/$imgAnimal'>
@@ -315,19 +296,22 @@
                                     </div>
                                 </div>
                             </div>";
-
                         //Fim modal
-                        //cont map
+                        //cont map de cada reporte
                         $idmap = $idmap + 1;
                     }
                 }
-                //testa se usuario tem reportes
+                // fim da tabela de reporte
+                echo "</table>
+                </div>";
+
+
+                //testa se usuario tem reportes, se não tiver mostra a mensagem
                 if ($number_of_result < 1) {
                     echo "<p class='text-center'>Você ainda não realizou nenhum reporte!<a href ='reportar.php' class=''>Reporte agora!</a></p>";
                 }
                 ?>
-                </tbody>
-                </table>
+                <!--Sistema de paginação exibido-->
                 <div class="d-flex justify-content-center p-2">
                     <?php
                     //set de variaveis para paginação.
@@ -366,6 +350,7 @@
                     }
                     ?>
                 </div>
+                <!--fim de exibição do sistema de paginação-->
             </div>
         </div>
         </br>

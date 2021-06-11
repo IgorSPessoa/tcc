@@ -100,7 +100,6 @@ if (isset($_FILES['foto_address'])) {
         header('Location: ../reportar.php?msg=invalid_size_location&size=' . $tamanhoImgLocation . '');
     }
 }
-
 //query de criação do endereço da ong
 $sql = " INSERT INTO address
                          (location_cep,
@@ -113,7 +112,7 @@ $sql = " INSERT INTO address
                     VALUES 
                          (?, ?, ?, ?, ?, ?, ?);";
 
-//preparando a query                      
+//preparando a query
 $query = $mysql->prepare($sql);
 
 //executando a querry com as variaveis necessárias
@@ -124,32 +123,7 @@ $LAST_ID = $mysql->lastInsertId();
 
 
 //linha de comando que irá ser chamada no bd
-<<<<<<< HEAD
-$sql = " INSERT INTO animal_report (
-            author_id,
-            ong_id, 
-            animal_type, 
-            animal_description, 
-            animal_situation,
-            animal_photo, 
-            location_cep, 
-            location_address, 
-            location_number,
-            location_district, 
-            location_state, 
-            location_photo, 
-            location_observation,
-            report_date_accepted,
-            report_situation,
-            report_comments,
-            report_img) 
-        VALUES 
-            (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-
-//variaveis invisiveis
-$idOng = 0;
-=======
-$sqlSnd =" INSERT INTO animal_report 
+$sqlSnd = " INSERT INTO animal_report 
                      (author_id,
                      address_id, 
                      animal_type, 
@@ -165,7 +139,6 @@ $sqlSnd =" INSERT INTO animal_report
                      (?,?,?,?,?,?, CURRENT_DATE(),?,?,?,?);";
 
 //variaveis invisiveis
->>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
 $reportAceito = "0000-00-00";
 $report_situacao = "pending";
 $report_comentario = "";
@@ -177,11 +150,7 @@ $stmt = $mysql->prepare($sqlSnd);
 // executando a query
 $stmt->execute([$id, $LAST_ID, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
-<<<<<<< HEAD
-if ($stmt) {
-=======
-if($query && $stmt){
->>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
+if ($query && $stmt) {
     header('Location: ../reportar.php?msg=sucess_report');
 } else {
     header('Location: ../reportar.php?msg=error_report');
