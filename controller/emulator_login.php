@@ -43,7 +43,7 @@ if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma l
     }
 }else{
     // Caso não haja e-mail cadastrado na tabela usuários, vamos tentar na tabela de ONG
-    $checkOngAccount = $mysql->prepare("SELECT id, ong_name, ong_email, ong_email, ong_password FROM ong WHERE ong_email = ?;");
+    $checkOngAccount = $mysql->prepare("SELECT id, address_id, ong_name, ong_email, ong_email, ong_password FROM ong WHERE ong_email = ?;");
     $checkOngAccount->execute([$email]);
     if(CheckRow($checkOngAccount)){
         // Se existir o email na tabela de ong, compare a senha e faça login.
@@ -52,6 +52,7 @@ if(CheckRow($checkUserAccount)){ // CheckRow verifica se existe pelo menos uma l
                 $_SESSION['id'] = $row['id'];
                 $_SESSION['name'] = $row['ong_name'];
                 $_SESSION['email'] = $row['ong_email'];
+                $_SESSION['address_id'] = $row['address_id'];
                 $_SESSION['acc_type'] = "ong";
 
                 //redirecionando para o dashboard da ONG 

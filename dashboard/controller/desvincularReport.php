@@ -19,7 +19,6 @@ include '../../connect.php';
 
 //pegando o id da ong logada
 $idReport = $_GET['id'];
-$idOng = 0;
 $data_aceite = '0000-00-00';
 $situacao = 'pending';
 $comments = "";

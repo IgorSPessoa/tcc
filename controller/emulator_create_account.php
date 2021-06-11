@@ -71,7 +71,7 @@ if($acc_type == "user"){
         if($query){
             header('Location: ../login.php?msg=sucess_create');
         }else{
-            header('Location: ../criar_conta.php?msg=error_create');
+             header('Location: ../criar_conta.php?msg=error_create');
         }
     } else {
         header('Location: ../criar_conta.php?msg=invalid_create_pwd');
@@ -167,9 +167,29 @@ if($acc_type == "ong"){
         $telefone = str_replace('-', '', $telefone);
         $telefone = str_replace(' ', '', $telefone);
 
-        //query de criação de user
-        $sql = "INSERT INTO ong
-                              (ong_name, 
+        //query de criação do endereço da ong
+        $sql = " INSERT INTO address
+                                 (location_cep,
+                                 location_address,
+                                 location_number,
+                                 location_district,
+                                 location_state)
+                            VALUES 
+                                (?, ?, ?, ?, ?);";
+
+        //preparando a query                      
+        $query = $mysql->prepare($sql);
+
+        //executando a querry com as variaveis necessárias
+        $query->execute([$ong_CEP, $ong_rua, $ong_numero, $ong_bairro, $ong_estado]);
+
+        //pengando o id do cadastro de cep e salvando em uma variavel 
+        $LAST_ID = $mysql->lastInsertId();
+
+        //query de criação de ong
+        $sqlSnd = "INSERT INTO ong
+                              (address_id,
+                              ong_name, 
                               ong_description, 
                               ong_email, 
                               ong_password, 
@@ -178,22 +198,17 @@ if($acc_type == "ong"){
                               ong_opening_date, 
                               ong_business_hours,
                               ong_img, 
-                              ong_view,
-                              location_cep, 
-                              location_address, 
-                              location_number, 
-                              location_district, 
-                              location_state) 
+                              ong_view) 
                         VALUES
-                              (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
+                              (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        
         //preparando a query                      
-        $query = $mysql->prepare($sql);
+        $querySnd = $mysql->prepare($sqlSnd);
 
         //executando a querry com as variaveis necessárias
-        $query->execute([$ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $visualizacao, $ong_CEP, $ong_rua, $ong_numero,  $ong_bairro, $ong_estado]);
+        $querySnd->execute([$LAST_ID, $ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $visualizacao]);
     
-        if($query){
+        if($query && $querySnd){
             header('Location: ../login.php?msg=sucess_create');
         }else{
             header('Location: ../criar_conta_ong.php?msg=error_create');

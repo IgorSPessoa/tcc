@@ -3,7 +3,17 @@ include "connect.php";
 
 $id = $_GET['id'];
 
-$result = $mysql->prepare("SELECT * FROM ong WHERE id = $id;");
+$result = $mysql->prepare("SELECT o.ong_name,
+                                  o.ong_opening_date,
+                                  o.ong_business_hours,
+                                  o.ong_description,
+                                  o.ong_img, 
+                                  o.ong_whatsapp,
+                                  o.ong_facebook_url,
+                                  a.location_address,
+                                  a.location_number,
+                                  a.location_district,
+                                  a.location_state FROM ong o INNER JOIN address a ON (o.address_id = a.id);");
 $result->execute();
 
 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -12,6 +22,8 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     $ong_business_hours = $linha['ong_business_hours'];
     $description = $linha['ong_description'];
     $img = $linha['ong_img'];
+    $whatsapp = $linha['ong_whatsapp'];
+    $facebook = $linha['ong_facebook_url'];
     $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 }
 
@@ -67,8 +79,28 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             <h2><?php echo $name; ?></h2>
             <p><b>Descrição:</b> <?php echo $description;  ?></p>
             <p><b>Aberta desde:</b> <?php echo $ong_opening_date; ?></p>
-            <p><b>Horario de Atendimento:</b> <?php echo $ong_business_hours;  ?></p>
-
+            <p><b>Horario de Atendimento:</b> <?php echo $ong_business_hours;?></p>
+            <p><b>Whatsapp:</b> <?php 
+                //verificar se a variavel não está vazia
+                if($whatsapp != null) { // se não estiver vazio, irá mostrar o número
+                    //Colocando os carácteres de formatção de número
+                    $resultWhats = substr_replace($whatsapp, '(', 0, 0);
+                    $resultWhats = substr_replace($resultWhats, ')', 3, 0);
+                    $resultWhats = substr_replace($resultWhats, ' ', 4, 0);
+                    $resultWhats = substr_replace($resultWhats, '-', 10, 0);
+                    echo $resultWhats;
+                }else{ //Se estiver vazia, irá mostrar a mensagem
+                    echo 'Nenhum número associado a ong';
+                }
+            ?></p>
+            <p><b>Facebook:</b> <?php 
+                //verificar se a variavel não está vazia
+                if($facebook != null) {// se não estiver vazio, irá mostrar o url
+                    echo $facebook;
+                }else{ //Se estiver vazia, irá mostrar a mensagem
+                    echo 'Nenhum facebook associado a ong';
+                }
+            ?></p>
         </div>
     </div>
 
@@ -192,7 +224,8 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
     <?php
     //incluindo o modal na página
     require_once("includes/footer.php");
-
+    
+    //chamando um ajax para conseguir somar visualização do usuario a página
     if(isset($_SESSION['email']) == true){
         echo "<script type='text/javascript'> 
                 $.ajax({

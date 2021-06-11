@@ -101,8 +101,30 @@ if (isset($_FILES['foto_address'])) {
     }
 }
 
+//query de criação do endereço da ong
+$sql = " INSERT INTO address
+                         (location_cep,
+                         location_address,
+                         location_number,
+                         location_district,
+                         location_state,
+                         location_photo, 
+                         location_observation)
+                    VALUES 
+                         (?, ?, ?, ?, ?, ?, ?);";
+
+//preparando a query                      
+$query = $mysql->prepare($sql);
+
+//executando a querry com as variaveis necessárias
+$query->execute([$CEP, $rua, $numero, $bairro, $estado, $foto_address, $observacao]);
+
+//pengando o id do cadastro de cep e salvando em uma variavel 
+$LAST_ID = $mysql->lastInsertId();
+
 
 //linha de comando que irá ser chamada no bd
+<<<<<<< HEAD
 $sql = " INSERT INTO animal_report (
             author_id,
             ong_id, 
@@ -126,18 +148,40 @@ $sql = " INSERT INTO animal_report (
 
 //variaveis invisiveis
 $idOng = 0;
+=======
+$sqlSnd =" INSERT INTO animal_report 
+                     (author_id,
+                     address_id, 
+                     animal_type, 
+                     animal_description, 
+                     animal_situation,
+                     animal_photo, 
+                     report_created_data,
+                     report_date_accepted,
+                     report_situation,
+                     report_comments,
+                     report_img) 
+                VALUES 
+                     (?,?,?,?,?,?, CURRENT_DATE(),?,?,?,?);";
+
+//variaveis invisiveis
+>>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
 $reportAceito = "0000-00-00";
 $report_situacao = "pending";
 $report_comentario = "";
 $report_img = "";
 
 //preparando para executar
-$stmt = $mysql->prepare($sql);
+$stmt = $mysql->prepare($sqlSnd);
 
 // executando a query
-$stmt->execute([$id, $idOng, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $CEP, $rua, $numero, $bairro, $estado, $foto_address, $observacao, $reportAceito, $report_situacao, $report_comentario, $report_img]);
+$stmt->execute([$id, $LAST_ID, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
+<<<<<<< HEAD
 if ($stmt) {
+=======
+if($query && $stmt){
+>>>>>>> f2c3a83d9145768ccb43dc881afdb0fb5192fd9c
     header('Location: ../reportar.php?msg=sucess_report');
 } else {
     header('Location: ../reportar.php?msg=error_report');

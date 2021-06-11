@@ -26,11 +26,14 @@ $proposito = "$_POST[reason]";
 $horarioFunc = "$_POST[opening_hours]";
 $telefone = "$_POST[phone]";
 $descricao = "$_POST[description]";
+$whatsapp = "$_POST[whatsapp]";
+$facebook = "$_POST[url_facebook]";
 $CEP = "$_POST[cep]";
 $rua = "$_POST[address]";
 $numero = "$_POST[number]";
 $bairro = "$_POST[district]";
 $estado = "$_POST[state]";
+$address_id = "$_SESSION[address_id]";
 
 //Colocando o estado(por escrito) no $estado, pois no VIACEP não está disponibilizado esta função (apenas em o UF)
 if($estado == "AC"){
@@ -139,26 +142,42 @@ if($_FILES['arquivo']['name'] != ""){
         $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
         $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
         $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
-                
-        //query para atualizar a imagem do bd
-        $sql = "UPDATE ong 
-                    SET ong_description = ?,
-                    ong_purpose = ?,
-                    ong_phone = ?,
-                    ong_business_hours = ?,
-                    location_cep = ?,
+
+        //tirando parenteses e o traço do whatsapp
+        $whatsappAlterado = str_replace('(', '', $whatsapp);
+        $whatsappAlterado = str_replace(')', '', $whatsappAlterado);
+        $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
+        $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
+
+        //query para atualizar a imagem do bd (CEP)
+        $sql = "UPDATE address 
+                    SET location_cep = ?,
                     location_address = ?,
                     location_number = ?,
                     location_district = ?,
-                    location_state = ?,
-                    ong_img = ? 
+                    location_state = ?
                     WHERE id = ?";
         $stmt = $mysql->prepare($sql);
         
         //executar o update
-        $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $newNameImg, $id]);
+        $stmt->execute([$CEPAlterado, $rua, $numero, $bairro, $estado, $address_id]);
+
+        //query para atualizar a imagem do bd (ONG)
+        $sqlSnd = "UPDATE ong 
+                    SET ong_description = ?,
+                    ong_purpose = ?,
+                    ong_phone = ?,
+                    ong_business_hours = ?,
+                    ong_img = ?,
+                    ong_whatsapp = ?,
+                    ong_facebook_url = ? 
+                    WHERE id = ?";
+        $stmtSnd = $mysql->prepare($sqlSnd);
         
-        if($stmt){
+        //executar o update
+        $stmtSnd->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $newNameImg, $whatsappAlterado, $facebook, $id]);
+        
+        if($stmt && $stmtSnd){
             header('Location: ../perfil.php?msg=sucess_perfil');
         }else{
            header('Location: ../perfil.php?msg=error_perfil');
@@ -177,22 +196,40 @@ if($_FILES['arquivo']['name'] != ""){
     $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
     $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
 
-    $sql = "UPDATE ong 
-              SET ong_description = ?,
-              ong_purpose = ?,
-              ong_phone = ?,
-              ong_business_hours = ?,
-              location_cep = ?,
-              location_address = ?,
-              location_number = ?,
-              location_district = ?,
-              location_state = ? 
+    //tirando parenteses e o traço do whatsapp
+    $whatsappAlterado = str_replace('(', '', $whatsapp);
+    $whatsappAlterado = str_replace(')', '', $whatsappAlterado);
+    $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
+    $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
+
+   //query para atualizar a imagem do bd (CEP)
+    $sql = "UPDATE address 
+                SET location_cep = ?,
+                location_address = ?,
+                location_number = ?,
+                location_district = ?,
+                location_state = ?
                 WHERE id = ?";
     $stmt = $mysql->prepare($sql);
-
-    $stmt->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $CEPAlterado, $rua, $numero, $bairro, $estado, $id]);
     
-    if($stmt){
+    //executar o update
+    $stmt->execute([$CEPAlterado, $rua, $numero, $bairro, $estado, $address_id]);
+
+    //query para atualizar a imagem do bd (ONG)
+    $sqlSnd = "UPDATE ong 
+                SET ong_description = ?,
+                ong_purpose = ?,
+                ong_phone = ?,
+                ong_business_hours = ?,
+                ong_whatsapp = ?,
+                ong_facebook_url = ?
+                WHERE id = ?";
+    $stmtSnd = $mysql->prepare($sqlSnd);
+    
+    //executar o update
+    $stmtSnd->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $whatsappAlterado, $facebook, $id]);
+    
+    if($stmt && $stmtSnd){
         header('Location: ../perfil.php?msg=sucess_perfil');
     }else{
         header('Location: ../perfil.php?msg=error_perfil');

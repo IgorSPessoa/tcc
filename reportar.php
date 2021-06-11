@@ -69,7 +69,7 @@
                 <label class="pt-3" for="animal">Animal:</label>
                 <?php if(isset($_SESSION['email']) == true){
                         echo '<select class="form-control" id="animal_tipo" name="animal_tipo" required>
-                                <option selected>Selecione...</option>
+                                <option value="" selected>Selecione...</option>
                                 <option value="dog">Cachorro</option>
                                 <option value="cat">Gato</option>
                                 <option value="others">Outros</option>
