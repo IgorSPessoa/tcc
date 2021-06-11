@@ -83,9 +83,9 @@
     //colocando o footer na página
     require_once("includes/footer.php");
 
-   //verificando se existe uma mensagem na URL da página
-   if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
-        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) { //Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg']; // Colocando a mensagem em uma variável
         $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
         include 'includes/modal.php'; //incluindo o modal para a página
