@@ -22,8 +22,13 @@ include '../connect.php';
 $id = $_SESSION['id'];
 
 //Pegando o nome da imagem cadastrada no banco de dados
-$sql = $mysql->prepare("SELECT * FROM ong WHERE id = $id");
-$sql->execute();
+$sql = $mysql->prepare("SELECT o.*,
+                               a.location_cep,
+                               a.location_address,
+                               a.location_number,
+                               a.location_district,
+                               a.location_state FROM ong o INNER JOIN address a ON (o.address_id = a.id) WHERE o.id = ?");
+$sql->execute([$id]);
 
 //Verificando se a linha de comnado retorna alguma resposta e coloca em uma variavel
 while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
@@ -117,6 +122,24 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                             </div>     
                         </div>  
                     </div>
+
+                    <div class="row">      
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label for="url_facebook">Url do facebook:</label>
+                                <input type="text" class="form-control" id="url_facebook" name="url_facebook">
+                                <small>Não obrigatório</small>
+                            </div>     
+                        </div>   
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="whatsapp">Whatsapp:</label>
+                                <input type="text" class="form-control" id="whatsapp" name="whatsapp">
+                                <small>Não obrigatório</small>
+                            </div>     
+                        </div>   
+                    </div>
+
                     <div class="row"> 
                         <div class="col-md-12">
                             <div class="form-group">
@@ -130,7 +153,7 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                     <div class="row">
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label for="CEP">Cep</label>
+                                <label for="cep">Cep</label>
                                 <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $CEP;?>" onblur="pesquisacep(this.value);" required>
                             </div>     
                         </div>

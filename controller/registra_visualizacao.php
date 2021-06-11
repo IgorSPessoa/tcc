@@ -19,15 +19,19 @@ if (isset($_SESSION['email']) == true) {
         $count = $linha['ong_view'];
     }
     $count++;
-
+    
+    //query para ser levada para o banco de dados
     $newSql = "UPDATE ong 
                 SET ong_view = ? 
                 WHERE id = ?;";
 
+    //preparando e executando a querry
     $stmt = $mysql->prepare($newSql);
     $stmt->execute([$count, $idOng]);  
 
+    //verificando se o resultado deu certo 
     if($stmt){
+        //voltando para a página da ong selecionada
         echo "<script src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous'></script>";
         echo "<script type='text/javascript'> 
                 function backHome(){

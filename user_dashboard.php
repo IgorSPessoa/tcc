@@ -142,7 +142,7 @@
                         $results_per_page = 6;
 
                         //encontre o número total de resultados armazenados no banco de dados  
-                        $query = $mysql->prepare("SELECT * FROM tcc.animal_report where author_id= $id_user");
+                        $query = $mysql->prepare("SELECT ar.*, a.* FROM animal_report ar INNER JOIN address a ON(ar.address_id = a.id) where ar.author_id= $id_user");
                         $query->execute();
                         $number_of_result = $query->rowCount();
 
@@ -160,24 +160,29 @@
                         $page_first_result = ($page - 1) * $results_per_page;
 
                         //preparando querry com banco de dados, para pegar os reports feito pelo usuario
-                        $result = $mysql->prepare("SELECT * FROM tcc.animal_report where author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
+                        $result = $mysql->prepare("SELECT ar.id,
+                                                          ar.author_id,
+                                                          ar.animal_type,
+                                                          ar.animal_description,
+                                                          ar.animal_photo,
+                                                          a.location_cep,
+                                                          a.location_address,
+                                                          a.location_number,
+                                                          a.location_district,
+                                                          a.location_state,
+                                                          a.location_photo,
+                                                          a.location_observation FROM animal_report ar INNER JOIN address a ON(ar.address_id = a.id) where ar.author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
                         $result->execute();
                         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                             $id = $linha['id'];
                             $author_id = $linha['author_id'];
-                            $idOngReport = $linha['ong_id'];
                             $animal = ucfirst($linha['animal_type']);
                             $description = $linha['animal_description'];
-                            $situacaoReport = $linha['report_situation'];
                             $imgAnimal = $linha['animal_photo'];
                             $cep = $linha['location_cep'];
                             $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
                             $imgLocation = $linha['location_photo'];
                             $pointOfReference = $linha['location_observation'];
-                            $data_aceite = $linha['report_date_accepted'];
-                            $situaReport = $linha['report_situation'];
-                            $comments = $linha['report_comments'];
-                            $imagemReport = $linha['report_img'];
 
                             //mudando a variavel para português
                             if ($animal == "dog") {

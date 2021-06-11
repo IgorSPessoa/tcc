@@ -95,7 +95,7 @@ if(isset($_SESSION['email']) == true){
 
                             <div class="col">
                                 <label for="age" class="text-md"><h4>Idade:</h4></label>
-                                <input type="text" class="form-control" name="animal_age" id="animal_age" placeholder="Ex: 1 ano e 2 meses" autocomplete="off" maxlength="30" required>
+                                <input type="text" class="form-control" name="animal_age" id="animal_age" placeholder="Ex: 1 ano e 2 meses" autocomplete="off" maxlength="30">
                                 <small>Não obrigatório</small>
                             </div>
 

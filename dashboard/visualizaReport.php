@@ -49,8 +49,25 @@ if(isset($_SESSION['email']) == true){
                     $id = $_GET['id'];
                     
                    // Pegando conteúdo do banco de dados e colocando na variavel
-                   $sql = $mysql->prepare("SELECT 	ar.*, u.name, u.phone
+                   $sql = $mysql->prepare("SELECT ar.ong_id,
+                                                  u.name, 
+                                                  u.phone,
+                                                  ar.animal_type,
+                                                  ar.animal_description,
+                                                  a.location_cep,
+                                                  a.location_address,
+                                                  a.location_number,
+                                                  a.location_district,
+                                                  a.location_state,
+                                                  a.location_observation,
+                                                  ar.animal_photo,
+                                                  a.location_photo,
+                                                  ar.report_date_accepted,
+                                                  ar.report_situation,
+                                                  ar.report_img,
+                                                  ar.report_comments
                                                 FROM animal_report ar INNER JOIN user u ON (ar.author_id = u.id)
+                                                                      INNER JOIN address a ON (ar.address_id = a.id)
                                                     WHERE ar.id = ?;");
                    $sql->execute([$id]);
  
@@ -78,7 +95,7 @@ if(isset($_SESSION['email']) == true){
                 <div class="row">    
                     <div class="col">
                         <h3 class="text-center"><strong>Visualização do Reporte 
-                        <?php if($idOngReport == 0){
+                        <?php if($idOngReport == null){
                             echo'<a class="btn btn-warning" type="button" value="ongAccept" href="controller/vincularReport.php?id=' . $id . '">Ingresssar</a></strong></h3>';
                         } else {
                             echo'<a class="btn btn-warning" type="button" id="botaoSemAcao">Ingresssar</a></strong></h3>';

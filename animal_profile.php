@@ -45,9 +45,14 @@
     $id = $_GET['id'];
 
     $result = $mysql->prepare("SELECT animal_adoption.*, 
-                                    ong.*
+                                    o.*,
+                                    a.location_address,
+                                    a.location_number,
+                                    a.location_district,
+                                    a.location_state
                             FROM animal_adoption 
-                                INNER JOIN ong ON (animal_adoption.ong_id = ong.id) 
+                                INNER JOIN ong o ON (animal_adoption.ong_id = o.id)
+                                INNER JOIN address a ON (o.address_id = a.id) 
                             WHERE animal_adoption.id = $id;");
     $result->execute();
 
