@@ -20,7 +20,7 @@
     <title>Home User</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <?php
     //Iniciando o sessão
     if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -41,7 +41,10 @@
         echo "<script language='javascript' type='text/javascript'>window.location = ' login.php';</script>";
     }
     ?>
-    <main class="bg-dark">
+    <main>
+        <div class='d-flex flex-row-reverse p-1'>
+            <a href='logout.php' class='button btn btn-danger'> Sair</a>
+        </div>
         <?php
         //conexão com banco de dados
         include "connect.php";
@@ -63,11 +66,9 @@
         <div class='d-flex justify-content-center'>
             <img src='./imgsUpdate/$img_user' class='perfilimg rounded-circle' alt='foto'>
         </div>
+        </br>
         <div class='d-flex justify-content-center'>
             <div class='w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                <div class='d-flex flex-row-reverse'>
-                    <a href='logout.php' class='button btn btn-danger'> Sair</a>
-                </div>
                 <div class='User'>
                     <h2> $name</h2>
                 </div>";
@@ -92,7 +93,7 @@
                         <form action="controller/emulator_user_update.php" method="post">
                             <div class="form-group">
                                 <label for="phone">Celular:</label>
-                                <input type="text" class="form-control" id="phone" name="phone" value="<?php echo $phone_user; ?>" required>
+                                <input type="text" class="form-control" id="phone" name="phone" maxlength="13" value="<?php echo $phone_user; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="senha">Senha:</label>
@@ -104,7 +105,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="CEP">CEP:</label>
-                                <input type="text" class="form-control" id="cep" name="cep" value="<?php echo $cep_user; ?>" required>
+                                <input type="text" class="form-control" id="cep" name="cep" maxlength="9" value="<?php echo $cep_user; ?>" required>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -123,82 +124,83 @@
         <div class="d-flex justify-content-center">
             <div class="w-75 bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
                 <h4 class="text-center">Todos seus reports</h4>
-                <table id="table_idsnd" class="display">
-                    <thead>
-                        <tr>
-                            <th>Animal</th>
-                            <th>Descrição</th>
-                            <th>Localização</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
-                        $idmap = 1;
-                        //conexão com banco de dados
 
-                        //definir o número total de resultados que você deseja por página
-                        $results_per_page = 6;
+                <?php
+                //chave para o api map.
+                $chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
+                $idmap = 1;
 
-                        //encontre o número total de resultados armazenados no banco de dados  
-                        $query = $mysql->prepare("SELECT * FROM tcc.animal_report where author_id= $id_user");
-                        $query->execute();
-                        $number_of_result = $query->rowCount();
+                //definir o número total de resultados que você deseja por página
+                $results_per_page = 6;
 
-                        //determinar o número total de páginas disponíveis
-                        $number_of_page = ceil($number_of_result / $results_per_page);
+                //encontre o número total de resultados armazenados no banco de dados  
+                $query = $mysql->prepare("SELECT * FROM animal_report where author_id= $id_user");
+                $query->execute();
+                $number_of_result = $query->rowCount();
 
-                        //determinar em qual número de página o visitante está atualmente
-                        if (!isset($_GET['page'])) {
-                            $page = 1;
-                        } else {
-                            $page = $_GET['page'];
-                        }
+                //determinar o número total de páginas disponíveis
+                $number_of_page = ceil($number_of_result / $results_per_page);
+                //determinar em qual número de página o visitante está atualmente
+                if (!isset($_GET['page'])) {
+                    $page = 1;
+                } else {
+                    $page = $_GET['page'];
+                }
 
-                        //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
-                        $page_first_result = ($page - 1) * $results_per_page;
+                //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
+                $page_first_result = ($page - 1) * $results_per_page;
 
-                        //preparando querry com banco de dados, para pegar os reports feito pelo usuario
-                        $result = $mysql->prepare("SELECT * FROM tcc.animal_report where author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
-                        $result->execute();
-                        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-                            $id = $linha['id'];
-                            $author_id = $linha['author_id'];
-                            $idOngReport = $linha['ong_id'];
-                            $animal = ucfirst($linha['animal_type']);
-                            $description = $linha['animal_description'];
-                            $situacaoReport = $linha['report_situation'];
-                            $imgAnimal = $linha['animal_photo'];
-                            $cep = $linha['location_cep'];
-                            $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-                            $imgLocation = $linha['location_photo'];
-                            $pointOfReference = $linha['location_observation'];
-                            $data_aceite = $linha['report_date_accepted'];
-                            $situaReport = $linha['report_situation'];
-                            $comments = $linha['report_comments'];
-                            $imagemReport = $linha['report_img'];
+                //preparando querry com banco de dados, para pegar os reports feito pelo usuario
+                $result = $mysql->prepare("SELECT * FROM animal_report where author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
+                $result->execute();
+                while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    $id = $linha['id'];
+                    $author_id = $linha['author_id'];
+                    $idOngReport = $linha['ong_id'];
+                    $animal = ucfirst($linha['animal_type']);
+                    $description = $linha['animal_description'];
+                    $situacaoReport = $linha['report_situation'];
+                    $imgAnimal = $linha['animal_photo'];
+                    $cep = $linha['location_cep'];
+                    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                    $imgLocation = $linha['location_photo'];
+                    $pointOfReference = $linha['location_observation'];
+                    $data_aceite = $linha['report_date_accepted'];
+                    $situaReport = $linha['report_situation'];
+                    $comments = $linha['report_comments'];
+                    $imagemReport = $linha['report_img'];
 
-                            //mudando a variavel para português
-                            if ($animal == "dog") {
-                                $animal = "Cachorro";
-                            } else if ($animal == "cat") {
-                                $animal = "Gato";
-                            } else if ($animal == "others") {
-                                $animal  = "Outro";
-                            }
+                    //mudando a variavel para português
+                    if ($animal == "dog") {
+                        $animal = "Cachorro";
+                    } else if ($animal == "cat") {
+                        $animal = "Gato";
+                    } else if ($animal == "others") {
+                        $animal  = "Outro";
+                    }
 
-                            echo '<tr>';
-                            echo '<td>' .  $animal . '</td>';
-                            echo '<td>' .  $description . '</td>';
-                            echo '<td>' .  $location . '</td>';
-                            echo "<td><a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>";
-                            echo '</tr>';
-                            //modal
-                            echo "
-                            
-                            <div class='modal fade bd-example-modal-lg' id='Modal$id' tabindex='1' role='dialog' aria-labelledby='myLargeModalLabel' aria-hidden='true'>
-                                <div class='modal-dialog modal-lg'>
+                    //se tiver reportes ira montar tabela
+                    if ($number_of_result >= 1) {
+                        echo "<table id='table_idsnd' class='display'>
+                                <thead>
+                                <tr>
+                                    <th>Data reporte</th>
+                                    <th>Animal</th>
+                                    <th>Localização</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            <tbody>";
+                        echo '<tr>';
+                        echo '<td>' .  $ainda . '</td>';
+                        echo '<td>' .  $animal  . '</td>';
+                        echo '<td>' .  $location . '</td>';
+                        echo "<td><a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>";
+                        echo '</tr>';
+                        //modal
+                        echo "
+                            <div class='modal fade bd-example-modal-xl' id='Modal$id' tabindex='1' role='dialog' aria-labelledby='myExtraLargeModalLabel' aria-hidden='true'>
+                                <div class='modal-dialog modal-xl'>
                                     <div class='modal-content'>
                                         <div class='modal-header'>
                                             <h5 class='modal-title' id='TituloModalCentralizado'>Visualizar Report</h5>
@@ -280,12 +282,17 @@
                                 </div>
                             </div>";
 
-                            //Fim modal
-                            //cont map
-                            $idmap = $idmap + 1;
-                        }
-                        ?>
-                    </tbody>
+                        //Fim modal
+                        //cont map
+                        $idmap = $idmap + 1;
+                    }
+                }
+                //testa se usuario tem reportes
+                if ($number_of_result < 1) {
+                    echo "<p class='text-center'>Você ainda não realizou nenhum reporte!<a href ='reportar.php' class=''>Reporte agora!</a></p>";
+                }
+                ?>
+                </tbody>
                 </table>
                 <div class="d-flex justify-content-center p-2">
                     <?php
@@ -329,16 +336,14 @@
         </div>
         </br>
     </main>
-    <?php
-    //incluindo o footer na página
-    require_once("includes/footer.php");
-    ?>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
+    <script src="js/criar_conta.js"></script>
     <script type="text/javascript">
         var chave = "<?= $chave ?>";
     </script>
@@ -358,6 +363,8 @@
 
         include 'includes/modal.php'; //incluindo o modal para a página
     }
+    //incluindo o footer na página
+    require_once("includes/footer.php");
     ?>
 </body>
 
