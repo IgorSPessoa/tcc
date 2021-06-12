@@ -46,6 +46,8 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     $bairo = $linha['location_district'];
     $estado = $linha['location_state'];
     $img = $linha['ong_img'];
+    $whatsapp = $linha['ong_whatsapp'];
+    $urlFacebook = $linha['ong_facebook_url'];
 }
                           
 ?>
@@ -127,14 +129,14 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="url_facebook">Url do facebook:</label>
-                                <input type="text" class="form-control" id="url_facebook" name="url_facebook">
+                                <input type="text" class="form-control" id="url_facebook" value="<?php echo $urlFacebook;?>" name="url_facebook">
                                 <small>Não obrigatório</small>
                             </div>     
                         </div>   
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="whatsapp">Whatsapp:</label>
-                                <input type="text" class="form-control" id="whatsapp" name="whatsapp">
+                                <input type="text" class="form-control" id="whatsapp" value="<?php echo $whatsapp;?>" name="whatsapp">
                                 <small>Não obrigatório</small>
                             </div>     
                         </div>   

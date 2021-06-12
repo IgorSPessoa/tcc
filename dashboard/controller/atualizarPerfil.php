@@ -202,6 +202,10 @@ if($_FILES['arquivo']['name'] != ""){
     $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
     $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
 
+    if($whatsappAlterado == ""){
+        $whatsappAlterado = null;
+    }
+
    //query para atualizar a imagem do bd (CEP)
     $sql = "UPDATE address 
                 SET location_cep = ?,

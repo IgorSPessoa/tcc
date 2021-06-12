@@ -3,6 +3,11 @@ include "connect.php";
 
 $id = $_GET['id'];
 
+//verificar se existe algo no id 
+if($id == ""){
+    header('Location: ongs.php?msg=error_id');
+}
+   
 $result = $mysql->prepare("SELECT o.ong_name,
                                   o.ong_opening_date,
                                   o.ong_business_hours,
@@ -13,19 +18,25 @@ $result = $mysql->prepare("SELECT o.ong_name,
                                   a.location_address,
                                   a.location_number,
                                   a.location_district,
-                                  a.location_state FROM ong o INNER JOIN address a ON (o.address_id = a.id);");
-$result->execute();
+                                  a.location_state FROM ong o INNER JOIN address a ON (o.address_id = a.id) WHERE o.id = ?;");
+$result->execute([$id]);
 
-while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
-    $name = $linha['ong_name'];
-    $ong_opening_date = $linha['ong_opening_date'];
-    $ong_business_hours = $linha['ong_business_hours'];
-    $description = $linha['ong_description'];
-    $img = $linha['ong_img'];
-    $whatsapp = $linha['ong_whatsapp'];
-    $facebook = $linha['ong_facebook_url'];
-    $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-}
+//verficando se houve resultado para na query
+$rows = $result->rowCount();
+if($rows >= 1){ // se existe algum resultado, irá pegar os dados 
+    while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+        $name = $linha['ong_name'];
+        $ong_opening_date = $linha['ong_opening_date'];
+        $ong_business_hours = $linha['ong_business_hours'];
+        $description = $linha['ong_description'];
+        $img = $linha['ong_img'];
+        $whatsapp = $linha['ong_whatsapp'];
+        $facebook = $linha['ong_facebook_url'];
+        $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+    }
+} else {
+    header('Location: ongs.php?msg=error_information');
+} 
 
 ?>
 
@@ -96,7 +107,7 @@ while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
             <p><b>Facebook:</b> <?php 
                 //verificar se a variavel não está vazia
                 if($facebook != null) {// se não estiver vazio, irá mostrar o url
-                    echo $facebook;
+                    echo "<a href='$facebook'>", $facebook, "</a>";
                 }else{ //Se estiver vazia, irá mostrar a mensagem
                     echo 'Nenhum facebook associado a ong';
                 }

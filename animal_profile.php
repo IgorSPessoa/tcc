@@ -44,6 +44,10 @@
 
     $id = $_GET['id'];
 
+    //verificar se existe algo no id 
+    if($id == ""){
+        header('Location: adocao.php?msg=error_id');
+    }
     $result = $mysql->prepare("SELECT animal_adoption.*, 
                                     o.*,
                                     a.location_address,
@@ -56,23 +60,31 @@
                             WHERE animal_adoption.id = $id;");
     $result->execute();
 
-    while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+    //verficando se houve resultado para na query
+    $rows = $result->rowCount();
+    if($rows >= 1){ // se existe algum resultado, irá pegar os dados 
+        while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
-        //informações do animal
-        $img = $linha['animal_photo'];
-        $name = $linha['animal_name'];
-        $description = $linha['animal_description'];
-        $animal_age = $linha['animal_age'];
-        $animal_gender = $linha['animal_gender'];
-        $animal_race = $linha['animal_race'];
-        $animal_category = $linha['animal_category'];
-
-        //informações de contato com a ong
-        $animal_ong_since = $linha['animal_ong_since'];
-        $ong_business_hours = $linha['ong_business_hours'];
-
-        $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+            //informações do animal
+            $img = $linha['animal_photo'];
+            $name = $linha['animal_name'];
+            $description = $linha['animal_description'];
+            $animal_age = $linha['animal_age'];
+            $animal_gender = $linha['animal_gender'];
+            $animal_race = $linha['animal_race'];
+            $animal_category = $linha['animal_category'];
+    
+            //informações de contato com a ong
+            $animal_ong_since = $linha['animal_ong_since'];
+            $ong_business_hours = $linha['ong_business_hours'];
+    
+            //rua da ong
+            $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+        }
+    } else{ //se não existir resultados na query, irá redirecionar com um erro
+        header('Location: adocao.php?msg=error_information');
     }
+    
     ?>
     <main class="container p-2 w-100 h-80 justify-content-center">
         <div class="img">

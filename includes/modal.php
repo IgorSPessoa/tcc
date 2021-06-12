@@ -60,8 +60,10 @@
 
         } elseif($result == "sucess_updateAdoption"){
             echo "<script>CreateModal('Atualização', 'Adoção alterada com sucesso!');</script>";
+
         } elseif($result == "sucess_updateReport"){
             echo "<script>CreateModal('Atualização', 'Report alterada com sucesso!');</script>";
+
         //INVALID
         } elseif($result == "invalid_login"){
             echo "<script>CreateModal('Aviso', 'A conta não foi achada, tente novamente!');</script>";
@@ -87,7 +89,8 @@
             echo "<script>CreateModal('Aviso', 'Logo muito grande, o tamanho máximo da logo é 10MB. Tamanho da foto do logo: " . $logoSize . "Kb');</script>";
 
         } elseif($result == "invalid_field"){
-            echo "<script>CreateModal('Aviso', 'Algum campo não está preenchido, tente novamente!');</script>";   
+            echo "<script>CreateModal('Aviso', 'Algum campo não está preenchido, tente novamente!');</script>";
+             
         //ERROR
         } elseif($result == "error_report"){
             echo "<script>CreateModal('Erro', 'Algo deu errado ao criar o report, tente novamente!');</script>";
@@ -109,8 +112,16 @@
 
         } elseif($result == "error_updateAdoption"){
             echo "<script>CreateModal('Erro ', 'Algo deu errado ao alterar a adoção, tente novamente!');</script>";
+            
         } elseif($result == "error_updateReport"){
             echo "<script>CreateModal('Erro ', 'Algo deu errado ao alterar o report, tente novamente!');</script>";
+
+        } elseif($result == "error_id"){
+            echo "<script>CreateModal('Erro', 'O campo requisitado está vazio, tente novamente!');</script>"; 
+
+        } elseif($result == "error_information"){
+            echo "<script>CreateModal('Erro', 'Nenhuma informação encontrada para a requisição, tente novamente!');</script>"; 
+
         }
     }
 ?>
