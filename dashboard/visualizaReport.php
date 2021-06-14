@@ -69,25 +69,32 @@ if(isset($_SESSION['email']) == true){
                                                 FROM animal_report ar INNER JOIN user u ON (ar.author_id = u.id)
                                                                       INNER JOIN address a ON (ar.address_id = a.id)
                                                     WHERE ar.id = ?;");
-                   $sql->execute([$id]);
- 
-                   //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
-                   while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
-                        $idOngReport = $linha['ong_id'];
-                        $author = $linha['name'];
-                        $phone = $linha['phone']; 
-                        $animal = ucfirst($linha['animal_type']); 
-                        $description = $linha['animal_description'];
-                        $cep = $linha['location_cep'];
-                        $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-                        $pointOfReference = $linha['location_observation']; 
-                        $imgAnimal = $linha['animal_photo'];
-                        $imgLocation = $linha['location_photo'];
-                        $data_aceite = $linha['report_date_accepted'];
-                        $situaReport = $linha['report_situation'];
-                        $imagemReport = $linha['report_img'];
-                        $comments = $linha['report_comments'];
-                    }
+                    $sql->execute([$id]);
+
+                    //verficando se houve resultado para na query
+                    $rows = $sql->rowCount();
+                    
+                    if($rows >= 1){ // se existe algum resultado, irá pegar os dados 
+                        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+                            $idOngReport = $linha['ong_id'];
+                            $author = $linha['name'];
+                            $phone = $linha['phone']; 
+                            $animal = ucfirst($linha['animal_type']); 
+                            $description = $linha['animal_description'];
+                            $cep = $linha['location_cep'];
+                            $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                            $pointOfReference = $linha['location_observation']; 
+                            $imgAnimal = $linha['animal_photo'];
+                            $imgLocation = $linha['location_photo'];
+                            $data_aceite = $linha['report_date_accepted'];
+                            $situaReport = $linha['report_situation'];
+                            $imagemReport = $linha['report_img'];
+                            $comments = $linha['report_comments'];
+                        }
+                    } else{//Se não tiver resultados, irá aparecer um modal de error para o usuário
+                        header('Location: reports.php?msg=error_information');
+                    } 
+
                     //pegando o id da ong 
                     $idOng  = $_SESSION['id'];  
                 ?> 

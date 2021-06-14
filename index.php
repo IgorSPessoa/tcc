@@ -9,6 +9,7 @@
 
     <!--ico-->
     <link rel="shortcut icon" type="image" href="./imgs/CF.ico">
+    <link rel="stylesheet" href="dashboard/plugins/fontawesome/css/all.min.css">
 
     <!--Css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -125,7 +126,7 @@
     <section class="adote">
         <h2 class="titulo-adote">Adote</h2>
         <div class="img-adote">
-            <img src="./imgs/adote-nao-compre.jpg" class="img-fluid" height="500" width="500">
+            <img src="./imgs/adote-nao-compre.jpg" class="img-fluid" height="500" width="500" >
         </div>
         <div>
             <p class="texto-adote">
@@ -150,5 +151,4 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="js/global.js"></script>
 </body>
-
 </html>

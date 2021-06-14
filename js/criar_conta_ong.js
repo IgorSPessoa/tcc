@@ -21,6 +21,11 @@ if (!("erro" in conteudo)) {
     document.getElementById('ong_address').value=(conteudo.logradouro);
     document.getElementById('ong_district').value=(conteudo.bairro);
     document.getElementById('ong_state').value=(conteudo.uf);
+
+    if(conteudo.logradouro == "" || conteudo.bairro == "" ||  conteudo.uf == ""){
+        CreateModal('Error', 'Não foi possível preencher os dados pedidos, tente novamente com outro endereço!');
+        limpa_formulário_cep();
+    }
 } //end if.
 else {
     //CEP não Encontrado.

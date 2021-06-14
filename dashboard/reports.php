@@ -75,5 +75,13 @@ if(isset($_SESSION['email']) == true){
     <script src="js/createTable.js"></script>
     <script src="js/global.js"></script>
     <script src="js/SemUrl.js"></script>
+    <?php
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script 
+    }
+    include '../includes/modal.php'; //incluindo o modal para a página
+    ?>
 </body>
 </html>

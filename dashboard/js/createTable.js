@@ -18,7 +18,7 @@ function GetData(type){
     ShowLoader("loadingYour",true);
     $.ajax({
         type: "GET",
-        url: "./controller/get_all_reports.php",
+        url: "./controller/pegar_reports.php",
         data: {"report": type, "id": id},
         success: function(data){ //Se der sucesso
           //redireciona para outra função
@@ -39,7 +39,7 @@ function GetDataSnd(type){
     ShowLoader("loadingAll",true);
     $.ajax({
         type: "GET",
-        url: "./controller/get_all_reports.php",
+        url: "./controller/pegar_reports.php",
         data: {"report": type, "id": id},
         success: function(data){ //se der sucesso
           //redireciona para outra função

@@ -149,6 +149,11 @@ if($_FILES['arquivo']['name'] != ""){
         $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
         $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
 
+        //Se não o número for vazio, a variavel irá receeber um valor nulo
+        if($whatsappAlterado == ""){
+            $whatsappAlterado = null;
+        }
+
         //query para atualizar a imagem do bd (CEP)
         $sql = "UPDATE address 
                     SET location_cep = ?,
@@ -202,6 +207,7 @@ if($_FILES['arquivo']['name'] != ""){
     $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
     $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
 
+    //Se não o número for vazio, a variavel irá receeber um valor nulo
     if($whatsappAlterado == ""){
         $whatsappAlterado = null;
     }

@@ -9,12 +9,13 @@
 
     <!--ico-->
     <link rel="shortcut icon" type="image" href="./imgs/CF.ico">
+    <link rel="stylesheet" href="dashboard/plugins/fontawesome/css/all.min.css">
 
     <!--Css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
-    <link rel="stylesheet" href="css/responsiveToBoot.css">
+    <link rel="stylesheet" href="css/criar_conta_ong.css">
 
 
     <title>Criar conta Ong</title>
@@ -168,9 +169,9 @@
    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
         $msg = $_GET['msg'];// Colocando a mensagem em uma variável
         $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
-
-        include 'includes/modal.php'; //incluindo o modal para a página 
     }
+    // Precisa ficar aqui embaixo para verificar o cookie
+    include 'includes/modal.php';
     ?>
 </body>
 
