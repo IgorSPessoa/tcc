@@ -1,15 +1,14 @@
 <?php
 //Iniciando sessão
-if(session_status() !== PHP_SESSION_ACTIVE){
+if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
-if(isset($_SESSION['email']) == true){
+if (isset($_SESSION['email']) == true) {
     //Logou, então continua com as validações
     $ong_id = $_SESSION['id'];
-    setcookie('id', $ong_id );
-    
-}else{//Não logou então volta para a página inicial
-    if(session_status() !== PHP_SESSION_ACTIVE){
+    setcookie('id', $ong_id);
+} else { //Não logou então volta para a página inicial
+    if (session_status() !== PHP_SESSION_ACTIVE) {
         session_start();
     }
     session_unset();
@@ -19,6 +18,7 @@ if(isset($_SESSION['email']) == true){
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,6 +32,7 @@ if(isset($_SESSION['email']) == true){
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <title>Companheiro Fiel - Reports</title>
 </head>
+
 <body>
     <div class="flex-dashboard">
         <?php include "includes/sidebar.php"; ?>
@@ -47,28 +48,29 @@ if(isset($_SESSION['email']) == true){
 
                 <div class="content">
                     <table id="YourReports" class="display" width="100%"></table>
-                </div> 
-                        
-                <br /><hr />
+                </div>
+
+                <br />
+                <hr />
                 <h4 class="text-center">Todos os reports
-                    <div class="spinner-border" role="status" id="loadingAll" >
-                        <span class="sr-only">Loading...</span> 
+                    <div class="spinner-border" role="status" id="loadingAll">
+                        <span class="sr-only">Loading...</span>
                     </div>
                 </h4>
-               
+
                 <div class="content">
                     <table id="AllReports" class="display" width="100%"></table>
-                </div>     
+                </div>
 
-                <?php 
+                <?php
                 //incluindo o footer na página
-                include "includes/footer.php"; 
+                include "includes/footer.php";
                 ?>
             </div>
         </main>
     </div>
 
-    <script src='plugins/jquery/jquery-3.6.0.min.js'></script>                   
+    <script src='plugins/jquery/jquery-3.6.0.min.js'></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="plugins/datatable/jquery.dataTables.js"></script>
@@ -76,4 +78,5 @@ if(isset($_SESSION['email']) == true){
     <script src="js/global.js"></script>
     <script src="js/SemUrl.js"></script>
 </body>
+
 </html>

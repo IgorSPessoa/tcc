@@ -48,6 +48,11 @@ if(isset($_SESSION['email']) == true){
                     // Pegando conteúdo do banco de dados e colocando na variavel
                     $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE id = $id");
                     $sql->execute();
+                    //conta quantas linhas foram recebidas pelo banco de dados
+                    $count = $sql->rowCount();
+                    if($count<1){
+                        header('Location: ./index.php?msg=error_information');
+                    }
 
                     // Verificando se o conteúdo dentro da variável é maior que 0
                     while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
