@@ -98,6 +98,24 @@ if (isset($_SESSION['email']) == true) {
                 }
                 //pegando o id da ong 
                 $idOng  = $_SESSION['id'];
+
+                    $idOngReport = $linha['ong_id'];
+                    $author = $linha['name'];
+                    $phone = $linha['phone'];
+                    $animal = ucfirst($linha['animal_type']);
+                    $description = $linha['animal_description'];
+                    $cep = $linha['location_cep'];
+                    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
+                    $pointOfReference = $linha['location_observation'];
+                    $imgAnimal = $linha['animal_photo'];
+                    $imgLocation = $linha['location_photo'];
+                    $data_aceite = $linha['report_date_accepted'];
+                    $situaReport = $linha['report_situation'];
+                    $imagemReport = $linha['report_img'];
+                    $comments = $linha['report_comments'];
+                }
+                //pegando o id da ong 
+                $idOng  = $_SESSION['id'];
                 ?>
 
                 <div class="row">

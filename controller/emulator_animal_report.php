@@ -1,13 +1,13 @@
 <?php
 //Iniciando sessão
-if (session_status() !== PHP_SESSION_ACTIVE) {
+if(session_status() !== PHP_SESSION_ACTIVE){
     session_start();
 }
-if (isset($_SESSION['email']) == true) {
+if(isset($_SESSION['email']) == true){
     //Logou, então continua com as validações
 
-} else { //Não logou então volta para a página inicial
-    if (session_status() !== PHP_SESSION_ACTIVE) {
+}else{//Não logou então volta para a página inicial
+    if(session_status() !== PHP_SESSION_ACTIVE){
         session_start();
     }
     session_unset();
@@ -24,8 +24,8 @@ $animal_descricao = $_POST["animal_descrição"];
 $animal_tipo = $_POST["animal_tipo"];
 
 //verificando se o arquivo está vazio
-if (isset($_FILES['foto_animal'])) {
-
+if (isset($_FILES['foto_animal'])){
+    
     //pegando a extensão da imagem
     $separa = explode(".", $_FILES['foto_animal']['name']);
     $separa = array_reverse($separa);
@@ -33,12 +33,12 @@ if (isset($_FILES['foto_animal'])) {
     $ext = strtolower("." . $tipoimg);
 
     // Definindo o limite do tamanho do arquivo
-    $limite = 10240000;
-
+    $limite = 10240000;  
+    
     //Definindo o tamanho em uma variavel
-    $tamanhoImgAnimal = $_FILES['foto_animal']['size'];
-
-    if ($tamanhoImgAnimal <= $limite) {
+    $tamanhoImgAnimal = $_FILES['foto_animal']['size']; 
+    
+    if($tamanhoImgAnimal <= $limite){
 
         //definindo o nome da img como tempo e nome da ong    
         $email = $_SESSION['email'];
@@ -54,7 +54,7 @@ if (isset($_FILES['foto_animal'])) {
 
         //Mudar a localização do arquivo
         move_uploaded_file($tpmName, $diretorio . $foto_animal);
-    } else { //Se o arquivo for maior que 10mb
+    } else{//Se o arquivo for maior que 10mb
         header('Location: ../reportar.php?msg=invalid_size_animal&size=' . $tamanhoImgAnimal . '');
     }
 }
@@ -70,8 +70,8 @@ $observacao = $_POST["observacao"];
 $CEP = str_replace('-', '', $CEP);
 
 //verificando se o arquivo está vazio
-if (isset($_FILES['foto_address'])) {
-
+if (isset($_FILES['foto_address'])){
+    
     //pegando a extensão da imagem
     $separa = explode(".", $_FILES['foto_address']['name']);
     $separa = array_reverse($separa);
@@ -79,12 +79,12 @@ if (isset($_FILES['foto_address'])) {
     $ext = strtolower("." . $tipoimg);
 
     // Definindo o limite do tamanho do arquivo
-    $limite = 10240000;
-
+    $limite = 10240000; 
+    
     //Definindo o tamanho em uma variavel
-    $tamanhoImgLocation = $_FILES['foto_address']['size'];
-
-    if ($tamanhoImgLocation <= $limite) {
+    $tamanhoImgLocation = $_FILES['foto_address']['size']; 
+    
+    if($tamanhoImgLocation <= $limite){
         //definindo o nome da img como tempo e nome da ong    
         $foto_address = md5(time()) . $id  . $name . $ext;
 
@@ -96,10 +96,11 @@ if (isset($_FILES['foto_address'])) {
 
         //Mudar a localização do arquivo
         move_uploaded_file($tpmName, $diretorio . $foto_address);
-    } else { //Se o arquivo for maior que 10mb
+    } else{//Se o arquivo for maior que 10mb
         header('Location: ../reportar.php?msg=invalid_size_location&size=' . $tamanhoImgLocation . '');
     }
 }
+
 //query de criação do endereço da ong
 $sql = " INSERT INTO address
                          (location_cep,
@@ -112,7 +113,7 @@ $sql = " INSERT INTO address
                     VALUES 
                          (?, ?, ?, ?, ?, ?, ?);";
 
-//preparando a query
+//preparando a query                      
 $query = $mysql->prepare($sql);
 
 //executando a querry com as variaveis necessárias
@@ -123,7 +124,7 @@ $LAST_ID = $mysql->lastInsertId();
 
 
 //linha de comando que irá ser chamada no bd
-$sqlSnd = " INSERT INTO animal_report 
+$sqlSnd =" INSERT INTO animal_report 
                      (author_id,
                      address_id, 
                      animal_type, 
@@ -150,8 +151,9 @@ $stmt = $mysql->prepare($sqlSnd);
 // executando a query
 $stmt->execute([$id, $LAST_ID, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
-if ($query && $stmt) {
+if($query && $stmt){
     header('Location: ../reportar.php?msg=sucess_report');
-} else {
-    header('Location: ../reportar.php?msg=error_report');
+}else{
+    header('Location: ../reportar.php?msg=error_report');   
 }
+?>

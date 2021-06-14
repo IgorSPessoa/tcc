@@ -47,7 +47,7 @@ if($_FILES['arquivo']['name'] != ""){
     
     if($tamanhoImg <= $limite){
         //Verificando se algum campo está vazio
-        if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
+        if($nome == "" || $descricao == "" || $animal == "" || $raca = "" || $peso = ""){//Se estiver ele retorna um aviso
             header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
         } else { //Se não, continua a operaçãp
                 //pegando o nome da imgagem no Banco de dados
@@ -103,7 +103,7 @@ if($_FILES['arquivo']['name'] != ""){
     }   
 } elseif($_FILES['arquivo']['error'] == '4'){
     //Verificando se algum campo está vazio
-    if($nome == "" || $descricao == "" || $idade == "" || $animal == ""){//Se estiver ele retorna um aviso
+    if($nome == "" || $descricao == "" || $animal == "" || $raca == "" || $peso == ""){//Se estiver ele retorna um aviso
         header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
      } else {//Se não, continua a operação
         $sql = "UPDATE animal_adoption 

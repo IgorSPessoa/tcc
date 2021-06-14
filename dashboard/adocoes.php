@@ -100,8 +100,8 @@ if(isset($_SESSION['email']) == true){
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
         }
-        include '../includes/modal.php'; //incluindo o modal para a página
     }
+    include '../includes/modal.php'; //incluindo o modal para a página
     ?>
 </body>
 </html>

@@ -54,20 +54,26 @@ if(isset($_SESSION['email']) == true){
                         header('Location: ./index.php?msg=error_information');
                     }
 
-                    // Verificando se o conteúdo dentro da variável é maior que 0
-                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
-                        $name = $linha['animal_name'];
-                        $description =$linha['animal_description'];
-                        $animal =$linha['animal_type'];
-                        $idade = $linha['animal_age'];
-                        $sexo = $linha['animal_gender'];
-                        $data_chegada = $linha['animal_ong_since'];
-                        $img = $linha['animal_photo'];
-                        $raca = $linha['animal_race'];
-                        $peso = $linha['animal_weight'];
-                        $categoria = $linha['animal_category'];
-                        $situacao = $linha['adoption_situation'];
-                    }    
+                    //verficando se houve resultado para na query
+                    $rows = $sql->rowCount();
+
+                    if($rows >= 1){ // se existe algum resultado, irá pegar os dados 
+                        while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+                            $name = $linha['animal_name'];
+                            $description =$linha['animal_description'];
+                            $animal =$linha['animal_type'];
+                            $idade = $linha['animal_age'];
+                            $sexo = $linha['animal_gender'];
+                            $data_chegada = $linha['animal_ong_since'];
+                            $img = $linha['animal_photo'];
+                            $raca = $linha['animal_race'];
+                            $peso = $linha['animal_weight'];
+                            $categoria = $linha['animal_category'];
+                            $situacao = $linha['adoption_situation'];
+                        }
+                    } else{//Se não tiver resultados, irá aparecer um modal de error para o usuário
+                        header('Location: adocoes.php?msg=error_information');
+                    } 
                 ?>
                 <form action="controller/updateAdocao.php" method="POST" enctype="multipart/form-data" runat="server" novalidate> 
                     <div class="form-group mb-4">
@@ -132,7 +138,7 @@ if(isset($_SESSION['email']) == true){
 
                         <div class="col-md-4 mb-3">
                             <label for="animal_age" class="text-md"><h4>Idade:</h4></label>
-                            <input type="text" class="form-control" name="animal_age" id="animal_age" value='<?php echo $idade; ?>' autocomplete="off" maxlength="30" required>
+                            <input type="text" class="form-control" name="animal_age" id="animal_age" value='<?php echo $idade; ?>' autocomplete="off" maxlength="30">
                             <small>Não obrigatório</small>
                         </div>
 

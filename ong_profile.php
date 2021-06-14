@@ -34,7 +34,7 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
         $facebook = $linha['ong_facebook_url'];
         $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
     }
-} else {
+} else{ //se não existir resultados na query, irá redirecionar com um erro
     header('Location: ongs.php?msg=error_information');
 } 
 
@@ -51,6 +51,7 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
 
     <!--ico-->
     <link rel="shortcut icon" type="image" href="./imgs/CF.ico">
+    <link rel="stylesheet" href="dashboard/plugins/fontawesome/css/all.min.css">
 
     <!--Css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -128,7 +129,17 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
 
     <div class="adocao container p-2 w-100 h-80 justify-content-center">
         <h1>Animais para adoação nesta ONG</h1>
+        <?php 
+            //encontre o número total de resultados armazenados no banco de dados  
+            $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE ong_id = $id;");
+            $sql->execute();
+            $resultRows = $sql->rowCount();
 
+            //verificando se não está vazio
+            if($resultRows == 0){
+                echo "<h4 class='text-center'>Nenhum animal para adoção nesta ONG!</h2>";
+            }
+        ?>
         <div class="animals">
             <?php
             //definir o número total de resultados que você deseja por página
@@ -137,6 +148,7 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
             //encontre o número total de resultados armazenados no banco de dados  
             $query = $mysql->prepare("SELECT * FROM animal_adoption WHERE ong_id = $id;");
             $query->execute();
+
             $number_of_result = $query->rowCount();
             //determinar o número total de páginas disponíveis
             $number_of_page = ceil($number_of_result / $results_per_page);
@@ -155,7 +167,6 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
             $dados->execute();
 
             //exibir o resultado recuperado na página da web 
-            //while ($row = mysqli_fetch_array($result))
             while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
                 echo "<div class='animal justify-content-center bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                     <span>" . $linha['animal_name'] . "</span>
@@ -166,21 +177,7 @@ if($rows >= 1){ // se existe algum resultado, irá pegar os dados
                     <br><br>
                 </div>";
             }
-            /*
-            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption WHERE ong_id = $id;");
-            $dados->execute();
-
-            while ($linha = $dados->fetch(PDO::FETCH_BOTH)) {
-                echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                            <span>$linha[0]</span>
-                            <p>$linha[1]</p>
-                            <img src='imgs/$linha[2]' alt='Imagem de um cachorro'>
-                            <br><br>
-                            <a href='animal_profile.php?id=$linha[3]' class='btn btn-outline-dark'>Visualizar informações</a>
-                            <br><br>
-                        </div>";
-            }*/
-                ?>
+            ?>
             </div>
             <br>
             <div class="d-flex justify-content-center">

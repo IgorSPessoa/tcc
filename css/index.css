@@ -44,7 +44,7 @@ h1,h2,h3{
 /*-------------------------*/
 
 /*Campanha*/
-th { grid-area: header;}
+.titulo { grid-area: header;}
 .img-campanha{ grid-area: menu; }
 .texto-campanha { grid-area: main; }
  
