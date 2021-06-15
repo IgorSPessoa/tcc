@@ -145,7 +145,7 @@ if(isset($_SESSION['email']) == true){
                                     include '../connect.php';
 
                                     //Pegando conteúdo do banco de dados e colocando na variavel
-                                    $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT (report_situation = 'rescued' OR report_situation = 'not_found') LIMIT 8;");
+                                    $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT (report_situation = 'rescued' OR report_situation = 'not_found') AND ong_id = $idOng LIMIT 8;");
                                     $sql->execute();
                                     //contando retorno do banco de dados
                                     $count = $sql->rowCount();
@@ -188,7 +188,7 @@ if(isset($_SESSION['email']) == true){
                                     }else{
                                         echo '<tr>'; 
                                         echo '<td></td>';
-                                        echo'<td>Nenhum Reporte disponível !!</td>';
+                                        echo'<td>Nenhum Reporte disponível!</td>';
                                         echo '<td></td>';
                                         echo '</tr>'; 
                                     }
@@ -242,7 +242,7 @@ if(isset($_SESSION['email']) == true){
                                     }else{
                                         echo '<tr>'; 
                                         echo '<td></td>';
-                                        echo'<td>Nenhum animal para adoção!!</td>';
+                                        echo'<td>Nenhum animal para adoção!</td>';
                                         echo '<td></td>';
                                         echo '</tr>'; 
                                     }

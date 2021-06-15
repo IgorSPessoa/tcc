@@ -59,10 +59,10 @@
             echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-check-circle\"></i> Sucesso', 'Report desvinculado a ONG " . $nameOng ." com êxito!');</script>";
 
         } elseif($result == "sucess_updateAdoption"){
-            echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-check-circle\"></i> Atualização', 'Adoção alterada com sucesso!');</script>";
+            echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-check-circle\"></i> Atualização', 'A Adoção foi alterada com êxito!');</script>";
 
         } elseif($result == "sucess_updateReport"){
-            echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-check-circle\"></i> Atualização', 'Report alterada com sucesso!');</script>";
+            echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-check-circle\"></i> Atualização', 'O report foi atualizado com êxito!');</script>";
             
         //INVALID
         } elseif($result == "invalid_login"){

@@ -9,6 +9,7 @@
 
     <!--ico-->
     <link rel="shortcut icon" type="image" href="./imgs/CF.ico">
+    <link rel="stylesheet" href="dashboard/plugins/fontawesome/css/all.min.css">
 
     <!--Css-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -63,62 +64,25 @@
             $dataconta_user = $linha['created_at'];
         }
         echo "
-        <div class='d-flex justify-content-center'>
-            <img src='./imgsUpdate/$img_user' class='perfilimg rounded-circle' alt='foto'>
-        </div>
         </br>
         <div class='d-flex justify-content-center'>
             <div class='infoUser bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
+                <div class='d-flex justify-content-center p-1'>
+                    <img src='./imgsUpdate/$img_user' class='perfilimg rounded-circle' alt='foto'>
+                </div>
+                <hr />
                 <div class='User'>
                     <h2> $name</h2>
                 </div>";
         echo "<h3>Informações</h3>
-                    <p>Email: $email</p>
-                    <p>Telefone: $phone_user</p>
+                    <p class='mb-0'>Email: $email</p>
+                    <p class='mb-0'>Telefone: $phone_user</p>
                     <p>Cep: $cep_user</p>
                     <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
 
         ?>
-        <!--inicio modal que faz atualização de informações-->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form action="controller/emulator_user_update.php" method="post">
-                            <div class="form-group">
-                                <label for="phone">Celular:</label>
-                                <input type="text" class="form-control" id="phone" name="phone" maxlength="13" value="<?php echo $phone_user; ?>" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="senha">Senha:</label>
-                                <input type="password" class="form-control" id="senha" name="senha" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="ConfirmPwd">Confirmar Senha:</label>
-                                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="CEP">CEP:</label>
-                                <input type="text" class="form-control" id="cep" name="cep" maxlength="9" value="<?php echo $cep_user; ?>" required>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                                <input class="btn btn-success" type="submit" value="Atualizar">
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
         </div>
         </div>
-        </div>
-        <!--fim modal-->
 
 
         <div class="d-flex justify-content-center">
@@ -135,6 +99,7 @@
                             <th scope='col'>Data reporte</th>
                             <th scope='col'>Animal</th>
                             <th scope='col'>Localização</th>
+                            <th scope='col'>Ação</th>
                             </tr>
                         </thead>";
 
@@ -185,7 +150,7 @@
                 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                     $id = $linha['id'];
                     $author_id = $linha['author_id'];
-                    $animal = ucfirst($linha['animal_type']);
+                    $animal = $linha['animal_type'];
                     $description = $linha['animal_description'];
                     $imgAnimal = $linha['animal_photo'];
                     $dataReporte = $linha['report_created_data'];
@@ -200,7 +165,7 @@
                     } else if ($animal == "cat") {
                         $animal = "Gato";
                     } else if ($animal == "others") {
-                        $animal  = "Outro";
+                        $animal  = "Outros";
                     }
 
                     //se tiver reportes ira montar tabela que exibe os reportes do usuario.
@@ -209,8 +174,9 @@
                           <tr>
                             <td> $dataReporte </td>
                             <td> $animal </td>
-                            <td> $linha[location_district], $linha[location_state] <a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>
-                          </tr>";
+                            <td> $linha[location_address], $linha[location_district], $linha[location_state]</td>
+                            <td><a class='btn btn-success' data-toggle='modal' data-target='#Modal$id' onclick='loadmap(\"$location\",$idmap);'>Visualizar</a></td>
+                            </tr>";
 
                         //modal de cada reporte, toda estrutura.
                         echo "
@@ -352,6 +318,58 @@
                 <!--fim de exibição do sistema de paginação-->
             </div>
         </div>
+
+        <!--inicio modal que faz atualização de informações-->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Atualizar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="controller/emulator_user_update.php" method="post">
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="text" class="form-control" id="email" name="email" value="<?php echo $email; ?>" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Celular:</label>
+                                <input type="text" class="form-control" id="phone" name="phone" maxlength="13" value="<?php echo $phone_user; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="CEP">CEP:</label>
+                                <input type="text" class="form-control" id="cep" name="cep" maxlength="9" value="<?php echo $cep_user; ?>" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="senha">Senha:</label>
+                                <input type="password" class="form-control" id="senha" name="senha" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ConfirmPwd">Confirmar Senha:</label>
+                                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                            </div>
+                            <div class="form-group">
+                                <h4>Foto do usuário:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
+                                <img src="<?php echo "../imgsUpdate/$img"; ?>" id="userView">
+                                <div class="mb-2">
+                                    <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg" required />
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                <input class="btn btn-success" type="submit" value="Atualizar">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--fim modal-->
+        
         </br>
     </main>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>

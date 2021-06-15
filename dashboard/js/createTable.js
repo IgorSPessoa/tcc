@@ -106,7 +106,7 @@ function BuildTableScd(data){
             {title: "Distância"},
             {title: "Ação"}
         ], 
-        "columnDefs": [ //botão para conseguir visualizar o report melhor
+        "columnDefs": [ //botão para conseguir visualizar o report melhor           
             {
                 "targets": -1,
                 "data": null,

@@ -87,7 +87,7 @@
 
             </div>
             <div class="row">
-                <div class="col-md-6 container_images">
+                <div class="col-md-6">
                     <label for="arquivoAnimal">Foto do animal:</label>
                     <a id="imgInput" onclick="click_the_button(foto_animal);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a><br />
                     <?php if(isset($_SESSION['email']) == true){
@@ -203,9 +203,9 @@
             </div>
 
             <div class="row">
-                <div class="col-md-6 container_images">
+                <div class="col-md-6">
                     <label for="arquivoAdress">Foto de um ponto de referência:</label>
-                    <a id="imgInput" onclick="click_the_button(foto_address);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a>
+                    <a id="imgInput" onclick="click_the_button(foto_address);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a><br />
                     <?php if(isset($_SESSION['email']) == true){
                                 echo ' <img src="imgs/preview.jpg" id="addressPreview" />';
                                 } else {
@@ -223,6 +223,7 @@
                     </div>
                 </div>
             </div>
+            
             <?php 
                 if(isset($_SESSION['email']) == true){
                     echo '<input class="btn btn-primary mb-3 w-100" type="submit" value="Reportar">';

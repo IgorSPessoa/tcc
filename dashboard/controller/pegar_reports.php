@@ -67,11 +67,13 @@ if($tipo == "all"){
         $distance_data = file_get_contents(
             'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&region=br&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
         );
-        
+        //transformando o objeto resultante em JSON
         $distance_arr = json_decode($distance_data);
-
+    
+        //Pegando os status do resultado da distância
         $validation = $distance_arr->rows[0]->elements[0]->status;
 
+        //validando os status
         if($validation != "OK"){
             //traduzindo os status da mensagem
             if($validation == "NOT_FOUND"){
@@ -98,7 +100,7 @@ if($tipo == "all"){
         } else {
             //localizando a distâancia
             $distancia = $distance_arr->rows[0]->elements[0]->distance->text;
-  
+
             //definindo o report
             $report = [];
 
@@ -139,19 +141,6 @@ if($tipo == "all"){
         $destinations = $linha['location_cep'];
         $tipo = $linha[4];
 
-        // Localização
-        $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-
-        //url da api retornando um json em uma variavel
-        $distanceData = file_get_contents(
-            'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
-        );
-
-        $distance_arr = json_decode($distanceData);
-
-        //localizando a distâancia
-        $distancia = $distance_arr->rows[0]->elements[0]->distance->text;
-
         //traduzindo os dados
         if($tipo == "dog"){
             $tipo = "Cachorro";
@@ -160,17 +149,62 @@ if($tipo == "all"){
         } elseif( $tipo == "others"){
             $tipo = "Outros";
         }
-        //definindo o report
-        $report = [];
 
-        //inputando o resultado dentro do array
-        $report[] = $linha[0];
-        $report[] = $tipo;
-        $report[] = $linha[5];
-        $report[] = $localizacao;
-        $report[] = $distancia;
+        // Localização
+        $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 
-        $reports[] = $report;
+        //url da api retornando um json em uma variavel
+        $distanceData = file_get_contents(
+            'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&region=br&&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
+        );
+
+        //transformando o objeto resultante em JSON
+        $distance_arr = json_decode($distanceData);
+
+        //Pegando os status do resultado da distância
+        $validation = $distance_arr->rows[0]->elements[0]->status;
+
+        //validando os status
+        if($validation != "OK"){
+            //traduzindo os status da mensagem
+            if($validation == "NOT_FOUND"){
+                $validation = "Não encontrado";
+            } elseif($validation == "ZERO_RESULTS"){
+                $validation = "Zero resultado";
+            } elseif($validation == "MAX_ROUTE_LENGTH_EXCEEDED"){
+                $validation = "Rota excedida";
+            }
+             //localizando a distâancia
+             $distancia = $validation;
+  
+             //definindo o report
+             $report = [];
+ 
+             //inputando o resultado dentro do array
+             $report[] = $linha[0];
+             $report[] = $tipo;
+             $report[] = $linha[5];
+             $report[] = $localizacao;
+             $report[] = $distancia;
+ 
+             $reports[] = $report;
+        } else {
+
+            //localizando a distâancia e validando a kilometragem
+            $distancia = $distance_arr->rows[0]->elements[0]->distance->text;
+            
+            //definindo o report
+            $report = [];
+
+            //inputando o resultado dentro do array
+            $report[] = $linha[0];
+            $report[] = $tipo;
+            $report[] = $linha[5];
+            $report[] = $localizacao;
+            $report[] = $distancia;
+
+            $reports[] = $report;
+        }
     }
 }
 //Converte o conteúdo para ser lido como um json

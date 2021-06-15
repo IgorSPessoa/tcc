@@ -50,7 +50,7 @@
                 <input type="text" class="form-control" id="phone" name="phone" maxlength="45" required>
 
                 <label for="CEP">CEP:</label>
-                <input type="text" class="form-control" id="cep" name="cep" required>
+                <input type="text" class="form-control" id="cep" name="cep" onblur="pesquisacep(this.value);" required>
 
                 <label for="email">E-mail:</label>
                 <input type="text" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" maxlength="500" required>
@@ -81,16 +81,18 @@
     <script src="js/criar_conta.js"></script>
     <script src="js/global.js"></script>
     <?php
-    //colocando o footer na página
-    require_once("includes/footer.php");
+        //colocando o footer na página
+        require_once("includes/footer.php");
 
-   //verificando se existe uma mensagem na URL da página
-   if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
-        $msg = $_GET['msg'];// Colocando a mensagem em uma variável
-        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+        //verificando se existe uma mensagem na URL da página
+        if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+                $msg = $_GET['msg'];// Colocando a mensagem em uma variável
+                $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
-        include 'includes/modal.php'; //incluindo o modal para a página
-    }
+            }
+
+        // Precisa ficar aqui embaixo para verificar o cookie
+        include 'includes/modal.php';
     ?>
 </body>
 

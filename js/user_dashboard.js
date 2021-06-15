@@ -27,3 +27,18 @@ function loadmap(address, idmap) {
             //CreateModal('erro', 'Houve algum problema em localizar o local desejado, tente novamente');
         });
 }
+
+//Função para interação com a icon de upload
+function click_the_button(botao){
+    botao.click();
+}
+
+//variavel para mostra a prévia da imagem quando for upada
+var loadFile = function(event) {
+    var reader = new FileReader();
+    reader.onload = function(){
+      var output = document.getElementById('userView');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+};
