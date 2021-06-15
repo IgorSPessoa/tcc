@@ -44,12 +44,12 @@ hr{
 .inputButton{
     cursor: pointer;
 }
-
+.perfilimg{
+    max-width:200px ;
+    max-height:200px ;
+}
 @media only screen and (max-width: 640px) {
-    .perfilimg{
-        max-width:200px ;
-        max-height:200px ;
-    }
+    
     .reportes{
         width: 95%;
     }

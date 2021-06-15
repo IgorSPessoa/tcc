@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="css/Animal_Profile.css">
 
 
-    <title>Adoção-Perfil</title>
+    <title>Adoção</title>
 
 </head>
 
@@ -74,7 +74,22 @@
             $animal_gender = $linha['animal_gender'];
             $animal_race = $linha['animal_race'];
             $animal_category = $linha['animal_category'];
-    
+            
+            //traduzindo os campos
+            if($animal_gender === "male"){
+                $animal_gender = "Masculino";
+            } elseif($animal_gender === "female"){
+                $animal_gender = "Feminino";
+            }
+
+            if($animal_category === "small"){
+                $animal_category = "Pequeno";
+            } elseif($animal_category === "average"){
+                $animal_category = "Médio";
+            } elseif($animal_category === "big"){
+                $animal_category = "Grande";
+            }
+
             //informações de contato com a ong
             $animal_ong_since = $linha['animal_ong_since'];
             $ong_business_hours = $linha['ong_business_hours'];

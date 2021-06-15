@@ -67,7 +67,7 @@
                     </div>   
 
                     <label for="ong_description">Descrição da ONG:</label>
-                    <input type="text" class="form-control" id="ong_description" name="ong_description" maxlength="300" required>
+                    <textarea class="form-control" id="ong_description" name="ong_description" rows="3" maxlength="300" required></textarea>
 
                     <div class="row">
                         <div class="col-md-6">

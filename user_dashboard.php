@@ -68,7 +68,7 @@
         <div class='d-flex justify-content-center'>
             <div class='infoUser bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
                 <div class='d-flex justify-content-center p-1'>
-                    <img src='./imgsUpdate/$img_user' class='perfilimg rounded-circle' alt='foto'>
+                    <img src='./imgsUpdate/$img_user' class='perfilimg' alt='foto'>
                 </div>
                 <hr />
                 <div class='User'>
@@ -78,7 +78,7 @@
                     <p class='mb-0'>Email: $email</p>
                     <p class='mb-0'>Telefone: $phone_user</p>
                     <p>Cep: $cep_user</p>
-                    <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
+                    <button type='button' class='btn btn-info' data-toggle='modal' data-target='#exampleModal'>Atualizar</button>";
 
         ?>
         </div>
@@ -330,7 +330,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="controller/emulator_user_update.php" method="post">
+                        <form action="controller/emulator_user_update.php" enctype="multipart/form-data" runat="server" method="post">
                             <div class="form-group">
                                 <label for="email">Email:</label>
                                 <input type="text" class="form-control" id="email" name="email" value="<?php echo $email; ?>" readonly>
@@ -345,17 +345,17 @@
                             </div>
                             <div class="form-group">
                                 <label for="senha">Senha:</label>
-                                <input type="password" class="form-control" id="senha" name="senha" required>
+                                <input type="password" class="form-control" id="senha" name="senha">
                             </div>
                             <div class="form-group">
                                 <label for="ConfirmPwd">Confirmar Senha:</label>
-                                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd" required>
+                                <input type="password" class="form-control" id="ConfirmPwd" name="ConfirmPwd">
                             </div>
                             <div class="form-group">
                                 <h4>Foto do usuário:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
-                                <img src="<?php echo "../imgsUpdate/$img"; ?>" id="userView">
+                                <img src="<?php echo "imgsUpdate/$img_user"; ?>" id="userView">
                                 <div class="mb-2">
-                                    <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg" required />
+                                    <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg"/>
                                 </div>
                             </div>
 
@@ -396,7 +396,11 @@
 
         $name = $_SESSION['name']; // Colocando o nome do usúario em uma variavel 
         $_COOKIE['nome'] = $name; // Pegando a variavel e enviando para outro script via SESSION 
-
+        
+        if ($msg == "invalid_size_animal") { //verficiando se a msg deu como tamanho da imagem do animal invalida 
+            $tamanho = $_GET['size'];
+            $_COOKIE['size'] = $tamanho;
+        }
         include 'includes/modal.php'; //incluindo o modal para a página
     }
     //incluindo o footer na página
