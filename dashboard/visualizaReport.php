@@ -76,7 +76,7 @@ if (isset($_SESSION['email']) == true) {
                 $count = $sql->rowCount();
                 //testando se o banco obtem da informação requisitada
                 if ($count < 1) {
-                    header('Location: ./index.php?msg=error_information');
+                    header('Location: ./reports.php?msg=error_information');
                 }
                 //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
                 while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) { //Caso ele não esteja, será impresso linha por linha do contéudo
@@ -96,24 +96,7 @@ if (isset($_SESSION['email']) == true) {
                     $imagemReport = $linha['report_img'];
                     $comments = $linha['report_comments'];
                 }
-                //pegando o id da ong 
-                $idOng  = $_SESSION['id'];
 
-                    $idOngReport = $linha['ong_id'];
-                    $author = $linha['name'];
-                    $phone = $linha['phone'];
-                    $animal = ucfirst($linha['animal_type']);
-                    $description = $linha['animal_description'];
-                    $cep = $linha['location_cep'];
-                    $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
-                    $pointOfReference = $linha['location_observation'];
-                    $imgAnimal = $linha['animal_photo'];
-                    $imgLocation = $linha['location_photo'];
-                    $data_aceite = $linha['report_date_accepted'];
-                    $situaReport = $linha['report_situation'];
-                    $imagemReport = $linha['report_img'];
-                    $comments = $linha['report_comments'];
-                }
                 //pegando o id da ong 
                 $idOng  = $_SESSION['id'];
                 ?>
@@ -214,7 +197,7 @@ if (isset($_SESSION['email']) == true) {
                 //  <li><a href='#' " . ($situaReport == 'rescued' ? "class='active'" : "") . ">Resgatado</a></li>
                 //  </ul>
                 if ($idOngReport != 0 && $idOng == $idOngReport) {
-                    if ($situaReport != 'rescued') {
+                    if ($situaReport != 'rescued' && $situaReport != 'not_found') {
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
                             <br><br>
@@ -243,11 +226,11 @@ if (isset($_SESSION['email']) == true) {
                                 <div class='col-sm'>
                                     <div class='form-group'>
                                         <label for='reason'>Situação</label>
-                                        <select class='form-control' id='reason' name='reason' required>
-                                            <option value='waiting' " . ($situaReport == 'waiting' ? "selected" : "") . ">Aguardando</option>
-                                            <option value='scheduled' " . ($situaReport == 'scheduled' ? "selected" : "") . ">Agendado</option>
-                                            <option value='not_found' " . ($situaReport == 'not_found' ? "selected" : "") . ">Não localizado</option>
-                                            <option value='rescued' " . ($situaReport == 'rescued' ? "selected" : "") . ">Resgatado</option>
+                                        <select id='reason' class='form-control' name='reason' required>
+                                            <option value='waiting'" . ($situaReport == 'waiting' ? "selected" : "") . ">Aguardando</option>
+                                            <option value='scheduled'" . ($situaReport == 'scheduled' ? "selected" : "") . ">Agendado</option>
+                                            <option value='not_found'" . ($situaReport == 'not_found' ? "selected" : "") . ">Não localizado</option>
+                                            <option value='rescued'" . ($situaReport == 'rescued' ? "selected" : "") . ">Resgatado</option>
                                         </select>
                                     </div>
                                 </div>    
@@ -267,7 +250,8 @@ if (isset($_SESSION['email']) == true) {
                                     <p>Imagem de resgate <a onclick='clickInput(`animal_upload`)' class='inputButton'><i class='fas fa-cogs'></i></a></p>
                                     <img src='../imgsUpdate/$imagemReport' class='img-thumbnail' id='logo_upload'>
                                     <div class='custom-file'>
-                                        <input type='file' name='arquivo' id='animal_upload' onchange='loadFile(event)' accept='image/png, image/jpeg' required/>
+                                        <input type='file' name='arquivo' id='animal_upload' onchange='loadFile(event)' accept='image/png, image/jpeg'/>
+                                        <p style='display: none' id='mensagem' class='text-danger'>A imagem não foi upada</p>
                                     </div>
                                 </div> 
                             </div>
@@ -319,7 +303,7 @@ if (isset($_SESSION['email']) == true) {
                                     </div>
                                 </div>    
                             </div>
-
+                            
                             <div class='row'>
                                 <div class='col-sm'>
                                     <div class='form-group'>
@@ -368,8 +352,21 @@ if (isset($_SESSION['email']) == true) {
     <script type="text/javascript">
         var address = "<?= $location ?>";
     </script>
+    <script type='text/javascript'>
+        $('#reason').change(function() {
+            var valor = ($(this).val());
+            if (valor == 'rescued') {
+                document.getElementById("mensagem").style.display = "block";
+                $("#animal_upload").prop('required', true);
+            } else {
+                document.getElementById("mensagem").style.display = "none";
+                $("#animal_upload").prop('required', false);
+            }
+        });
+    </script>
     <script src="js/visualizaReport.js"></script>
     <?php
+
     //verificando se existe uma mensagem na URL da página
     if (isset($_GET['msg'])) { //Se existe ele cairá neste if, se não, continuará a operação normalmente
 
