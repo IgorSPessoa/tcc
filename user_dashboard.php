@@ -348,7 +348,7 @@
     <script type="text/javascript">
         var chave = "<?= $chave ?>";
     </script>
-    <script src="js/user_dashboard.js"></script>"
+    <script src="js/user_dashboard.js"></script>
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/global.js"></script>
 
