@@ -14,7 +14,7 @@ class Ong{
     public $ong_img;
     public $ong_rescue_count;
     public $ong_adoptions_count;
-    public $ong_likes;
+    public $ong_view;
     public $location_cep;
     public $location_address;
     public $location_number;
@@ -44,8 +44,7 @@ class Ong{
                             a.location_district,
                             a.location_state,
                             (SELECT count(report_situation) FROM animal_report ar WHERE ar.report_situation = 'rescued' AND ar.ong_id = o.id) as ong_rescue_count, 
-                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count,
-                            (SELECT '0') as ong_likes
+                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count
                                 FROM ong o
                                     INNER JOIN address a ON (o.address_id = a.id)
                                 WHERE o.id = :id";
@@ -79,7 +78,7 @@ class Ong{
         $this->location_state = $row['location_state'];
         $this->ong_rescue_count = $row['ong_rescue_count'];
         $this->ong_adoptions_count = $row['ong_adoptions_count'];
-        $this->ong_likes = $row['ong_likes'];
+        $this->ong_view = $row['ong_view'];
         
         return True;        
     }
@@ -102,9 +101,7 @@ class Ong{
                             a.location_district,
                             a.location_state,
                             (SELECT count(report_situation) FROM animal_report ar WHERE ar.report_situation = 'rescued' AND ar.ong_id = o.id) as ong_rescue_count, 
-                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count,
-                            (SELECT '0') as ong_likes
-                                FROM ong o
+                            (SELECT count(adoption_situation) FROM animal_adoption ad WHERE ad.adoption_situation = 'adopted' AND ad.ong_id = o.id) as ong_adoptions_count                                FROM ong o
                                     INNER JOIN address a ON (o.address_id = a.id);";
 
         // Preparando a query

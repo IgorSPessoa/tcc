@@ -24,7 +24,7 @@ if(isset($_GET['id'])){
     die(json_encode(array("message" => "missing_required_data")));
 }
 
-// Carrega o registro
+// Carrega o registro 
 $report->LoadById($id); 
  
 if($report->id != null){
@@ -41,8 +41,10 @@ if($report->id != null){
         "location_district" => $report->location_district,
         "location_state" => $report->location_state,
         "location_photo" => $report->location_photo,
+        "location_number" => $report->location_number,
         "location_observation" => $report->location_observation,
         "report_situation" => $report->report_situation,
+        "report_created_data" => $report->report_created_data,
         "report_date_accepted" => $report->report_date_accepted,
         "report_img" => $report->report_img
     );

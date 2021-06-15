@@ -11,6 +11,7 @@ class Report extends Address{
     public $animal_description;
     public $animal_situation;
     public $animal_photo;
+    public $report_created_data;
     public $location_cep;
     public $location_address;
     public $location_number;
@@ -34,7 +35,7 @@ class Report extends Address{
                             ar.animal_type, 
                             ar.animal_description, 
                             ar.animal_situation, 
-                            ar.animal_photo, 
+                            ar.animal_photo,                            
                             a.location_cep, 
                             a.location_address, 
                             a.location_number, 
@@ -42,6 +43,7 @@ class Report extends Address{
                             a.location_state, 
                             a.location_photo, 
                             a.location_observation, 
+                            ar.report_created_data,
                             ar.report_situation,
                             ar.report_date_accepted,
                             ar.report_img
@@ -75,6 +77,7 @@ class Report extends Address{
         $this->location_state = $row['location_state'];
         $this->location_photo = $row['location_photo'];
         $this->location_observation = $row['location_observation'];
+        $this->report_created_data = $row['report_created_data'];
         $this->report_situation = $row['report_situation'];
         $this->report_date_accepted = $row['report_date_accepted'];
         $this->report_img = $row['report_img'];
@@ -90,7 +93,7 @@ class Report extends Address{
                     ar.animal_type, 
                     ar.animal_description, 
                     ar.animal_situation, 
-                    ar.animal_photo, 
+                    ar.animal_photo,                     
                     a.location_cep, 
                     a.location_address, 
                     a.location_number, 
@@ -98,6 +101,7 @@ class Report extends Address{
                     a.location_state, 
                     a.location_photo, 
                     a.location_observation, 
+                    ar.report_created_data,
                     ar.report_date_accepted,
                     ar.report_situation,
                     ar.report_date_accepted,

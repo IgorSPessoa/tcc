@@ -46,7 +46,7 @@ if($ong->ong_id != null){
         "location_state" => $ong->location_state,
         "ong_rescue_count" => $ong->ong_rescue_count,
         "ong_adoptions_count" => $ong->ong_adoptions_count,
-        "ong_likes" => $ong->ong_likes
+        "ong_view" => $ong->ong_view
     );
 
     // Define código de resposta como: 200 Ok

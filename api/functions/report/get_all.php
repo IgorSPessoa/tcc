@@ -17,7 +17,7 @@ $report = new Report($db);
 
 // Verifica e armazena campos
 if(isset($_GET['id'])){
-    $id = $_GET['id'];
+    $id = $_GET['id']; 
 }else{
     // Define código de resposta como: 400 Bad Request
     http_response_code(400);     
