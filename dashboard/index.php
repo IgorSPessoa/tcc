@@ -147,41 +147,51 @@ if(isset($_SESSION['email']) == true){
                                     //Pegando conteúdo do banco de dados e colocando na variavel
                                     $sql = $mysql->prepare("SELECT id, animal_type, report_situation FROM animal_report WHERE NOT (report_situation = 'rescued' OR report_situation = 'not_found') LIMIT 8;");
                                     $sql->execute();
+                                    //contando retorno do banco de dados
+                                    $count = $sql->rowCount();
+                                    //testando se teve arquivos retornados do banco de dados se sim mostra os resultados
+                                    if($count>=1){
+                                        //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
+                                        while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo  
+                                            //Colocando o resultado da linha em uma variavel
+                                            $situacao = $linha['report_situation'];
+                                            $animal = $linha['animal_type'];
 
-                                    //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
-                                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo  
-                                        //Colocando o resultado da linha em uma variavel
-                                        $situacao = $linha['report_situation'];
-                                        $animal = $linha['animal_type'];
+                                            //mudando a variavel para português
+                                            if($situacao == "pending"){
+                                                $situacao = "pendente";
+                                            }else if($situacao == "waiting"){
+                                                $situacao = "aguardando";
+                                            }else if($situacao == "scheduled"){
+                                                $situacao = "agendado";
+                                            }else if($situacao == "not_found"){
+                                                $situacao = "Não localizado";
+                                            }else if($situacao == "rescued"){
+                                                $situacao = "resgatado";
+                                            }
 
-                                        //mudando a variavel para português
-                                        if($situacao == "pending"){
-                                            $situacao = "pendente";
-                                        }else if($situacao == "waiting"){
-                                            $situacao = "aguardando";
-                                        }else if($situacao == "scheduled"){
-                                            $situacao = "agendado";
-                                        }else if($situacao == "not_found"){
-                                            $situacao = "Não localizado";
-                                        }else if($situacao == "rescued"){
-                                            $situacao = "resgatado";
-                                        }
+                                            //mudando a variavel para português
+                                            if($animal == "dog"){
+                                                $animal = "Cachorro";
+                                            }else if($animal == "cat"){
+                                                $animal = "Gato";
+                                            }else if($animal == "others"){
+                                                $animal  = "Outro";
+                                            }
 
-                                        //mudando a variavel para português
-                                        if($animal == "dog"){
-                                            $animal = "Cachorro";
-                                        }else if($animal == "cat"){
-                                            $animal = "Gato";
-                                        }else if($animal == "others"){
-                                            $animal  = "Outro";
-                                        }
-
+                                            echo '<tr>'; 
+                                                echo '<td>' .  $animal . '</td>';
+                                                echo '<td>' .  $situacao . '</td>';
+                                                echo '<td><a href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
+                                            echo '</tr>'; 
+                                        }//se não, imprime a informação de que não tem reportes
+                                    }else{
                                         echo '<tr>'; 
-                                            echo '<td>' .  $animal . '</td>';
-                                            echo '<td>' .  $situacao . '</td>';
-                                            echo '<td><a href="visualizaReport.php?id=' . $linha['id'] . '" >Visualizar</a></td>';
+                                        echo '<td></td>';
+                                        echo'<td>Nenhum Reporte disponível !!</td>';
+                                        echo '<td></td>';
                                         echo '</tr>'; 
-                                    }    
+                                    }
                                 ?>
                             </table>
                         </div>
@@ -205,27 +215,37 @@ if(isset($_SESSION['email']) == true){
                                     // Pegando conteúdo do banco de dados e colocando na variavel
                                     $sql = $mysql->prepare("SELECT * FROM animal_adoption WHERE NOT adoption_situation = 'adopted' AND ong_id = $idOng LIMIT 8;");
                                     $sql->execute();
-
+                                    //contando retorno do banco de dados
+                                    $count = $sql->rowCount();
+                                    //testando se teve arquivos retornados do banco de dados se sim mostra os resultados
+                                    if($count>=1){
                                     // Verificando se o conteúdo dentro da variável é maior que 0
-                                    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
-                                        //Colocando o resultado da linha em uma variavel
-                                        $situacao = $linha['adoption_situation'];
+                                        while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Caso ele não esteja, será impresso linha por linha do contéudo
+                                            //Colocando o resultado da linha em uma variavel
+                                            $situacao = $linha['adoption_situation'];
 
-                                        //mudando a variavel para português
-                                        if($situacao == "waiting"){
-                                            $situacao = "aguardando";
-                                        }else if($situacao == "scheduled"){
-                                            $situacao = "agendado";
-                                        }
+                                            //mudando a variavel para português
+                                            if($situacao == "waiting"){
+                                                $situacao = "aguardando";
+                                            }else if($situacao == "scheduled"){
+                                                $situacao = "agendado";
+                                            }
 
-                                        //colocando o id para conseguir acessar o visualizar
-                                        $id = $linha['id'];
+                                            //colocando o id para conseguir acessar o visualizar
+                                            $id = $linha['id'];
+                                            echo '<tr>'; 
+                                                echo '<td>' .  $linha['animal_name'] . '</td>';
+                                                echo '<td>' .  $situacao . '</td>';
+                                                echo '<td><a href="editarAdoacao.php?id=' . $id . '" >Vizualizar</a></td>';
+                                            echo '</tr>';
+                                        }//se não, imprime a informação de que não tem reportes
+                                    }else{
                                         echo '<tr>'; 
-                                            echo '<td>' .  $linha['animal_name'] . '</td>';
-                                            echo '<td>' .  $situacao . '</td>';
-                                            echo '<td><a href="editarAdoacao.php?id=' . $id . '" >Vizualizar</a></td>';
-                                        echo '</tr>';
-                                    }    
+                                        echo '<td></td>';
+                                        echo'<td>Nenhum animal para adoção!!</td>';
+                                        echo '<td></td>';
+                                        echo '</tr>'; 
+                                    }
                                 ?>
                             </table>
                         </div>
