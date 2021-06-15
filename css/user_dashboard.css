@@ -13,22 +13,26 @@ main > p{
     padding: 5px 20px;
     position:absolute;
 }
-.display {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
+.reportes{
+    width: 75%;
 }
-  
-.display td,th {
-    border-bottom: 2px solid #ddd;
-    padding: 2px;
-}
-.display th{
-    padding-top: 2px;
-    padding-bottom: 2px;
-    text-align: left;
+.infoUser{
+    width: 75%;
 }
 .perfilimg{
     max-width:300px ;
     max-height:300px ;
+}
+
+@media only screen and (max-width: 640px) {
+    .perfilimg{
+        max-width:200px ;
+        max-height:200px ;
+    }
+    .reportes{
+        width: 95%;
+    }
+    .infoUser{
+        width: 95%;
+    }
 }
