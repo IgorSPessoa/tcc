@@ -190,12 +190,6 @@ if (isset($_SESSION['email']) == true) {
                     </div>
                 </form>
                 <?php
-                // px-0 pt-4 pb-0 mt-3 mb-3
-                //  <ul class='progressbar'>
-                //  <li><a href='#' class='active'>Report Enviado</a></li>
-                //  <li><a href='#' class='active none-active'>Aceito por ONG</a></li>
-                //  <li><a href='#' " . ($situaReport == 'rescued' ? "class='active'" : "") . ">Resgatado</a></li>
-                //  </ul>
                 if ($idOngReport != 0 && $idOng == $idOngReport) {
                     if ($situaReport != 'rescued' && $situaReport != 'not_found') {
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
@@ -207,14 +201,12 @@ if (isset($_SESSION['email']) == true) {
                                 </div>
                             </div>
 
-                            <div class='row'>
-                                <div class='container'>
-                                    <ul class='progressbar'>
-                                    <li><a href='#' class='active'>Report Enviado</a></li>
-                                    <li><a href='#' class='active none-active'>Aceito por ONG</a></li>
-                                    <li><a href='#' " . ($situaReport == 'rescued' ? "class='active'" : "") . ">Resgatado</a></li>
-                                    </ul>
-                                </div>
+                            <div class='container-fluid'>
+                                <ul class='list-unstyled multi-steps'>
+                                    <li>Report enviado</li>
+                                    <li>Aceito pela ONG</li>
+                                    <li class='is-active'>Resgatado</li>
+                                </ul>
                             </div>
 
                             <div class='row'>
@@ -265,7 +257,7 @@ if (isset($_SESSION['email']) == true) {
                                     <a class='btn btn-dark w-100 mb-2' type='button' href='controller/desvincularReport.php?id=" . $id . "'>Abandonar</a>
                                 </div>
                             </div>";
-                    } else {
+                    } else{
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
                             <br><br>
@@ -275,14 +267,12 @@ if (isset($_SESSION['email']) == true) {
                                 </div>
                             </div>
 
-                            <div class='row'>
-                                <div class='container'>
-                                    <ul class='progressbar'>
-                                    <li><a href='#' class='active'>Report Enviado</a></li>
-                                    <li><a href='#' class='active none-active'>Aceito por ONG</a></li>
-                                    <li><a href='#' " . ($situaReport == 'rescued' ? "class='active'" : "") . ">Resgatado</a></li>
-                                    </ul>
-                                </div>
+                            <div class='container-fluid'>
+                                <ul class='list-unstyled multi-steps'>
+                                    <li>Report enviado</li>
+                                    <li>Aceito pela ONG</li>
+                                    <li>Resgatado</li>
+                                </ul>
                             </div>
 
                             <div class='row'>

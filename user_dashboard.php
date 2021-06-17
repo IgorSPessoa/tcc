@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="css/resetcss.css">
     <link rel="stylesheet" href="css/all.css">
     <link rel="stylesheet" href="css/user_dashboard.css">
-    <link rel="stylesheet" href="css/maps.css">
+    <script src='dashboard/plugins/jquery/jquery-3.6.0.min.js'></script>
 
     <title>Home User</title>
 </head>
@@ -62,6 +62,16 @@
             $phone_user = $linha['phone'];
             $cep_user = $linha['cep'];
             $dataconta_user = $linha['created_at'];
+
+            //formatando o celular
+            $phone_user = substr_replace($phone_user, '(', 0, 0);
+            $phone_user = substr_replace($phone_user, ')', 3, 0);
+            $phone_user = substr_replace($phone_user, ' ', 4, 0);
+            $phone_user = substr_replace($phone_user, '-', 10, 0);
+            
+            //formatando o cep
+            $cep_user =  substr_replace($cep_user, '-', 5, 0);
+
         }
         echo "
         </br>
@@ -83,12 +93,10 @@
         ?>
         </div>
         </div>
-
-
         <div class="d-flex justify-content-center">
             <div class="reportes bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
                 <h4 class="text-center">Todos seus reports</h4>
-
+            
                 <?php
                 // Cabeçario da tabela que exibe os reportes.
                 echo "
@@ -135,10 +143,13 @@
                 */
                 $result = $mysql->prepare("SELECT ar.id,
                                                           ar.author_id,
+                                                          ar.ong_id,
                                                           ar.animal_type,
                                                           ar.animal_description,
                                                           ar.animal_photo,
                                                           ar.report_created_data,
+                                                          ar.report_situation,
+                                                          ar.report_img,
                                                           a.location_cep,
                                                           a.location_address,
                                                           a.location_number,
@@ -149,11 +160,14 @@
                 $result->execute();
                 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
                     $id = $linha['id'];
+                    $ongId = $linha['ong_id'];
                     $author_id = $linha['author_id'];
                     $animal = $linha['animal_type'];
                     $description = $linha['animal_description'];
                     $imgAnimal = $linha['animal_photo'];
                     $dataReporte = $linha['report_created_data'];
+                    $reportSituation = $linha['report_situation'];
+                    $imgResgatado = $linha['report_img'];
                     $cep = $linha['location_cep'];
                     $location = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
                     $imgLocation = $linha['location_photo'];
@@ -162,11 +176,32 @@
                     //mudando a variavel para português
                     if ($animal == "dog") {
                         $animal = "Cachorro";
-                    } else if ($animal == "cat") {
+                    } elseif ($animal == "cat"){
                         $animal = "Gato";
-                    } else if ($animal == "others") {
+                    } elseif($animal == "others"){
                         $animal  = "Outros";
                     }
+
+                    //mudando a variavel para português
+                    if ($reportSituation == "pending") {
+                        $reportSituation = "Pedente";
+                    } elseif($reportSituation == "waiting"){
+                        $reportSituation = "Aguardando resposta da ONG";
+                    } elseif($reportSituation == "scheduled"){
+                        $reportSituation = "Agendado";
+                    } elseif($reportSituation == "not_found"){
+                        $reportSituation = "Não localizado";
+                    } elseif($reportSituation == "rescued"){
+                        $reportSituation = "Resgatado";
+                    }
+
+                    //linhas de comandos para serem verificadas no modal
+                    $expressaoOng = $ongId == null ? "class='is-active'" : "";
+                    $imageReport = $reportSituation == "Resgatado"  ? "<h4 class='m-0 text-center'>Foto animal Resgatado</h4> <img class='w-100 shadow border border-dark rounded ' src='./imgsUpdate/$imgResgatado'>" : "";
+                    $expressaoReport = $reportSituation == "Resgatado" || $reportSituation == "Não localizado" ? "" : "class='is-active'";
+                    $naoLocalizado =  $reportSituation == 'Não localizado' ? "class='text-center text-danger'" : "";
+                    $resgatado = $reportSituation == 'Resgatado' ? "class='text-center text-success'" : "";
+                    $others = $reportSituation != "Resgatado" || $reportSituation != "Não localizado" ? "class='text-center'" : "";
 
                     //se tiver reportes ira montar tabela que exibe os reportes do usuario.
                     if ($number_of_result >= 1) {
@@ -192,12 +227,21 @@
                                         <div class='modal-body'>
                                             <form>
                                                 <!-- divs para colocar o autor, telefone e o animal em linhas até 576px -->
+                                                <div class='container-fluid'>
+                                                    <ul class='list-unstyled multi-steps'>
+                                                        <li>Report Enviado</li>
+                                                        <li $expressaoOng>Aceito pela ONG</li>
+                                                        <li $expressaoReport>Resgatado</li>
+                                                    </ul>
+                                                    <p class='text-center mb-0'>Estado do report: </p>
+                                                    <h4 $naoLocalizado, $resgatado, $others>$reportSituation</h4>
+                                                </div>
                                                 <div class='row'>
                                                     <div class='col-sm'>
                                                         <label for='author_name' class='m-0'>
                                                             <h4>Autor</h4>
                                                         </label>
-                                                        <input class='form-control w-100 mb-2' type='text' id='author_name' name='author_name' value='$name' readonly>
+                                                        <input class='form-control w-100 mb-2' type='text' id='author_name' name='author_name' value='$name ' readonly>
                                                     </div>
     
                                                     <div class='col-sm'>
@@ -251,7 +295,11 @@
                                                         <h4 class='m-0'>Maps</h4>
                                                         <div class='map2 w-100 shadow border border-dark rounded' id='map$idmap'></div>
                                                     </div>
-    
+                                                </div>
+                                                <div class='row'>
+                                                    <div class='col-sm'>
+                                                        $imageReport
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
@@ -269,7 +317,8 @@
                 // fim da tabela de reporte
                 echo "</table>
                 </div>";
-
+                
+                
 
                 //testa se usuario tem reportes, se não tiver mostra a mensagem
                 if ($number_of_result < 1) {
@@ -341,7 +390,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="CEP">CEP:</label>
-                                <input type="text" class="form-control" id="cep" name="cep" maxlength="9" value="<?php echo $cep_user; ?>" required>
+                                <input type="text" class="form-control" id="cep" name="cep" maxlength="9" onblur="pesquisacep(this.value);" value="<?php echo $cep_user; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="senha">Senha:</label>
@@ -358,7 +407,6 @@
                                     <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg"/>
                                 </div>
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
                                 <input class="btn btn-success" type="submit" value="Atualizar">
@@ -379,10 +427,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="js/criar_conta.js"></script>
-    <script type="text/javascript">
-        var chave = "<?= $chave ?>";
-    </script>
+    <script type="text/javascript">var chave = "<?= $chave ?>";</script>
     <script src="js/user_dashboard.js"></script>"
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/global.js"></script>
@@ -397,12 +442,14 @@
         $name = $_SESSION['name']; // Colocando o nome do usúario em uma variavel 
         $_COOKIE['nome'] = $name; // Pegando a variavel e enviando para outro script via SESSION 
         
-        if ($msg == "invalid_size_animal") { //verficiando se a msg deu como tamanho da imagem do animal invalida 
+        if ($msg == "invalid_size_user") { //verficiando se a msg deu como tamanho da imagem do animal invalida 
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
         }
-        include 'includes/modal.php'; //incluindo o modal para a página
     }
+    // Precisa ficar aqui embaixo para verificar o cookie
+    include 'includes/modal.php'; 
+
     //incluindo o footer na página
     require_once("includes/footer.php");
     ?>

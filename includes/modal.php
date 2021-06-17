@@ -87,9 +87,13 @@
         } elseif($result == "invalid_size_logo"){
             $logoSize = $_COOKIE['size'];
             echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-exclamation-triangle\"></i> Aviso', 'Logo muito grande, o tamanho máximo da logo é 10MB. Tamanho da foto do logo: " . $logoSize . "Kb');</script>";
+        } elseif($result == "invalid_size_user"){
+            $fotoSize = $_COOKIE['size'];
+            echo "<script>CreateModal('<i class=\"pt-1 pr-1 fas fa-exclamation-triangle\"></i> Aviso', 'Foto muito grande, o tamanho máximo da Foto é 10MB. Tamanho da foto do logo: " . $fotoSize . "Kb');</script>";
 
         } elseif($result == "invalid_field"){
-            echo "<script>CreateModal('<i class=\" pt-1 pr-1 fas fa-times\"></i> <i class=\"pt-1 pr-1 fas fa-exclamation-triangle\"></i> Aviso', 'Algum campo não está preenchido, tente novamente!');</script>"; 
+            echo "<script>CreateModal('<i class=\" pt-1 pr-1 fas fa-times\"></i> <i class=\"pt-1 pr-1 fas fa-exclamation-triangle\"></i> Aviso', 'Algum campo não está preenchido, tente novamente!');</script>";
+             
         //ERROR
         } elseif($result == "error_report"){
             echo "<script>CreateModal('<i class=\" pt-1 pr-1 fas fa-times\"></i> Erro', 'Algo deu errado ao criar o report, tente novamente!');</script>";

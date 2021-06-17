@@ -22,9 +22,6 @@ $telefone = str_replace(' ', '', $telefone);
 
 if($senha === $confirSenha){
 
-    //criptografando a senha
-    $senha = md5($senha);
-
     //Se houver um novo avatar enviado, delete o antigo e atualize um novo
     if($_FILES['arquivo']['name'] != ""){
         //pegando a extensão da imagem
@@ -48,12 +45,31 @@ if($senha === $confirSenha){
             if($linha = $img->fetch(PDO::FETCH_ASSOC)){
                 $name = $linha['img']; //Se existir vai entrar na variavel $name
             }
+
+            //verificando se a imgagem for diferente de preview.jgp (pois é uma imagem padrão do sistema)
             if($name != 'preview.jpg'){
                 if(file_exists("../imgsUpdate/$name")) { //verificando se ela existe no diretorio
                     unlink("../imgsUpdate/$name"); //Tirando a imgagem do diretorio
                 } 
             }
+
+            //query para pegar o pwd caso o usuário não queria alterar a senha dele
+            $query = $mysql->prepare("SELECT pwd FROM user WHERE id = $id_user;");
+            $query->execute();
             
+            //puxando o resultado para uma variavel
+            if($linha = $query->fetch(PDO::FETCH_ASSOC)){   
+                $senhaBD = $linha['pwd'];
+            }
+
+            //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário
+            if($senha == ""){
+                $senha = $senhaBD;
+            }
+            
+            //criptografando a senha
+            $senhaAlterada = md5($senha);
+
             //diretorio
             $uploaddir = "../imgsUpdate/";
 
@@ -64,33 +80,58 @@ if($senha === $confirSenha){
             //definindo onovo nome da imagem como tempo e nome da ong    
             $nameImg = time() . md5($nameUser) . $ext;
 
+            //movendo para o arquivo para a pasta solititada 
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $nameImg);
 
+            //query de atualização dos dados do usuario
             $sql = "UPDATE user SET pwd = ?, img = ?,phone = ?,cep = ? WHERE id = ?";
             $stmt = $mysql->prepare($sql);
-
-            $stmt->execute([$senha, $nameImg, $telefone, $CEP, $id_user]);
             
-            if($stmt){
+            //executa a query
+            $stmt->execute([$senhaAlterada, $nameImg, $telefone, $CEP, $id_user]);
+            
+            //Validando o resultado
+            if($stmt){ //caso de certo
                 header('Location: ../user_dashboard.php?msg=sucess_perfil');
-            }else{
+            }else{ //caso de errado
                 header('Location: ../user_dashboard.php?msg=error_perfil');
             }
-        } else{
+        } else{ //se o tamanho da imagem for muito grande irá mostrar um modal para o usuario
             header('Location: ../user_dashboard.php?msg=invalid_size_user&size=' . $tamanhoImg . '');
         }  
-    } elseif($_FILES['arquivo']['error'] == '4'){
+    } elseif($_FILES['arquivo']['error'] == '4'){ //caso o usuário queira atualizar os dados sem a foto, irá cair neste if 
+
+        //query para pegar o pwd caso o usuário não queria alterar a senha dele
+        $query = $mysql->prepare("SELECT pwd FROM user WHERE id = $id_user;");
+        $query->execute();
+        
+        //puxando o resultado para uma variavel
+        if($linha = $query->fetch(PDO::FETCH_ASSOC)){   
+            $senhaBD = $linha['pwd'];
+        }
+
+        //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário
+        if($senha == ""){
+            $senha = $senhaBD;
+        }
+        
+        //criptografando a senha
+        $senhaAlterada = md5($senha);
+
+        //query de atualização dos dados do usuario
         $sql = "UPDATE user SET pwd = ?, phone = ?,cep = ? WHERE id = ?";
         $stmt = $mysql->prepare($sql);
 
-        $stmt->execute([$senha, $telefone, $CEP, $id_user]);
+        //executa a query
+        $stmt->execute([$senhaAlterada, $telefone, $CEP, $id_user]);
         
-        if($stmt){
+        //Validando o resultado
+        if($stmt){//caso de certo
             header('Location: ../user_dashboard.php?msg=sucess_perfil');
-        }else{
+        }else{//caso de errado
             header('Location: ../user_dashboard.php?msg=error_perfil');
         }
     }
-} else{
+} else{ //Se a senhas não se concidierem irá aparecer um modal aparecendo o erro
     header('Location: ../user_dashboard.php?msg=invalid_create_pwd');
 }
