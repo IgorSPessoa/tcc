@@ -322,7 +322,7 @@
 
                 //testa se usuario tem reportes, se não tiver mostra a mensagem
                 if ($number_of_result < 1) {
-                    echo "<p class='text-center'>Você ainda não realizou nenhum reporte!<a href ='reportar.php' class=''>Reporte agora!</a></p>";
+                    echo "<p class='text-center'>Você ainda não realizou nenhum reporte! <a href ='reportar.php' class=''>Reporte agora!</a></p>";
                 }
                 ?>
                 <!--Sistema de paginação exibido-->
