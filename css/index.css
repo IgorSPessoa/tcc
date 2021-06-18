@@ -16,6 +16,10 @@ h1,h2,h3{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
 }
+.texto{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+}
 /*-------------------------*/
 /*Carousel*/
 .servicos{
@@ -24,14 +28,12 @@ h1,h2,h3{
     align-items: center;
     flex-wrap: wrap; 
 
-    background-color:#191970;
+    background-color: #B0E0E6; 
 
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
 }
-.servicos >h2{
-    color: white;
-}
+
 .carousel-caption >h5{
     color: black;
 }
@@ -58,8 +60,7 @@ h1,h2,h3{
     align-items: center;
     text-align: center;
     padding: 10px 100px 20px 100px;
-    background-color: #191970;
-    color: #ffffff;
+    color: #000;
 
     width: 90%;
     margin: 1px auto;
@@ -80,137 +81,17 @@ h1,h2,h3{
 }
 /*-------------------------*/
 
-/*Sobre*/
-.Sobre{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap; 
-
-    background-color:#191970;
-
-
-    width: 90%;
-    margin: 1px auto;
-}
-
-.Sobre h2{
-    color: white;
-    text-align: center;
-    padding: 5px;
-}
-.texto-sobre{
-    text-align: justify;
-    color: white;
-    font-size: 20px;
-    padding: 10px 100px 20px 100px;
-
-}
-/*-------------------------*/
-
-/*Reporte*/
-.reporte{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap; 
-
-    background-color:#191970;
-
-    width: 90%;
-    margin: 1px auto;
-}
-.reporte h2{
-    color: white;
-    text-align: center;
-    padding: 5px;
-}
-.texto-reporte{
-    text-align: justify;
-    color: white;
-    font-size: 20px;
-    padding: 10px 100px 20px 100px;
-
-}
-
-/*-------------------------*/
-/*Adote*/
-.titulo-adote{ grid-area: header;}
-.img-adote{ grid-area: menu; }
-.texto-adote{ grid-area: main; }
- 
-.adote{
-    display: grid;
-    grid-template-areas:
-        'header header header header header header'
-        'main main main main main menu'
-        'main main main main main menu';
-    grid-gap: 10px;
-    align-items: center;
-    text-align: center;
-    padding: 10px 100px 20px 100px;
-    background-color: #191970;
-    color: #ffffff;
-
-    width: 90%;
-    margin: 1px auto;
-}
-.adote h2{
-    color: white;
-    text-align: center;
-}
-.texto-adote{
-    text-align: justify;
-    color: white;
-    font-size: 20px;
-    padding: 10px 10px 10px 10px;
-
-}
 /*-------------------------*/
 @media only screen and (max-width: 1000px) {
-    .servicos{
-        width: 90%;
-        height: 100%;
-        margin: 0 auto;
-    }
     .campanha{
         width: 90%;
         margin: 1 auto;
     }
-    .Sobre{
-        width: 90%;
-        margin: 1 auto;
-    }
-    .reporte{
-        width: 90%;
-        margin: 1 auto;
-    }
-    .adote{
-        width: 90%;
-        margin: 1 auto;
-    }
 
-    .texto-adote{
-        text-align: justify;
-        color: white;
-        font-size: 20px;
-    }
     .texto-campanha{
         text-align:justify;
-        color: white;
+        color: #000;
         font-size: 20px;
-    }
-    .texto-sobre{
-        text-align:justify;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
-    }
-    .texto-reporte{
-        text-align:center;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
     }
     .campanha {
         display: grid;
@@ -222,72 +103,21 @@ h1,h2,h3{
         align-items: center;
         text-align: center;
         padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    }
-    .adote{
-        display: grid;
-        grid-template-areas:
-            'header header header header header header'
-            'menu menu menu menu menu menu'
-            'main main main main main main';
-        grid-gap: 1px;
-        align-items: center;
-        text-align: center;
-        padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    
-        width: 90%;
-        margin: 1px auto;
+        color: #000;
     }
 
 
 }
 @media only screen and (max-width: 800px) {
-    .servicos{
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-    }
     .campanha{
         width: 100%;
         margin: 1 auto;
     }
-    .Sobre{
-        width: 100%;
-        margin: 1 auto;
-    }
-    .reporte{
-        width: 100%;
-        margin: 1 auto;
-    }
-    .adote{
-        width: 100%;
-        margin: 1 auto;
-    }
 
-    .texto-adote{
-        text-align: justify;
-        color: white;
-        font-size: 20px;
-    }
     .texto-campanha{
         text-align:justify;
-        color: white;
+        color: #000;
         font-size: 20px;
-    }
-    .texto-sobre{
-        text-align:justify;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
-    }
-    .texto-reporte{
-        text-align:center;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
     }
     .campanha {
         display: grid;
@@ -299,70 +129,23 @@ h1,h2,h3{
         align-items: center;
         text-align: center;
         padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    }
-
-    .adote{
-        display: grid;
-        grid-template-areas:
-            'header header header header header header'
-            'menu menu menu menu menu menu'
-            'main main main main main main';
-        grid-gap: 1px;
-        align-items: center;
-        text-align: center;
-        padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    
-        width: 100%;
-        margin: 1px auto;
+        color: #000;
     }
 
 
 }
 
 @media only screen and (max-width: 600px) {
-    .servicos{
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-    }
+
     .campanha{
         width: 100%;
         margin: 1 auto;
     }
-    .Sobre{
-        width: 100%;
-        margin: 1 auto;
-    }
-    .reporte{
-        width: 100%;
-        margin: 1 auto;
-    }
-
-    .texto-adote{
-        text-align: justify;
-        color: white;
-        font-size: 20px;
-    }
+ 
     .texto-campanha{
         text-align:justify;
-        color: white;
+        color: #000;
         font-size: 20px;
-    }
-    .texto-sobre{
-        text-align:justify;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
-    }
-    .texto-reporte{
-        text-align:center;
-        color: white;
-        font-size: 20px;
-        padding: 15px;
     }
     .campanha {
         display: grid;
@@ -374,25 +157,7 @@ h1,h2,h3{
         align-items: center;
         text-align: center;
         padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    }
-
-    .adote{
-        display: grid;
-        grid-template-areas:
-            'header header header header header header'
-            'menu menu menu menu menu menu'
-            'main main main main main main';
-        grid-gap: 1px;
-        align-items: center;
-        text-align: center;
-        padding: 10px 10px 20px 20px;
-        background-color: #191970;
-        color: #ffffff;
-    
-        width: 100%;
-        margin: 1px auto;
+        color: #000;
     }
 
 }

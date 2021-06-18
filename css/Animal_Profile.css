@@ -1,99 +1,11 @@
 body{
     background-color:#B0E0E6;
 }
-main{
-    margin-top: 20px;
-}
 h2{
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
-p,span,a{
+span{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-}
-
-
-
-.descricao > h2{
-    text-align: center;
-}
-.descricao{
-    box-shadow: 0 0 1em black;
-}
-.linha-horizontal {
-    width: 100%;
-    border: 1px solid #000;
-}
-.img > img{
-    width: 300px;
-    height: 300px;
-}
-footer{
-    margin-top: 8%;
-}
-
-@media only screen and (min-width:1281px){
-    main{
-        width: 700px !important;
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .img > img{
-        width: 300px;
-        height: 300px;
-    }
-}
-@media only screen and (max-width: 1281px) {
-    main{
-        width: 700px !important;
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .img > img{
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media only screen and (max-width: 1025px) {
-    main{
-        width: 700px !important;
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .img > img{
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media only screen and (max-width: 801px) {
-    main{
-        width: 600px !important;
-
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .img > img{
-        width: 300px;
-        height: 300px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    main{
-        max-width: 98% !important;
-    }
-    .descricao > h2{
-        text-align: center;
-    }
-    .img > img{
-        width: 300px;
-        height: 300px;
-    }
 }

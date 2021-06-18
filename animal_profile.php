@@ -46,7 +46,7 @@
     $id = $_GET['id'];
 
     //verificar se existe algo no id 
-    if($id == ""){
+    if ($id == "") {
         header('Location: adocao.php?msg=error_id');
     }
     $result = $mysql->prepare("SELECT animal_adoption.*, 
@@ -63,7 +63,7 @@
 
     //verficando se houve resultado para na query
     $rows = $result->rowCount();
-    if($rows >= 1){ // se existe algum resultado, irá pegar os dados 
+    if ($rows >= 1) { // se existe algum resultado, irá pegar os dados 
         while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
 
             //informações do animal
@@ -74,52 +74,165 @@
             $animal_gender = $linha['animal_gender'];
             $animal_race = $linha['animal_race'];
             $animal_category = $linha['animal_category'];
-            
-            //traduzindo os campos
-            if($animal_gender === "male"){
+            $animal_weight = $linha['animal_weight'];
+            $animal_ong_since = $linha['animal_ong_since'];
+
+            //traduzindo os campos de genero
+            if ($animal_gender === "male") {
                 $animal_gender = "Masculino";
-            } elseif($animal_gender === "female"){
+            } elseif ($animal_gender === "female") {
                 $animal_gender = "Feminino";
             }
 
-            if($animal_category === "small"){
+            //traduzindo os campos de tamanho
+            if ($animal_category === "small") {
                 $animal_category = "Pequeno";
-            } elseif($animal_category === "average"){
+            } elseif ($animal_category === "average") {
                 $animal_category = "Médio";
-            } elseif($animal_category === "big"){
+            } elseif ($animal_category === "big") {
                 $animal_category = "Grande";
             }
 
             //informações de contato com a ong
-            $animal_ong_since = $linha['animal_ong_since'];
+            $ong_name = $linha['ong_name'];
+            $ong_phone = $linha['ong_phone'];
+            $ong_email = $linha['ong_email'];
             $ong_business_hours = $linha['ong_business_hours'];
-    
-            //rua da ong
             $address = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
         }
-    } else{ //se não existir resultados na query, irá redirecionar com um erro
+    } else { //se não existir resultados na query, irá redirecionar com um erro
         header('Location: adocao.php?msg=error_information');
     }
-    
+
     ?>
-    <main class="container p-2 w-100 h-80 justify-content-center">
-        <div class="img">
-            <img src="./imgsUpdate/<?php echo $img; ?>" class="p-2 rounded float-left" alt="Foto de um animal">
+    <div class="container">
+        <div class="text-center p-2">
+            <h2 class="text-uppercase">Adote</h2>
         </div>
-        <div class="descricao bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
-            <h2><?php echo $name; ?></h2>
-            <p><b>Descrição:</b> <?php echo $description; ?></p>
-            <p><b>Idade:</b> <?php echo $animal_age; ?></p>
-            <p><b>Gênero:</b> <?php echo $animal_gender; ?></p>
-            <p><b>Raça:</b> <?php echo $animal_race; ?></p>
-            <p><b>Tamanho:</b> <?php echo $animal_category; ?></p>
-            <p><b>Na Ong desde:</b> <?php echo $animal_ong_since; ?></p>
-            <div class="linha-horizontal m-2"></div>
-            <strong> Adote este animal indo no endereço abaixo:</strong>
-            <p><b>Endereço:</b> <?php echo $address; ?></p>
-            <p><b>Horario de Atendimento:</b><?php echo $ong_business_hours; ?></p>
+    </div>
+    <div class="container">
+        <div class="main-body">
+
+            <div class="row gutters-sm">
+                <div class="col-md-4 mb-3">
+
+                    <div class="card border border-dark">
+                        <div class="card-body">
+                            <div class="d-flex flex-column align-items-center text-center">
+                                <img src="./imgsUpdate/<?php echo $img; ?>" alt="Foto de um animal" class="rounded p-1" width="240">
+                                <div class="mt-3">
+                                    <h4><?php echo $name; ?></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-3 border border-dark">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between text-center flex-wrap">
+                                <h6 class="mb-0">Adote Indo até a ONG:</h6>
+                                <span class="text-secondary"><?php echo $ong_name; ?></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0">Endereço:</h6>
+                                <span class="text-secondary"><?php echo $address; ?></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0 p-1">Horario de Atendimento:</h6>
+                                <span class="p-1 text-secondary"><?php echo $ong_business_hours; ?></span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                <h6 class="mb-0 p-1">Contato:</h6>
+                                <span class="text-secondary"><?php echo 'Telefone:' . $ong_phone ?></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card mb-3 border border-dark">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Descrição:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span><?php echo $description; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Idade:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> <?php echo $animal_age; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Gênero:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> <?php echo $animal_gender; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Raça:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> <?php echo $animal_race; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Tamanho:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> <?php echo $animal_category; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Peso:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> <?php echo $animal_weight; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Na ONG desde:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span><?php echo $animal_ong_since; ?></span>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">Sobre adoção</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <span> Adotar, é necessário ter responsabilidade, pois não é um bichinho de pelúcia. Os animais têm muitas necessidades como fome,
+                                        sono e atenção, além disso, precisam ser vacinados, alimentados e bem cuidados. Se você não tem condições de dar a devida atenção, não adote! Seja consciente.
+                                    </span>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </div>
     <?php
     //incluindo o footer na página
     require_once("includes/footer.php");

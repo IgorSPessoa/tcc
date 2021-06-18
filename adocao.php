@@ -150,13 +150,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="js/global.js"></script>
     <?php
-        //verificando se existe uma mensagem na URL da página
-        if(isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
-            $msg = $_GET['msg'];// Colocando a mensagem em uma variável
-            $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+    //verificando se existe uma mensagem na URL da página
+    if (isset($_GET['msg'])) { //Se existe ele cairá neste if, se não, continuará a operação normalmente
+        $msg = $_GET['msg']; // Colocando a mensagem em uma variável
+        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
 
-            include 'includes/modal.php';
-        }
+        include 'includes/modal.php';
+    }
     ?>
 </body>
 
