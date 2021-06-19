@@ -21,7 +21,7 @@
     <title>Companheiro Fiel</title>
 </head>
 
-<body>
+<body class="bg-dark">
     <?php
     //Iniciando sessão
     if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -40,17 +40,15 @@
     }
     ?>
     <!-- Header-->
-    <header class="bg-dark py-2">
+    <header class="bg-light py-2">
         <div class="container px-5">
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-6">
-                    <div class="text-center my-5">
-                        <h1 class="display-5 fw-bolder text-white mb-2">Bem-vindo ao Companheiro Fiel</h1>
-                        <p class="lead text-white mb-4">Somos uma equipe de desenvolvedores, e amamos
+                    <div class="text-center my-3">
+                        <h1 class="display-5 fw-bolder text mb-2">Bem-vindo ao Companheiro Fiel</h1>
+                        <p class="lead text mb-4">Somos uma equipe de desenvolvedores, e amamos
                             os animais, e temos como objetivo ajudar o maior número de animas possíveis.</p>
-                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
-
-                        </div>
+                        <hr />
                     </div>
                 </div>
             </div>
@@ -99,59 +97,61 @@
             <div class="row gx-5 justify-content-center">
                 <div class="col-lg-6">
                     <div class="text-center my-2">
+                        <hr />
                         <h1 class="display-5 fw-bolder text mb-2">Baixe Nosso Aplicativo</h1>
                         <p class="lead text mb-4">Com o nosso aplicativo tudo fica mais simples, você
                             pode reporta de qualquer lugar que esteja muita facilidade. Entre com sua conta
-                            criada no site ou app, e faça já seus reportes .</p>
-                        <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                            criada no site ou app, e faça já seus reportes.</p>
+                        <a class="btn btn-secondary btn-lg" href="#">Download</a>
+                        <hr />
+                        <div class="container px-5">
+                            <h2 class="text-center text font-alt mb-1">Em breve</h2>
+                            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-center">
+                                <img src="./imgs/google.png" alt="Img google play store" width="300" />
+                            </div>
                         </div>
+                        <hr />
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-
-
     <!-- Serviços -->
     <section class="bg-dark text-white py-5 border-bottom">
         <div class="container">
             <div class="text-center">
-                <h2 class="section-heading text-white text-uppercase">Serviços</h2>
+                <h2 class="text-white text-uppercase">Serviços</h2>
             </div>
             <div class="row text-center">
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
-                        <img src="https://image.flaticon.com/icons/png/512/12/12638.png" width="50">
+                        <img src="./imgs/patinha.png" width="70">
                     </span>
-                    <a href="./adocao.php">
-                        <h4 class="my-1">Adoção</h4>
-                    </a>
+                    <h4 class="my-1">Adoção</h4>
                     <p class="texto">Conheça nosso sistema de adoções, com
                         todos animais de ongs cadastradas.
                     </p>
+                    <a href="./ongs.php" class="btn btn-outline-success">Ir</a>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
-                        <img src="https://image.flaticon.com/icons/png/512/12/12638.png" width="50">
+                        <img src="./imgs/patinha.png" width="70">
                     </span>
-                    <a href="./reportar.php">
-                        <h4 class="my-1">Reporte</h4>
-                    </a>
+                    <h4 class="my-1">Reporte</h4>
                     <p class="texto">Use nosso sistema de reportes, para reportar
                         e ajudar um animal.
                     </p>
+                    <a href="./ongs.php" class="btn btn-outline-success">Ir</a>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
-                        <img src="https://image.flaticon.com/icons/png/512/12/12638.png" width="50">
+                        <img src="./imgs/patinha.png" width="70">
                     </span>
-                    <a href="./ongs.php">
-                        <h4 class="my-1">Ongs</h4>
-                    </a>
+                    <h4 class="my-1">Ongs</h4>
                     <p class="texto">Cadastre ou olhe ongs cadastradas em nosso site,
                         e conheça esse trabalho maravilhoso.</p>
+                    <a href="./ongs.php" class="btn btn-outline-success"> Ir </a>
                 </div>
             </div>
     </section>
@@ -164,48 +164,41 @@
                     <h2 class="titulo"> Abril laranja é todo mês</h2>
                     <p class="texto-campanha">
                         Abril Laranja é o mês de prevenção da crueldade contra os animais, vamos conscientizar
-                        todos para que <strong>não à crueldade contra os animais!!!</strong> Abril Laranja foi uma campanha
+                        todos para que <strong>não aconteça mais crueldade aos animais!!!</strong> Abril Laranja foi uma campanha
                         criada em 2006 pela ASPCA, que visa alertar sobre os maus-tratos que animais domésticos e domesticados
                         são vítimas todos os anos e dar punições mais severas aos agressores. Desde sua criação, vários países
                         no mundo aderiram à campanha, inclusive o Brasil.
                     </p>
                 </div>
                 <div class="col-md-5">
-                    <img src="./imgs/abril-laranja.jpg" class="img-fluid" height="200" width="500">
+                    <img src="./imgs/abril-laranja.jpg" class="img-fluid" height="100" width="290">
                 </div>
             </div>
         </div>
     </section>
 
-    <!--Equipe-->
-    <section class="text-center bg-dark">
-        <div class="container">
-            <h2 class="mb-3 text-white">Equipe</h2>
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="./imgs/adocao.jpg" alt="..." />
-                        <h5 class="text-white mb-0">Jose</h5>
-                        <p class="text-white mb-0">Lindo</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="./imgs/adocao.jpg" alt="..." />
-                        <h5 class="text-white mb-0">Guilherme</h5>
-                        <p class="text-white mb-0">Lindo</p>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="mx-auto mb-5 mb-lg-0">
-                        <img class="img-fluid rounded-circle mb-3" src="./imgs/adocao.jpg" alt="..." />
-                        <h5 class="text-white mb-0">Igor</h5>
-                        <p class="text-white mb-0">Lindo</p>
+    <!--Quem somos-->
+    <section class="bg-dark py-2">
+        <div class="container px-5">
+            <div class="row gx-5 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center my-3">
+                        <hr />
+                        <h2 class="display-5 fw-bolder text-white mb-2">O que é o Companheiro Fiel?</h2>
+                        <p class="lead text-white mb-4 text-justify">
+                            Companheiro Fiel é uma equipe de programadores apaixonado por animais,
+                            e queremos poder ajudar os animais de alguma forma em nossa área de trabalho/estudo,
+                            então criamos duas plataformas com o intuito e objetivo de ajudar ongs que resgatam
+                            animais, para que essas ongs recebam reportes de todas as pessoas que também querem
+                            ajudar os animais.
+                        </p>
+                        <hr />
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <?php
     require_once("includes/footer.php");

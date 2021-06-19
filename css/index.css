@@ -1,6 +1,5 @@
 body{
     color:#1c1c1c;
-    background-color: #B0E0E6; 
 }
 
 h1,h2,h3{
@@ -8,11 +7,11 @@ h1,h2,h3{
     
 }
 /*Fonte de todo site*/
-.titulo,.titulo-adote,.titulo-reporte,.titulo-sobre{
+.titulo{
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
 }
-.texto-campanha,.texto-sobre,.texto-reporte,.texto-adote{
+.texto-campanha{
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
 }
@@ -26,11 +25,9 @@ h1,h2,h3{
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
 
-    background-color: #B0E0E6; 
-
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
 }
 
