@@ -9,25 +9,15 @@ if (isset($_SESSION['email']) == true) {
 
     //pegando a variavel
     $idOng = "$_GET[id]";
-
-    // Pegando conteúdo do banco de dados e colocando na variavel
-    $sql = $mysql->prepare("SELECT ong_view FROM ong WHERE id = $idOng;");
-    $sql->execute();    
-    
-    //Colocando o resultado da pesquisa na variavel $linha por meio de arrays
-    while($linha = $sql->fetch(PDO::FETCH_ASSOC)){ //Resultado da pesquisa impressos linha por linha do contéudo  
-        $count = $linha['ong_view'];
-    }
-    $count++;
     
     //query para ser levada para o banco de dados
     $newSql = "UPDATE ong 
-                SET ong_view = ? 
-                WHERE id = ?;";
+                      SET ong_view = ong_view + 1 
+                      WHERE id = ?;";
 
     //preparando e executando a querry
     $stmt = $mysql->prepare($newSql);
-    $stmt->execute([$count, $idOng]);  
+    $stmt->execute([$idOng]);  
 
     //verificando se o resultado deu certo 
     if($stmt){

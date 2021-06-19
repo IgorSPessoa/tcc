@@ -62,13 +62,13 @@ if($senha === $confirSenha){
                 $senhaBD = $linha['pwd'];
             }
 
-            //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário
-            if($senha == ""){
-                $senha = $senhaBD;
+            //verificando se a senha é diferente de vazio
+            if($senha !== ""){ //se sim, criptografa
+                //criptografando a senha
+                $senhaAlterada = md5($senha);
+            } else{ //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário já criptografada
+                $senhaAlterada = $senhaBD;
             }
-            
-            //criptografando a senha
-            $senhaAlterada = md5($senha);
 
             //diretorio
             $uploaddir = "../imgsUpdate/";
@@ -110,13 +110,13 @@ if($senha === $confirSenha){
             $senhaBD = $linha['pwd'];
         }
 
-        //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário
-        if($senha == ""){
-            $senha = $senhaBD;
+        //verificando se a senha é diferente de vazio
+        if($senha !== ""){ //se sim, criptografa
+            //criptografando a senha
+            $senhaAlterada = md5($senha);
+        } else{ //Se a senha mudada for vazia, irá colocar senha já colocada pelo usuário já criptografada
+            $senhaAlterada = $senhaBD;
         }
-        
-        //criptografando a senha
-        $senhaAlterada = md5($senha);
 
         //query de atualização dos dados do usuario
         $sql = "UPDATE user SET pwd = ?, phone = ?,cep = ? WHERE id = ?";
