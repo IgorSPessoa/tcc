@@ -169,7 +169,7 @@ class Usuario{
         $phone = htmlspecialchars(strip_tags($phone));
         $cep = htmlspecialchars(strip_tags($cep));
 
-        // Pegando o resultado
+        // Atualizando valores da query
         $stmt->bindParam(":email", $this->email);
         $stmt->bindParam(":phone", $phone);
         $stmt->bindParam(":cep", $cep);
@@ -182,6 +182,73 @@ class Usuario{
         return False;
     }
 
+    function updateAvatar($base64_img){
+        // Deletando avatar antigo
+        $this->deleteAvatar($this->email);
+
+        // Preparando nome da imagem
+        $ext = ".jpeg";
+        $nameUser = strstr($this->email, '@', TRUE);
+        $name_of_new_avatar = time() . md5($nameUser) . $ext;
+
+        // Covertendo para jpeg e salvando
+        $this->base64_to_jpeg($base64_img, $name_of_new_avatar);
+
+        // Construindo a query
+        $query = "UPDATE user SET img = :photo_name WHERE email = :email";
+
+        // Preparando a query
+        $stmt = $this->conn->prepare($query);     
+        
+        // Atualizando valores da query
+        $stmt->bindParam(":photo_name", $name_of_new_avatar);
+        $stmt->bindParam(":email", $this->email);
+
+        // Executa a query
+        if($stmt->execute()){
+            return True;
+        }
+
+        return False;
+    }
+
+    function deleteAvatar(){
+        // Construindo a query
+        $query = "SELECT img FROM user WHERE email = :email";
+
+        // Preparando a query
+        $stmt = $this->conn->prepare($query);     
+        
+        // Atualizando valores da query
+        $stmt->bindParam(":email", $this->email);
+
+        // Executando
+        $stmt->execute();
+
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $fileName = $row['img'];    
+        
+        $upload_path = "../../../imgsUpdate";
+        if(file_exists("$upload_path/$fileName") && $fileName != 'preview.jpg'){
+            unlink("$upload_path/$fileName"); //Tirando a imgagem do diretorio   
+        }
+    }
+
+    function base64_to_jpeg($base64_string, $output_file) {
+        $upload_path = "../../../imgsUpdate";
+
+        // base64 image code
+        $base64_code = $base64_string;
+        
+        // create an image file
+        $fp = fopen("$upload_path/$output_file", "w+");
+        
+        // write the data in image file
+        fwrite($fp, base64_decode($base64_code));
+        
+        // close an open file pointer
+        fclose($fp);
+    }
 
 }
 

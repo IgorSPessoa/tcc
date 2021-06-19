@@ -1,7 +1,7 @@
 <?php
 
 class Ong{
-    private $conn;
+     private $conn;
 
     public $ong_id;
     public $ong_name;
@@ -112,6 +112,22 @@ class Ong{
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);  
         return $rows;     
+    }
+    
+    public function ongView(){
+        // Construindo a query
+        $query = "UPDATE ong SET ong_view = ong_view + 1 WHERE id = :id";
+
+        // Preparando a query
+        $stmt = $this->conn->prepare($query);
+
+        // Atualizando os valores
+        $stmt->bindParam(":id", $this->ong_id);
+
+        // Executando
+        $result = $stmt->execute();
+
+        return $result;             
     }
 
 }
