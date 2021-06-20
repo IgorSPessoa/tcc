@@ -73,8 +73,10 @@ if($_FILES['arquivo']['name'] != ""){
             //definindo onovo nome da imagem como tempo e nome da ong    
             $newNameImg = time() . md5($nameOng) . $ext;
 
+            //Mudando a localização do arquivo
             move_uploaded_file($_FILES['arquivo']['tmp_name'], $uploaddir . $newNameImg);
 
+            //query de atualização da adoção
             $sql = "UPDATE animal_adoption 
                     SET animal_name = ?, 
                         animal_description = ?, 
@@ -88,24 +90,28 @@ if($_FILES['arquivo']['name'] != ""){
                         animal_category = ?,
                         adoption_situation = ?
                     WHERE id = ?";
+            //preparando a query
             $stmt = $mysql->prepare($sql);
 
+            //executando a query
             $stmt->execute([$nome, $descricao, $animal, $idade, $sexo, $data_chegada, $newNameImg, $raca, $peso, $categoria, $situacao, $id]);
             
-            if($stmt){
+            //verificando se o resultado da query foi verdadeiro
+            if($stmt){//se sim, cairá aqui
                 header('Location: ../adocoes.php?msg=sucess_updateAdoption');
-            }else{
+            }else{//se não, cairá aqui
                 header('Location: ../editarAdoacao.php?id=' . $id . '&msg=error_updateAdoption');
             }
         }
-    } else {
+    } else {//caso o tamanho da imagem for muito grande, cairá aqui
         header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_size_animal');
     }   
-} elseif($_FILES['arquivo']['error'] == '4'){
+} elseif($_FILES['arquivo']['error'] == '4'){//caso o a ONG não deseje atualizar a foto, cairá aqui
     //Verificando se algum campo está vazio
     if($nome == "" || $descricao == "" || $animal == "" || $raca == "" || $peso == ""){//Se estiver ele retorna um aviso
         header('Location: ../editarAdoacao.php?id=' . $id . '&msg=invalid_field');
      } else {//Se não, continua a operação
+        //query de atualização da Adoção
         $sql = "UPDATE animal_adoption 
                     SET animal_name = ?, 
                         animal_description = ?, 
@@ -118,13 +124,16 @@ if($_FILES['arquivo']['name'] != ""){
                         animal_category = ?,
                         adoption_situation = ?
                     WHERE id = ?";
+        //preparando a query
         $stmt = $mysql->prepare($sql);
 
+        //executando a query
         $stmt->execute([$nome, $descricao, $animal, $idade, $sexo, $data_chegada, $raca, $peso, $categoria, $situacao, $id]);
         
-        if($stmt){
+        //verificando se o resultado da query foi verdadeiro 
+        if($stmt){//se sim, cairá aqui
             header('Location: ../adocoes.php?msg=sucess_updateAdoption');
-        }else{
+        }else{//se não cairá aqui
             header('Location: ../editarAdoacao.php?id=' . $id . '&msg=error_updateAdoption');
         }
      }

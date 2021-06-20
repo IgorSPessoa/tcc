@@ -1,9 +1,13 @@
+//variaveis
 var tableAll = "";
 var tableYour = "";
 var EditInNewWindow = Boolean(Number(localStorage.getItem('EditWindow')));
 var TableStateDb = Boolean(Number(localStorage.getItem('TableStateDb')));
 
-//Carregamento do spinner na página
+/*  Método: ShowLoader()
+    Parâmetros: [ id, active ]
+    Objetivo: Carregamento do spinner na página. 
+*/
 function ShowLoader(id, active){
     if(active){
       $('#'+id).show();
@@ -12,7 +16,10 @@ function ShowLoader(id, active){
      }
 }
 
-//Pegando os dados da tabela 1 no banco de dados via ajax  
+/*  Método: GetData()
+    Parâmetros: [ type ]
+    Objetivo: Pegando os dados da tabela 1 no banco de dados via ajax. 
+*/
 function GetData(type){
     //ativar spinner
     ShowLoader("loadingYour",true);
@@ -33,7 +40,10 @@ function GetData(type){
     });
 }
 
-//Pegando os dados da tabela 2 no banco de dados via ajax  
+/*  Método: GetDataSnd()
+    Parâmetros: [ type ]
+    Objetivo: Pegando os dados da tabela 2 no banco de dados via ajax. 
+*/
 function GetDataSnd(type){
     //ativar spinner
     ShowLoader("loadingAll",true);
@@ -55,7 +65,10 @@ function GetDataSnd(type){
 
 }
 
-//Função que cria a primeira tabela na página, tendo ou não os dados recebidos 
+/*  Método: BuildTable()
+    Parâmetros: [ data ]
+    Objetivo: Função que cria a primeira tabela na página, tendo ou não os dados recebidos. 
+*/
 function BuildTable(data){
     //criando a estrutura da tabela via DataTable
     tableYour = $('#YourReports').DataTable( {
@@ -81,8 +94,11 @@ function BuildTable(data){
             }
         ]
     });
-    
-    //A função que chama a outra página ao clicar no botão
+
+    /*  Método: --
+        Parâmetros: [ -- ]
+        Objetivo: A função que chama a outra página ao clicar no botão. 
+    */
     $('#YourReports').on( 'click', 'button', function () {
         var data = tableYour.row( $(this).parents('tr') ).data();
         window.location.href = "visualizaReport.php?id=" + data[0];
@@ -91,7 +107,10 @@ function BuildTable(data){
     ShowLoader("loadingYour",false);
 }
 
-//Função que cria a segunda tabela na página, tendo ou não os dados recebidos
+/*  Método: BuildTableScd()
+    Parâmetros: [ data ]
+    Objetivo: Função que cria a segunda tabela na página, tendo ou não os dados recebidos. 
+*/
 function BuildTableScd(data){
     //criando a estrutura da tabela via DataTable
     tableAll = $('#AllReports').DataTable( {
@@ -118,7 +137,10 @@ function BuildTableScd(data){
         ]   
     });
     
-    //A função que chama a outra página ao clicar no botão
+    /*  Método: --
+        Parâmetros: [ -- ]
+        Objetivo: A função que chama a outra página ao clicar no botão. 
+    */
     $('#AllReports').on( 'click', 'button', function () {
         var data = tableAll.row( $(this).parents('tr') ).data();
          window.location.href = "visualizaReport.php?id=" + data[0];

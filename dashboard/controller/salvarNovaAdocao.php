@@ -60,7 +60,7 @@ if (isset($_FILES['arquivo'])){
         //pegando nome temporario
         $tpmName = $_FILES['arquivo']['tmp_name'];
 
-        //Mudar a localização do arquivo
+        //Mudar a localização do arquivo junto com o arquivo
         move_uploaded_file($tpmName, $diretorio . $nomeImg);
 
     }else{//Se o arquivo for maior que 10mb
@@ -71,15 +71,15 @@ if (isset($_FILES['arquivo'])){
 //Pegando os dados enviados para o mysql
 $sql = "INSERT INTO `tcc`.`animal_adoption` (`ong_id`,  `animal_name`, `animal_description`, `animal_type`, `animal_age`, `animal_gender`, `animal_ong_since`, `animal_photo`, `animal_race`, `animal_weight`, `animal_category`, `adoption_situation`)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-
 $stmt = $mysql->prepare($sql);
 
-//fazendo a inserção no banco de dados
+//executando a query que insere no banco de dados
 $stmt->execute([$id, $animal_name, $animal_description, $animal_type, $animal_age, $animal_gender, $animal_ong_since, $nomeImg, $animal_race, $animal_weight, $animal_category, $animal_situation]);
-if($stmt){
-    // echo "<script language='javascript' type='text/javascript'>alert('Adoção cadastrada com sucesso!'); window.location = ' ../adocoes.php';</script>";
+
+//verificando se o resultado da query for verdadeiro
+if($stmt){ //Se sim, cairá aqui
     header("location: ../adocoes.php?msg=sucess_adoption");
-}else{
+}else{//Se não, cairá aqui
     header("location: ../adocoes.php?msg=error_adoption");
 }
 

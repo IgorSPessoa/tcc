@@ -1,4 +1,6 @@
+//variavel de redicionamento
 var visualizar;
+
 //pegando o resultado do ajax
 var idOng = location.search.slice(1);
 

@@ -46,14 +46,20 @@
             </div>
         </div>
 
-        <?php if (isset($_SESSION['email']) != true) {
+        <?php if (isset($_SESSION['email']) != true) {//Se não estiver com alguma conta logada, mostrará o conteúdo abaixo
             echo '<center> Não está logado? <a href="login.php">Logue aqui</a>, Não tem uma conta? <a href="criar_conta.php">Crie aqui</a> </center>';
         } ?>
         <form class="w-100 bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_animal_report.php" enctype="multipart/form-data" runat="server" method="POST">
 
+            <!--  Método: --
+                Parâmetros: [ -- ]
+                Objetivo: Cada php aberto nesta página verifica se existe um usuário logado, caso não tenha, todas as funções abaixos estarão indisponiveis. 
+            -->
+
             <div class="form-group">
                 <h3>Sobre o animal</h3>
                 <label for="situation">Qual é a situação do animal?</label>
+                
                 <?php if (isset($_SESSION['email']) == true) {
                     echo '<input type="text" class="form-control" id="situacao_animal" maxlength="200" name="situacao_animal" required>';
                 } else {

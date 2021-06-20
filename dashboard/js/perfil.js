@@ -1,9 +1,15 @@
-//Função para interação com a icon de upload
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: Função para interação com a icon de upload. 
+*/
 function clickInput(id){
     document.getElementById(id).click();
 }
 
-//Função oferecida pelo VIACEP para uso externos
+/*  Método: limpa_formulário_cep()
+    Parâmetros: [ -- ]
+    Objetivo:  função para limpar os resultados caso existam. 
+*/
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
     document.getElementById('address').value=("");
@@ -12,6 +18,10 @@ function limpa_formulário_cep() {
     document.getElementById('state').value=("");
 }
 
+/*  Método: meu_callback()
+    Parâmetros: [ conteudo ]
+    Objetivo: Colocar os dados nos inputs desejados. 
+*/
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
@@ -26,6 +36,10 @@ function meu_callback(conteudo) {
     }
 }
 
+/*  Método: pesquisacep()
+    Parâmetros: [ valor ]
+    Objetivo: Pegando o CEP desejado e verificando na api se existe resultados. 
+*/
 function pesquisacep(valor) {
 
 //Nova variável "cep" somente com dígitos.
@@ -78,16 +92,13 @@ var loadFile = function(event) {
     reader.readAsDataURL(event.target.files[0]);
   };
 
-//máscaras para os inputs cep e phone
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo:  Mostrar os inputs abaixo com uma mascará do jquery. 
+*/
 $(document).ready( function() {
     $('#cep').mask("99999-999");
-});
-
-$(document).ready( function() {
     $('#phone').mask("(99) 99999-9999");
-});
-
-$(document).ready( function() {
     $('#whatsapp').mask("(99) 99999-9999");
 });
 
@@ -95,25 +106,29 @@ $(document).ready( function() {
 const chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
 let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${chave}`;
 
+//verificando se a busca na API está voltando resultados 
 fetch(url)
-.then(response => response.json())
-.then( data => {
+.then(response => response.json())//Colocando ela em um formato json
+.then( data => {//pegando os valores retornados em 'data' 
+    //colocando os valores em variaveis
     let latLocation = data.results[0].geometry.location.lat;
     let lngLocation = data.results[0].geometry.location.lng;
     const LatLng = {lat: latLocation, lng: lngLocation};
     
+    //montando o mapa de acordo com as cordernadas
     map = new google.maps.Map(document.getElementById('map'),{
         center: {lat: latLocation, lng: lngLocation},
         zoom: 18      
         });
-    
+        
+        //mmarcando o ponto encotrando nas cordenadas
         new google.maps.Marker({
         position: LatLng,
         map,
         title: "A ONG está aqui!",
     });
 })
-.catch(err => {
+.catch(err => {//caso dê algum erro, irá criar um modal alertando
     CreateModal('Error', 'Houve algum problema em localizar o local desejado, tente novamente');
 });
     

@@ -24,14 +24,17 @@ $situacao = 'pending';
 $comments = "";
 $imgReport = 'preview.jpg';
 
+//query de atualização do report
 $sql = "UPDATE animal_report SET ong_id = ?, report_date_accepted = ?, report_situation = ?, report_comments = ?, report_img = ? WHERE id = ?";
 $stmt = $mysql->prepare($sql);
  
+//executando a query
 $stmt->execute([$idOng, $data_aceite, $situacao, $comments, $imgReport, $idReport]);
 
-if($stmt){
+//Verificando se a execução deu certo 
+if($stmt){//se sim, cairá aqui
     header('Location: ../visualizaReport.php?id=' . $idReport . '&msg=sucess_unlinkReport');
-} else {
+} else {//se não, cairá aqui
     header('Location: ../visualizaReport.php?id=' . $idReport . '&msg=error_unlinkReport');
 }
 

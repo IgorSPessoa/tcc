@@ -1,43 +1,56 @@
-//máscaras para os inputs cep e phone
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo:  Mostrar os inputs abaixo com uma mascará do jquery. 
+*/
 $(document).ready( function() {
     $('#cep').mask("99999-999");
-});
-
-$(document).ready( function() {
     $('#phone').mask("(99) 99999-9999");
 });
 
+/*  Método: loadmap()
+    Parâmetros: [ address, idmap ]
+    Objetivo: Pegando a localização do animal e importando no mapa. 
+*/
 function loadmap(address, idmap) {
     //pegando a localização do animal e importando no mapa
     $url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${chave}`;
     console.log($url)
     fetch($url)
         .then(response => response.json())
-        .then(data => {
+        .then(data => { //Caso dê certo, cairá aqui
+            //colocando os resultados em variaveis
             let latLocation = data.results[0].geometry.location.lat;
             let lngLocation = data.results[0].geometry.location.lng;
             const LatLng = { lat: latLocation, lng: lngLocation };
 
+            //pegando o id do maps desejado
             var map2 = document.getElementById('map' + idmap);
-            //console.log(map2);
+
+            //console.log(map2); <- debug
+            
+            //criando o mapa
             map = new google.maps.Map(map2, {
                 center: { lat: latLocation, lng: lngLocation },
                 zoom: 18
             });
-
+            
+            //colocando uma marcação
             new google.maps.Marker({
                 position: LatLng,
                 map,
                 title: "O animal está aqui!",
             });
         })
-        .catch(err => {
+        .catch(err => {//caso dê erro, cairá aqui
             console.log("erro")
             //CreateModal('erro', 'Houve algum problema em localizar o local desejado, tente novamente');
         });
 }
 
-//Função para interação com a icon de upload
+/*  Método: click_the_button()
+    Parâmetros: [ botao ]
+    Objetivo:  Função para interação com a icon de upload 
+*/
 function click_the_button(botao){
     botao.click();
 }
@@ -52,13 +65,20 @@ var loadFile = function(event) {
     reader.readAsDataURL(event.target.files[0]);
 };
 
-//Função oferecida pelo VIACEP para uso externos
+/*  Método: limpa_formulário_cep()
+    Parâmetros: [ -- ]
+    Objetivo:  função para limpar os resultados caso existam. 
+*/
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
     document.getElementById('cep').value=("");
 
 }
 
+/*  Método: meu_callback()
+    Parâmetros: [ conteudo ]
+    Objetivo: Colocar os dados nos inputs desejados. 
+*/
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
@@ -77,6 +97,10 @@ function meu_callback(conteudo) {
     }
     }
 
+/*  Método: pesquisacep()
+    Parâmetros: [ valor ]
+    Objetivo: Pegando o CEP desejado e verificando na api se existe resultados. 
+*/
 function pesquisacep(valor) {
 
 //Nova variável "cep" somente com dígitos.

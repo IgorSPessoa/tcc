@@ -138,20 +138,16 @@ if($_FILES['arquivo']['name'] != ""){
         $CEPAlterado = str_replace('-', '', $CEP);
 
         //tirando parenteses e o traço do telefone
-        $telefoneAlterado = str_replace('(', '', $telefone);
-        $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
-        $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
-        $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
+        $to_remove = array("(", ")", "-", " ");
+        $telefone = str_replace($to_remove, '', $telefone);
 
         //tirando parenteses e o traço do whatsapp
-        $whatsappAlterado = str_replace('(', '', $whatsapp);
-        $whatsappAlterado = str_replace(')', '', $whatsappAlterado);
-        $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
-        $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
+        $to_remove = array("(", ")", "-", " ");
+        $whatsapp = str_replace($to_remove, '', $whatsapp);
 
         //Se não o número for vazio, a variavel irá receeber um valor nulo
-        if($whatsappAlterado == ""){
-            $whatsappAlterado = null;
+        if($whatsapp == ""){
+            $whatsapp = null;
         }
 
         //query para atualizar a imagem do bd (CEP)
@@ -180,14 +176,15 @@ if($_FILES['arquivo']['name'] != ""){
         $stmtSnd = $mysql->prepare($sqlSnd);
         
         //executar o update
-        $stmtSnd->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $newNameImg, $whatsappAlterado, $facebook, $id]);
+        $stmtSnd->execute([$descricao, $proposito, $telefone, $horarioFunc, $newNameImg, $whatsapp, $facebook, $id]);
         
-        if($stmt && $stmtSnd){
+        //verificando se as duas querys deram certo
+        if($stmt && $stmtSnd){// Se sim, cairá aqui
             header('Location: ../perfil.php?msg=sucess_perfil');
-        }else{
+        }else{ // se não, cairá aqui
            header('Location: ../perfil.php?msg=error_perfil');
         }
-    } else {
+    } else { //caso a foto upada seja muito grande, abrirá um modal informando a ONG
             header('Location: ../perfil.php?msg=invalid_size_logo&size=' . $tamanhoImg . '');
     }  
     
@@ -196,20 +193,16 @@ if($_FILES['arquivo']['name'] != ""){
     $CEPAlterado = str_replace('-', '',$CEP);
     
     //tirando parenteses e o traço do telefone
-    $telefoneAlterado = str_replace('(', '', $telefone);
-    $telefoneAlterado = str_replace(')', '', $telefoneAlterado);
-    $telefoneAlterado = str_replace('-', '', $telefoneAlterado);
-    $telefoneAlterado = str_replace(' ', '', $telefoneAlterado);
+    $to_remove = array("(", ")", "-", " ");
+    $telefone = str_replace($to_remove, '', $telefone);
 
     //tirando parenteses e o traço do whatsapp
-    $whatsappAlterado = str_replace('(', '', $whatsapp);
-    $whatsappAlterado = str_replace(')', '', $whatsappAlterado);
-    $whatsappAlterado = str_replace('-', '', $whatsappAlterado);
-    $whatsappAlterado = str_replace(' ', '', $whatsappAlterado);
+    $to_remove = array("(", ")", "-", " ");
+    $whatsapp = str_replace($to_remove, '', $whatsapp);
 
     //Se não o número for vazio, a variavel irá receeber um valor nulo
-    if($whatsappAlterado == ""){
-        $whatsappAlterado = null;
+    if($whatsapp == ""){
+        $whatsapp = null;
     }
 
    //query para atualizar a imagem do bd (CEP)
@@ -237,11 +230,12 @@ if($_FILES['arquivo']['name'] != ""){
     $stmtSnd = $mysql->prepare($sqlSnd);
     
     //executar o update
-    $stmtSnd->execute([$descricao, $proposito, $telefoneAlterado, $horarioFunc, $whatsappAlterado, $facebook, $id]);
+    $stmtSnd->execute([$descricao, $proposito, $telefone, $horarioFunc, $whatsapp, $facebook, $id]);
     
-    if($stmt && $stmtSnd){
+    //verificando se as duas querys deram certo
+    if($stmt && $stmtSnd){// Se sim, cairá aqui
         header('Location: ../perfil.php?msg=sucess_perfil');
-    }else{
+    }else{// Se não, cairá aqui
         header('Location: ../perfil.php?msg=error_perfil');
     }
 }

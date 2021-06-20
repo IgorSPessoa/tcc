@@ -67,6 +67,7 @@ if($tipo == "all"){
         $distance_data = file_get_contents(
             'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&region=br&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
         );
+        
         //transformando o objeto resultante em JSON
         $distance_arr = json_decode($distance_data);
     

@@ -15,10 +15,8 @@ $confirSenha = $_POST['ConfirmPwd'];
 $CEP = str_replace('-', '', $CEP);
 
 //tirando parenteses e o traço do telefone
-$telefone = str_replace('(', '', $telefone);
-$telefone = str_replace(')', '', $telefone);
-$telefone = str_replace('-', '', $telefone);
-$telefone = str_replace(' ', '', $telefone);
+$to_remove = array("(", ")", "-", " ");
+$telefone = str_replace($to_remove, '', $telefone);
 
 if($senha === $confirSenha){
 
