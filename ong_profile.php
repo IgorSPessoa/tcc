@@ -95,7 +95,7 @@ if ($rows >= 1) { // se existe algum resultado, irá pegar os dados
     ?>
     <section class="container py-3">
         <div class="main-body">
-            <div class="row gutters-sm">
+            <div class="row">
                 <div class="col-md-4 mb-3">
                     <div class="card border border-dark">
                         <div class="card-body">
