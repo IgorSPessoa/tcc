@@ -73,10 +73,9 @@
             $phone_user = substr_replace($phone_user, ')', 3, 0);
             $phone_user = substr_replace($phone_user, ' ', 4, 0);
             $phone_user = substr_replace($phone_user, '-', 10, 0);
-            
+
             //formatando o cep
             $cep_user =  substr_replace($cep_user, '-', 5, 0);
-
         }
         echo "
         </br>
@@ -101,7 +100,7 @@
         <div class="d-flex justify-content-center">
             <div class="reportes bg-white shadow lg-3 border border-3 border-primary px-5 py-2">
                 <h4 class="text-center">Todos seus reports</h4>
-            
+
                 <?php
                 // Cabeçario da tabela que exibe os reportes.
                 echo "
@@ -189,28 +188,28 @@
                     //mudando a variavel para português
                     if ($animal == "dog") {
                         $animal = "Cachorro";
-                    } elseif ($animal == "cat"){
+                    } elseif ($animal == "cat") {
                         $animal = "Gato";
-                    } elseif($animal == "others"){
+                    } elseif ($animal == "others") {
                         $animal  = "Outros";
                     }
 
                     //mudando a variavel para português
                     if ($reportSituation == "pending") {
                         $reportSituation = "Pendente";
-                    } elseif($reportSituation == "waiting"){
+                    } elseif ($reportSituation == "waiting") {
                         $reportSituation = "Aguardando resposta da ONG";
-                    } elseif($reportSituation == "scheduled"){
+                    } elseif ($reportSituation == "scheduled") {
                         $reportSituation = "Agendado";
-                    } elseif($reportSituation == "not_found"){
+                    } elseif ($reportSituation == "not_found") {
                         $reportSituation = "Não localizado";
-                    } elseif($reportSituation == "rescued"){
+                    } elseif ($reportSituation == "rescued") {
                         $reportSituation = "Resgatado";
                     }
 
                     //linhas de comandos para serem verificadas no modal
                     $expressaoOng = $ongId == null ? "class='is-active'" : "";
-                    $imageReport = $reportSituation == "Resgatado"  ? "<h4 class='m-0 text-center'>Foto animal resgatado</h4> <img class='w-100 shadow border border-dark rounded ' src='./imgsUpdate/$imgResgatado'>" : "";
+                    $imageReport = $reportSituation == "Resgatado"  ? "<h4 class='m-0 text-center'>Foto animal resgatado</h4> <div class='d-flex justify-content-center'> <img class='w-50 shadow border border-dark rounded ' src='./imgsUpdate/$imgResgatado'></div>" : "";
                     $expressaoReport = $reportSituation == "Resgatado" || $reportSituation == "Não localizado" ? "" : "class='is-active'";
                     $naoLocalizado =  $reportSituation == 'Não localizado' ? "class='text-center text-danger'" : "";
                     $resgatado = $reportSituation == 'Resgatado' ? "class='text-center text-success'" : "";
@@ -310,7 +309,7 @@
                                                     </div>
                                                 </div>
                                                 <div class='row'>
-                                                    <div class='col-sm'>
+                                                    <div class='col-sm w-50'>
                                                         $imageReport
                                                     </div>
                                                 </div>
@@ -330,8 +329,8 @@
                 // fim da tabela de reporte
                 echo "</table>
                 </div>";
-                
-                
+
+
 
                 //testa se usuario tem reportes, se não tiver mostra a mensagem
                 if ($number_of_result < 1) {
@@ -341,41 +340,43 @@
                 <!--Sistema de paginação exibido-->
                 <div class="d-flex justify-content-center p-2">
                     <?php
-                    //set de variaveis para paginação.
-                    $pagina_anterior = $page - 1;
-                    $pagina_proxima = $page + 1;
-                    $page_atual = $page;
+                    if ($number_of_result >= 1) {
+                        //set de variaveis para paginação.
+                        $pagina_anterior = $page - 1;
+                        $pagina_proxima = $page + 1;
+                        $page_atual = $page;
 
-                    //Testa se pode ter o botão de pagina anterior ou não.
-                    if ($pagina_anterior != 0) {
-                        echo '<a href = "user_dashboard.php?page=' . $pagina_anterior . '" class="btn btn-success"> << </a>';
-                    } else {
-                        echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true"> << </a>';
-                    }
-                    //imprime os button de paginação até 5 (para limitar bloco de paginação).
-                    for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
-                        echo '<a href = "user_dashboard.php?page=' . $page . '" class="btn btn-success">' . $page . ' </a>';
-                    }
-                    
-                    /*  Método: --
+                        //Testa se pode ter o botão de pagina anterior ou não.
+                        if ($pagina_anterior != 0) {
+                            echo '<a href = "user_dashboard.php?page=' . $pagina_anterior . '" class="btn btn-success"> << </a>';
+                        } else {
+                            echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true"> << </a>';
+                        }
+                        //imprime os button de paginação até 5 (para limitar bloco de paginação).
+                        for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
+                            echo '<a href = "user_dashboard.php?page=' . $page . '" class="btn btn-success">' . $page . ' </a>';
+                        }
+
+                        /*  Método: --
                     Parâmetros: [ -- ]
                     Objetivo:  Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação), se for ele imprime o button para a proxima pagina. 
                     */
-                    
-                    if ($number_of_page > 5) {
-                        if ($page_atual < $number_of_page) {
-                            echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">...</a>';
-                            echo '<a href = "user_dashboard.php?page=' . $pagina_proxima . '" class="btn btn-success">' . $pagina_proxima . ' </a>';
-                        } else {
-                            echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">...</a>';
-                            echo '<a href = "user_dashboard.php?page=' . $page_atual . '" class="btn btn-success">' . $page_atual . ' </a>';
+
+                        if ($number_of_page > 5) {
+                            if ($page_atual < $number_of_page) {
+                                echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">...</a>';
+                                echo '<a href = "user_dashboard.php?page=' . $pagina_proxima . '" class="btn btn-success">' . $pagina_proxima . ' </a>';
+                            } else {
+                                echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">...</a>';
+                                echo '<a href = "user_dashboard.php?page=' . $page_atual . '" class="btn btn-success">' . $page_atual . ' </a>';
+                            }
                         }
-                    }
-                    //Testa se pode ter o botão de proxima pagina ou não.
-                    if ($pagina_proxima <= $number_of_page) {
-                        echo '<a href = "user_dashboard.php?page=' . $pagina_proxima . '" class="btn btn-success"> >> </a>';
-                    } else {
-                        echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true"> >> </a>';
+                        //Testa se pode ter o botão de proxima pagina ou não.
+                        if ($pagina_proxima <= $number_of_page) {
+                            echo '<a href = "user_dashboard.php?page=' . $pagina_proxima . '" class="btn btn-success"> >> </a>';
+                        } else {
+                            echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true"> >> </a>';
+                        }
                     }
                     ?>
                 </div>
@@ -419,7 +420,7 @@
                                 <h4>Foto do usuário:<a id="imgInput" onclick="click_the_button(arquivo);" class="inputButton"><i id="upload" class="far fa-arrow-alt-circle-up"></i></a></h4>
                                 <img src="<?php echo "imgsUpdate/$img_user"; ?>" id="userView">
                                 <div class="mb-2">
-                                    <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg"/>
+                                    <input type="file" name="arquivo" id="arquivo" onchange="loadFile(event)" accept="image/png, image/jpeg" />
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -432,7 +433,7 @@
             </div>
         </div>
         <!--fim modal-->
-        
+
         </br>
     </main>
     <script src="dashboard/plugins/jquery/jquery-3.6.0.min.js"></script>
@@ -442,7 +443,9 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script type="text/javascript">var chave = "<?= $chave ?>";</script>
+    <script type="text/javascript">
+        var chave = "<?= $chave ?>";
+    </script>
     <script src="js/user_dashboard.js"></script>"
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/global.js"></script>
@@ -456,14 +459,14 @@
 
         $name = $_SESSION['name']; // Colocando o nome do usúario em uma variavel 
         $_COOKIE['nome'] = $name; // Pegando a variavel e enviando para outro script via SESSION 
-        
+
         if ($msg == "invalid_size_user") { //verficiando se a msg deu como tamanho da imagem do animal invalida 
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
         }
     }
     // Precisa ficar aqui embaixo para verificar o cookie
-    include 'includes/modal.php'; 
+    include 'includes/modal.php';
 
     //incluindo o footer na página
     require_once("includes/footer.php");

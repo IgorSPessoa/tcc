@@ -11,5 +11,6 @@ O componente neste repositorio se trata do painel para empresas.
 - CSS -> Arquivos CSS
 - JS -> Arquivo JS
 - Includes -> Includes globais de páginas 
-- images -> Images utilizadas no projeto
+- imgs -> Images utilizadas no projeto
+
 
