@@ -15,6 +15,7 @@ $query_mail_users = $mysql->prepare("SELECT email FROM user WHERE email = '$emai
 $query_mail_users->execute();
 $CountUser = $query_mail_users->rowCount();
 
+//Se o contador for maior que um resultado, irá voltar para a página de criação de conta com um erro 
 if($CountUser >= 1){
     $msg = "invalid_email";
     header('Location: ../criar_conta.php?msg=invalid_email');
@@ -26,12 +27,14 @@ $query_mail_ongs = $mysql->prepare("SELECT ong_email FROM ong WHERE ong_email = 
 $query_mail_ongs->execute();
 $CountOng = $query_mail_ongs->rowCount();
 
+//Se o contador for maior que um resultado, irá voltar para a página de criação de conta com um erro 
 if($CountOng >= 1){
     $msg = "invalid_email";
     header('Location: ../criar_conta_ong.php?msg=invalid_email');
     die();
 }
 
+//verificando o tipo de conta a ser criada
 if($acc_type == "user"){
     // Criando conta de um usuário
     $nome = $_POST["name"];
@@ -50,10 +53,8 @@ if($acc_type == "user"){
         $CEP = str_replace('-', '', $CEP);
 
         //tirando parenteses e o traço do telefone
-        $telefone = str_replace('(', '', $telefone);
-        $telefone = str_replace(')', '', $telefone);
-        $telefone = str_replace('-', '', $telefone);
-        $telefone = str_replace(' ', '', $telefone);
+        $to_remove = array("(", ")", "-", " ");
+        $telefone = str_replace($to_remove, '', $telefone);
         
         //query de criação de user
         $sql = "INSERT INTO user
@@ -67,17 +68,16 @@ if($acc_type == "user"){
         //executando a querry com as variaveis necessárias
         $query->execute([$nome, $email, $senha, $img, $telefone, $CEP]);
 
-        
-        if($query){
+        //verificando se o resultado da pesquisa deu verdadeiro(true)
+        if($query){//caso sim, irá cair aqui
             header('Location: ../login.php?msg=sucess_create');
-        }else{
+        }else{//caso não, irá cair aqui
              header('Location: ../criar_conta.php?msg=error_create');
         }
-    } else {
+    } else {//caso as senhas não se coincidirem, irá voltar para a página de criação de conta
         header('Location: ../criar_conta.php?msg=invalid_create_pwd');
     } 
-}
-if($acc_type == "ong"){
+} elseif($acc_type == "ong"){ //verificando o tipo de conta a ser criada
     // Criando conta de uma ONG
     $ong_nome = $_POST["ong_name"];
     $ong_descricao = $_POST["ong_description"];
@@ -162,10 +162,8 @@ if($acc_type == "ong"){
         $ong_CEP = str_replace('-', '', $ong_CEP);
 
         //tirando parenteses e o traço do telefone
-        $telefone = str_replace('(', '', $telefone);
-        $telefone = str_replace(')', '', $telefone);
-        $telefone = str_replace('-', '', $telefone);
-        $telefone = str_replace(' ', '', $telefone);
+        $to_remove = array("(", ")", "-", " ");
+        $telefone = str_replace($to_remove, '', $telefone);
 
         //query de criação do endereço da ong
         $sql = " INSERT INTO address
@@ -208,12 +206,13 @@ if($acc_type == "ong"){
         //executando a querry com as variaveis necessárias
         $querySnd->execute([$LAST_ID, $ong_nome, $ong_descricao, $email, $senha, $proposito, $telefone, $data_abertura, $data_Funcion, $ong_img, $visualizacao]);
     
-        if($query && $querySnd){
+        //verificando se as duas querys voltarem com resultado válido (true)
+        if($query && $querySnd){//caso sim, irá cair aqui
             header('Location: ../login.php?msg=sucess_create');
-        }else{
+        }else{//caso não, irá cair aqui
             header('Location: ../criar_conta_ong.php?msg=error_create');
         }
-    } else {
+    } else {//caso as senhas não se coincidirem, irá voltar para a página de criação de conta
         header('Location: ../criar_conta_ong.php?msg=invalid_create_pwd');
     }
 }

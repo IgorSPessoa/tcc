@@ -41,7 +41,7 @@
     <h1 class="text-center">Encontre animais para adotar!</h1>
     <main class="p-3">
         <div class="animals">
-            <?php
+            <?php  
             include "connect.php";
 
             //definir o número total de resultados que você deseja por página

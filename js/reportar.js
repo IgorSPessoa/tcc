@@ -1,4 +1,7 @@
-//Função para interação com a icon de upload
+/*  Método: click_the_button()
+    Parâmetros: [ botao ]
+    Objetivo:  Função para interação com a icon de upload 
+*/
 function click_the_button(botao){
     botao.click();
 }
@@ -22,12 +25,18 @@ var loadFilesnd = function(event) {
     reader.readAsDataURL(event.target.files[0]);
 };
 
-//Máscara do CEP
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo:  Mostrar o input abaixo com uma mascará do jquery. 
+*/
 $(document).ready( function() {
     $('#cep').mask("99999-999");
 });
 
-//Função oferecida pelo VIACEP para uso externos
+/*  Método: limpa_formulário_cep()
+    Parâmetros: [ -- ]
+    Objetivo:  função para limpar os resultados caso existam. 
+*/
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
     document.getElementById('address').value=("");
@@ -36,6 +45,10 @@ function limpa_formulário_cep() {
     document.getElementById('state').value=("");
 }
 
+/*  Método: meu_callback()
+    Parâmetros: [ conteudo ]
+    Objetivo: Colocar os dados nos inputs desejados. 
+*/
 function meu_callback(conteudo) {
 if (!("erro" in conteudo)) {
     //Atualiza os campos com os valores.
@@ -50,6 +63,10 @@ else {
 }
 }
 
+/*  Método: pesquisacep()
+    Parâmetros: [ valor ]
+    Objetivo: Pegando o CEP desejado e verificando na api se existe resultados. 
+*/
 function pesquisacep(valor) {
 
 //Nova variável "cep" somente com dígitos.
@@ -91,6 +108,10 @@ else {
 }
 };
 
+/*  Método: getLocation()
+    Parâmetros: [ -- ]
+    Objetivo: Atráves das cordenadas do computador, o sistema faz uma pesquisa no geocode no google maps e depois na api do VIACEP para pegar todos os resultados desejados. 
+*/
 function getLocation() { //Função chamada pelo botão no reportar.php
     if('geolocation' in navigator){//Saber se o navegador é compátivel com o geolocation
             navigator.geolocation.getCurrentPosition(function(position) {
@@ -114,7 +135,8 @@ function getLocation() { //Função chamada pelo botão no reportar.php
                     
                     //Url para fazer a pesquisa do endereço no VIACEP
                     let urlViacep = "https://viacep.com.br/ws/" + uf + "/" + state + "/" + address + "/json/";
-                    // console.log(urlViacep);
+                   
+                    //console.log(urlViacep); <- debug
 
                     fetch(urlViacep)//procurando pela url no browser
                     .then(response => response.json())
@@ -139,13 +161,13 @@ function getLocation() { //Função chamada pelo botão no reportar.php
                         state.value = estado;
                         
                     })
-                    .catch(err => {
-                        CreateModal('Error', 'Erro na API do VIACEP');
+                    .catch(err => {//Caso dê erro na API do VIACEP, cairá aqui
+                        CreateModal('Error', 'Não foi possivel pegar os dados desejados!');
                         return;
                     });   
                 })
-                .catch(err => {
-                    CreateModal('Error', 'Erro na API do Google Maps Geocoding');
+                .catch(err => {//Caso dê erro na API do Geocoding do Google Maps, cairá aqui
+                    CreateModal('Error', 'Não foi possivel pegar os dados desejados!');
                     return;
                 });
         });
@@ -154,7 +176,10 @@ function getLocation() { //Função chamada pelo botão no reportar.php
         }
     }
 
-//Sistema de autocomplete para o modal
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: Sistema de autocomplete para o modal. 
+*/
 const input = document.getElementById("modalAddress");        
 const options = {
  componentRestrictions: { country: "br" },
@@ -162,9 +187,16 @@ const options = {
  strictBounds: false,
  };
  
+ /*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: criando uma variaveis para receber os dados da pesquisa. 
+*/
  const autocomplete = new google.maps.places.Autocomplete(input, options);
 
-//Não deixar que o usúario mande os dados pela tecla enter
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: Não deixar que o usúario mande os dados pela tecla enter, pois isso acarreta em um erro indesejável . 
+*/
  $("form").keypress(function(e) {
     //Enter key
     if (e.which == 13) {
@@ -172,11 +204,16 @@ const options = {
     }
 });
 
-//Pegando os dados da API VIACEP e preenchendo nos seus inputs
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: Pegando os dados da API VIACEP e preenchendo nos seus inputs. 
+*/
 $(document).ready( function (){
     $('#valueAddress').click( function (){
+        //pegando o address que o usuario colocou
         var address = document.getElementById("modalAddress").value;
 
+        //separados os dados 
         var newAddress = address.split("-");
         var separarBairro =  newAddress[1].split(",");
         var separarUf = newAddress[2].split(",");
@@ -193,7 +230,7 @@ $(document).ready( function (){
         .then(response => response.json())
         .then ( data => {//Se houver dados irá vir para o .then
 
-            //Colotando os dados encontrados em variaveis
+            //Coletando os dados encontrados em variaveis
             const cep = data[0].cep;
             const endereco = data[0].logradouro;
             const bairro = data[0].bairro;
@@ -210,17 +247,14 @@ $(document).ready( function (){
                 CreateModal('Error', 'Não foi possível preencher os dados pedidos, tente novamente com outro endereço!');
                 return;
             }
-            //impremindo os dados no inputs
+            //imprimindo os dados no inputs
             cepGps.value = cep;
             address.value = endereco;
             district.value = bairro;
             state.value = estado;
-
-            
-            
         })
         .catch(err => {//Se não achar o cep, cairá no modal
-            CreateModal('Error', 'Houve um erro na API VIACEP');
+            CreateModal('Error', 'Não foi possivel pegar os dados desejados!');
         });
 
     });

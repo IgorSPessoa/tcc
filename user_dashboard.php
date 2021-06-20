@@ -50,13 +50,18 @@
         //conexão com banco de dados
         include "connect.php";
 
+        //pegando os dados do usuário guardados em SESSION
         $id_user = $_SESSION['id'];
         $name = $_SESSION['name'];
         $email = $_SESSION['email'];
 
+        //Preparando e executando a query para pegar dados guardados no bd
         $sql = $mysql->prepare("SELECT * FROM tcc.user where id= $id_user");
         $sql->execute();
+
+        //Passando os resultados com PDO utilizando a query acima
         while ($linha = $sql->fetch(PDO::FETCH_ASSOC)) {
+            //guardando os dados em variaveis
             $pwd_user = $linha['pwd'];
             $img_user = $linha['img'];
             $phone_user = $linha['phone'];
@@ -115,16 +120,20 @@
                 $chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
                 $idmap = 1;
 
-                /*
-                *  contador do sistema de paginação
+
+                /*  Método: --
+                    Parâmetros: [ -- ]
+                    Objetivo: Contador do sistema de paginação
                 */
 
                 //definir o número total de resultados que você deseja por página
                 $results_per_page = 6;
+
                 //encontre o número total de resultados armazenados no banco de dados  
                 $query = $mysql->prepare("SELECT * FROM animal_report where author_id= $id_user");
                 $query->execute();
                 $number_of_result = $query->rowCount();
+
                 //determinar o número total de páginas disponíveis
                 $number_of_page = ceil($number_of_result / $results_per_page);
 
@@ -137,9 +146,10 @@
                 //determinar o número inicial de sql LIMIT para os resultados na página de exibição  
                 $page_first_result = ($page - 1) * $results_per_page;
 
-                /*
-                *preparando querry com banco de dados, para pegar os reports feito pelo usuario
-                *já com limitador por pagina, com sistema de paginação.
+
+                /*  Método: --
+                    Parâmetros: [ -- ]
+                    Objetivo: Preparando querry com banco de dados, para pegar os reports feito pelo usuario, já com limitador por pagina, com sistema de paginação.
                 */
                 $result = $mysql->prepare("SELECT ar.id,
                                                           ar.author_id,
@@ -158,7 +168,10 @@
                                                           a.location_photo,
                                                           a.location_observation FROM animal_report ar INNER JOIN address a ON(ar.address_id = a.id) where ar.author_id= $id_user LIMIT " . $page_first_result . ',' . $results_per_page);
                 $result->execute();
+
+                //Passando os resultados com PDO utilizando a query acima
                 while ($linha = $result->fetch(PDO::FETCH_ASSOC)) {
+                    //guardando os dados em variaveis
                     $id = $linha['id'];
                     $ongId = $linha['ong_id'];
                     $author_id = $linha['author_id'];
@@ -184,7 +197,7 @@
 
                     //mudando a variavel para português
                     if ($reportSituation == "pending") {
-                        $reportSituation = "Pedente";
+                        $reportSituation = "Pendente";
                     } elseif($reportSituation == "waiting"){
                         $reportSituation = "Aguardando resposta da ONG";
                     } elseif($reportSituation == "scheduled"){
@@ -197,7 +210,7 @@
 
                     //linhas de comandos para serem verificadas no modal
                     $expressaoOng = $ongId == null ? "class='is-active'" : "";
-                    $imageReport = $reportSituation == "Resgatado"  ? "<h4 class='m-0 text-center'>Foto animal Resgatado</h4> <img class='w-100 shadow border border-dark rounded ' src='./imgsUpdate/$imgResgatado'>" : "";
+                    $imageReport = $reportSituation == "Resgatado"  ? "<h4 class='m-0 text-center'>Foto animal resgatado</h4> <img class='w-100 shadow border border-dark rounded ' src='./imgsUpdate/$imgResgatado'>" : "";
                     $expressaoReport = $reportSituation == "Resgatado" || $reportSituation == "Não localizado" ? "" : "class='is-active'";
                     $naoLocalizado =  $reportSituation == 'Não localizado' ? "class='text-center text-danger'" : "";
                     $resgatado = $reportSituation == 'Resgatado' ? "class='text-center text-success'" : "";
@@ -292,7 +305,7 @@
     
     
                                                     <div class='col-sm'>
-                                                        <h4 class='m-0'>Maps</h4>
+                                                        <h4 class='m-0'>Mapa</h4>
                                                         <div class='map2 w-100 shadow border border-dark rounded' id='map$idmap'></div>
                                                     </div>
                                                 </div>
@@ -343,10 +356,12 @@
                     for ($page = 1; $page <= 5 && $page <= $number_of_page; $page++) {
                         echo '<a href = "user_dashboard.php?page=' . $page . '" class="btn btn-success">' . $page . ' </a>';
                     }
-                    /*
-                    Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação),
-                    se for ele imprime o button para a proxima pagina. 
+                    
+                    /*  Método: --
+                    Parâmetros: [ -- ]
+                    Objetivo:  Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação), se for ele imprime o button para a proxima pagina. 
                     */
+                    
                     if ($number_of_page > 5) {
                         if ($page_atual < $number_of_page) {
                             echo '<a href="#" class="btn btn-success disabled" role="button" aria-disabled="true">...</a>';

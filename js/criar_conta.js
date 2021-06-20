@@ -1,19 +1,26 @@
-//máscaras para os inputs cep e phone
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo:  Mostrar os inputs abaixo com uma mascará do jquery. 
+*/
 $(document).ready( function() {
     $('#cep').mask("99999-999");
-});
-
-$(document).ready( function() {
     $('#phone').mask("(99) 99999-9999");
 });
 
-//Função oferecida pelo VIACEP para uso externos
+/*  Método: limpa_formulário_cep()
+    Parâmetros: [ -- ]
+    Objetivo:  função para limpar os resultados caso existam. 
+*/
 function limpa_formulário_cep() {
     //Limpa valores do formulário de cep.
     document.getElementById('cep').value=("");
 
 }
 
+/*  Método: meu_callback()
+    Parâmetros: [ conteudo ]
+    Objetivo: Colocar os dados nos inputs desejados. 
+*/
 function meu_callback(conteudo) {
     if (!("erro" in conteudo)) {
         //Atualiza os campos com os valores.
@@ -31,6 +38,10 @@ function meu_callback(conteudo) {
     }
     }
 
+/*  Método: pesquisacep()
+    Parâmetros: [ valor ]
+    Objetivo: Pegando o CEP desejado e verificando na api se existe resultados. 
+*/
 function pesquisacep(valor) {
 
 //Nova variável "cep" somente com dígitos.

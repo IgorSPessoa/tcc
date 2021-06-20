@@ -151,9 +151,10 @@ $stmt = $mysql->prepare($sqlSnd);
 // executando a query
 $stmt->execute([$id, $LAST_ID, $animal_tipo, $animal_descricao, $situacao_animal, $foto_animal, $reportAceito, $report_situacao, $report_comentario, $report_img]);
 
-if($query && $stmt){
+//verificando se os dois resultados deram verdadeiros (true)
+if($query && $stmt){//caso sim, irá cair aqui
     header('Location: ../reportar.php?msg=sucess_report');
-}else{
+}else{//caso não, irá cair aqui
     header('Location: ../reportar.php?msg=error_report');   
 }
 ?>

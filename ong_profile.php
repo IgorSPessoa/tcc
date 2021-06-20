@@ -107,14 +107,15 @@ if ($rows >= 1) { // se existe algum resultado, irá pegar os dados
                                     <p class="lead text-left mb-1"><b>Aberta desde:</b> <?php echo $ong_opening_date; ?></p>
                                     <p class="lead text-left mb-1"><b>Horario de Atendimento:</b> <?php echo $ong_business_hours; ?></p>
                                     <p class="lead text-left mb-1"><b>Whatsapp: </b><?php echo $whatsapp; ?></p>
-                                    <p class="lead text-left mb-1"><b>Facebook:</b> <?php
-                                                                                    //verificar se a variavel não está vazia
-                                                                                    if ($facebook != null) { // se não estiver vazio, irá mostrar o url
-                                                                                        echo "<a href='$facebook'>", $facebook, "</a>";
-                                                                                    } else { //Se estiver vazia, irá mostrar a mensagem
-                                                                                        echo 'Nenhum facebook associado a ong';
-                                                                                    }
-                                                                                    ?></p>
+                                    <p class="lead text-left mb-1"><b>Facebook:</b> 
+                                    <?php
+                                        //verificar se a variavel não está vazia
+                                        if ($facebook != null) { // se não estiver vazio, irá mostrar o url
+                                            echo "<a href='$facebook'>", $facebook, "</a>";
+                                        } else { //Se estiver vazia, irá mostrar a mensagem
+                                            echo 'Nenhum facebook associado a ong';
+                                        }
+                                    ?></p>
                                 </div>
                             </div>
                         </div>

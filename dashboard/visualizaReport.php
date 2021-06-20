@@ -191,7 +191,7 @@ if (isset($_SESSION['email']) == true) {
                 </form>
                 <?php
                 if ($idOngReport != 0 && $idOng == $idOngReport) {
-                    if ($situaReport != 'rescued' && $situaReport != 'not_found') {
+                    if ($situaReport != 'rescued' && $situaReport != 'not_found') { //Se a situação do report for diferente de resgatado ou não achado irá mostra o código abaixo 
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
                             <br><br>
@@ -257,7 +257,7 @@ if (isset($_SESSION['email']) == true) {
                                     <a class='btn btn-dark w-100 mb-2' type='button' href='controller/desvincularReport.php?id=" . $id . "'>Abandonar</a>
                                 </div>
                             </div>";
-                    } else{
+                    } else{//se caso o report for igual resgatado ou não encontrado, irá cair aqui
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
                             <br><br>
@@ -339,21 +339,7 @@ if (isset($_SESSION['email']) == true) {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        var address = "<?= $location ?>";
-    </script>
-    <script type='text/javascript'>
-        $('#reason').change(function() {
-            var valor = ($(this).val());
-            if (valor == 'rescued') {
-                document.getElementById("mensagem").style.display = "block";
-                $("#animal_upload").prop('required', true);
-            } else {
-                document.getElementById("mensagem").style.display = "none";
-                $("#animal_upload").prop('required', false);
-            }
-        });
-    </script>
+    <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/visualizaReport.js"></script>
     <?php
 

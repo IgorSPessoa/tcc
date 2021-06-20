@@ -1,4 +1,7 @@
-//Função para interação com a icon de upload
+/*  Método: --
+    Parâmetros: [ -- ]
+    Objetivo: Função para interação com a icon de upload. 
+*/
 function click_the_button(botao){
     botao.click();
 }

@@ -132,7 +132,7 @@
                     <p class="texto">Conheça nosso sistema de adoções, com
                         todos animais de ongs cadastradas.
                     </p>
-                    <a href="./ongs.php" class="btn btn-outline-success">Ir</a>
+                    <a href="./adocao.php" class="btn btn-outline-success">Ir</a>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -142,7 +142,7 @@
                     <p class="texto">Use nosso sistema de reportes, para reportar
                         e ajudar um animal.
                     </p>
-                    <a href="./ongs.php" class="btn btn-outline-success">Ir</a>
+                    <a href="./reportar.php" class="btn btn-outline-success">Ir</a>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">

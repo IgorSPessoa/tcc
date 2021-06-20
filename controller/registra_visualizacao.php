@@ -9,6 +9,7 @@ if (isset($_SESSION['email']) == true) {
 
     //pegando a variavel
     $idOng = "$_GET[id]";
+    $idOng = substr($str, 3);
     
     //query para ser levada para o banco de dados
     $newSql = "UPDATE ong 
