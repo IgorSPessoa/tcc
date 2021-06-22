@@ -27,7 +27,7 @@
         session_start();
     }
     if (isset($_SESSION['email']) == true) {
-        //Logou, então continua com as valida;'oes
+        //Logou, então continua com as validações
         require_once("includes/nav.php");
     } else { //Não logou então volta para a página inicial
         if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -66,8 +66,6 @@
             $page_first_result = ($page - 1) * $results_per_page;
 
             //recuperar os resultados selecionados do banco de dados   
-            //$query = "SELECT *FROM alphabet LIMIT " . $page_first_result . ',' . $results_per_page;   
-            //$query = "SELECT * FROM animal_adoption LIMIT " . $page_first_result . ',' . $results_per_page;
             $query = $mysql->prepare("SELECT * FROM animal_adoption LIMIT " . $page_first_result . ',' . $results_per_page);
             $query->execute();
 
@@ -83,21 +81,6 @@
                         <br><br>
                     </div>";
             }
-            /*
-            $dados = $mysql->prepare("SELECT name, description, img, id FROM animal_adoption");
-            $dados->execute();
-            while ($linha = $dados->fetch(PDO::FETCH_ASSOC)) {
-                //var_dump($linha);
-                //<p>$linha[1]</p> vai depois do linha 0.
-                echo "<div class='animal bg-white shadow lg-3 border border-3 border-primary px-5 py-2'>
-                        <span>" . $linha['name'] . "</span>
-                    
-                        <img src='imgs/" . $linha['img'] . "' alt='Imagem de um cachorro'>
-                        <br><br>
-                        <a href='animal_profile.php?id=" . $linha['id'] . "' class='button'>Visualizar informações</a>
-                        <br><br>
-                    </div>";
-            }*/
             ?>
         </div>
         </br>

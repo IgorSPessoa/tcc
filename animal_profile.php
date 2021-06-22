@@ -19,7 +19,6 @@
 
 
     <title>Adoção</title>
-
 </head>
 
 <body>
@@ -30,7 +29,7 @@
         session_start();
     }
     if (isset($_SESSION['email']) == true) {
-        //Logou, então continua com as valida;'oes
+        //Logou, então continua com as validações
         require_once("includes/nav.php");
     } else { //Não logou então volta para a página inicial
         if (session_status() !== PHP_SESSION_ACTIVE) {

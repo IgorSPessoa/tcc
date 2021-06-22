@@ -1,4 +1,3 @@
-
 <?php 
 $host = 'mysql:host=localhost;dbname=tcc';
 $user = 'root';

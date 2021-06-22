@@ -1,6 +1,6 @@
-# tcc-site
-Este projeto é destino para o trabalho de conclusão de curso da ETEC JARDIM ANGELA. 
-O componente neste repositorio se trata do painel para empresas.
+# TCC Site/Dashboard/API
+Este projeto tem como destino o trabalho de conclusão de curso da ETEC JARDIM ANGELA.
+O componente neste repositório se trata do site (para usuários), dashboard (para ongs) e API (para conexão do app com o banco de dados).
 
 # Tecnologias
 - HTML5, CSS3, Bootstrap, Fontawesome para template e estilização
@@ -8,9 +8,13 @@ O componente neste repositorio se trata do painel para empresas.
 - PHP e MySQL para backend
 
 # Organização
-- CSS -> Arquivos CSS
-- JS -> Arquivo JS
+- Api > WebAPI em PHP
+- Controller -> Arquivos de back-end
+- Css -> Arquivos CSS
+- Dashboard -> Dashboard da ongs
+- Js -> Arquivo JS
 - Includes -> Includes globais de páginas 
 - imgs -> Images utilizadas no projeto
+- imgsUpdate -> Imagens que são upadas pelos usuários e ONGs
 
 

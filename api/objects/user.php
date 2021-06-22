@@ -236,20 +236,12 @@ class Usuario{
 
     function base64_to_jpeg($base64_string, $output_file) {
         $upload_path = "../../../imgsUpdate";
-
-        // base64 image code
         $base64_code = $base64_string;
         
-        // create an image file
         $fp = fopen("$upload_path/$output_file", "w+");
-        
-        // write the data in image file
         fwrite($fp, base64_decode($base64_code));
-        
-        // close an open file pointer
         fclose($fp);
     }
-
 }
 
 
