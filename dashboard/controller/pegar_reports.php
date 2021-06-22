@@ -15,7 +15,7 @@ if(isset($_SESSION['email']) == true){
     require_once("logout.php");
 }
 
-//Concetando com o servidor mysql
+//Conectando com o servidor mysql
 include '../../connect.php';
 
 //pegando as variaveis
@@ -63,7 +63,7 @@ if($tipo == "all"){
         // Localização
         $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
         
-        //url da api retornando um json em uma variavel
+        //url da api retornando o arquivo desejado
         $distance_data = file_get_contents(
             'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&region=br&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
         );
@@ -84,13 +84,13 @@ if($tipo == "all"){
             } elseif($validation == "MAX_ROUTE_LENGTH_EXCEEDED"){
                 $validation = "Rota excedida";
             }
-             //localizando a distâancia
+             //validando a distâancia
              $distancia = $validation;
   
              //definindo o report
              $report = [];
  
-             //inputando o resultado dentro do array
+             //colocando os resultados dentro do array
              $report[] = $linha[0];
              $report[] = $tipo;
              $report[] = $linha[5];
@@ -105,7 +105,7 @@ if($tipo == "all"){
             //definindo o report
             $report = [];
 
-            //inputando o resultado dentro do array
+            //colocando os resultados dentro do array
             $report[] = $linha[0];
             $report[] = $tipo;
             $report[] = $linha[5];
@@ -123,6 +123,7 @@ if($tipo == "all"){
         $origins = "$linha[location_cep]";
     }
 
+    //query para pegar dados do report e onde ela está localizada
     $sql = $mysql->prepare("SELECT ar.*,
                                    a.location_address, 
                                    a.location_number,
@@ -131,6 +132,7 @@ if($tipo == "all"){
                                    a.location_cep FROM animal_report ar INNER JOIN address a ON (ar.address_id = a.id) 
                                 WHERE NOT( report_situation = 'rescued' OR report_situation = 'not_found') AND ong_id = ?;");
     $sql->execute([$ong_id]);
+
     //criando um array principal
     $reports = [];
 
@@ -154,7 +156,7 @@ if($tipo == "all"){
         // Localização
         $localizacao = "$linha[location_address] $linha[location_number], $linha[location_district], $linha[location_state]";
 
-        //url da api retornando um json em uma variavel
+        //url da api retornando um arquivo
         $distanceData = file_get_contents(
             'https://maps.googleapis.com/maps/api/distancematrix/json?&origins='.urlencode($origins).'&destinations='.urlencode($destinations).'&region=br&&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo'
         );
@@ -175,13 +177,13 @@ if($tipo == "all"){
             } elseif($validation == "MAX_ROUTE_LENGTH_EXCEEDED"){
                 $validation = "Rota excedida";
             }
-             //localizando a distâancia
+             //validando a distâancia
              $distancia = $validation;
   
              //definindo o report
              $report = [];
  
-             //inputando o resultado dentro do array
+             //colocando os resultados dentro do array
              $report[] = $linha[0];
              $report[] = $tipo;
              $report[] = $linha[5];
@@ -197,7 +199,7 @@ if($tipo == "all"){
             //definindo o report
             $report = [];
 
-            //inputando o resultado dentro do array
+            //colocando os resultados dentro do array
             $report[] = $linha[0];
             $report[] = $tipo;
             $report[] = $linha[5];

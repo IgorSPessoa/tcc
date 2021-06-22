@@ -15,7 +15,7 @@ if(isset($_SESSION['email']) == true){
     require_once("logout.php");
 }
 
-//Concetando com o servidor mysql
+//Conectando com o servidor mysql
 include '../../connect.php';
 
 //Pegando o id da ong logada

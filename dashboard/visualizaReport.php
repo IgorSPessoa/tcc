@@ -190,7 +190,7 @@ if (isset($_SESSION['email']) == true) {
                     </div>
                 </form>
                 <?php
-                if ($idOngReport != 0 && $idOng == $idOngReport) {
+                if ($idOngReport != 0 && $idOng == $idOngReport) { //Se o Id da ong for diferente de zero e igual o id for igual a atual ong logada, irá passar
                     if ($situaReport != 'rescued' && $situaReport != 'not_found') { //Se a situação do report for diferente de resgatado ou não achado irá mostra o código abaixo 
                         echo "<form id='formsGerenciar' action='controller/updateReport.php?id=" . $id . "' method='POST' enctype='multipart/form-data'>
 
@@ -337,7 +337,7 @@ if (isset($_SESSION['email']) == true) {
     <script src="plugins/jquery/jquery-3.6.0.min.js"></script>
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/visualizaReport.js"></script>

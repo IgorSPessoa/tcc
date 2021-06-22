@@ -226,22 +226,22 @@ while($linha = $sql->fetch(PDO::FETCH_ASSOC)){
     <script src="plugins/fontawesome/js/fontawesome.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">var address = "<?= $location ?>";</script>
     <script src="js/perfil.js"></script>
     <?php
     //verificando se existe uma mensagem na URL da página
-    if (isset($_GET['msg'])) {//Se existe ele cairá neste if, se não, continuará a operação normalmente
+    if (isset($_GET['msg'])) {//Se existir, cairá neste if, se não, continuará a operação normalmente
         $msg = $_GET['msg'];// Colocando a mensagem em uma variável
-        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+        $_COOKIE['msg'] = $msg; // Colocando-a em cookie para conseguir pegar em outro script
 
         if($msg == "invalid_size_logo"){//Se a mensagem for de tamnanho inválido cariá aqui
             $tamanho = $_GET['size'];
             $_COOKIE['size'] = $tamanho;
         }
     }
-    // Precisa ficar aqui embaixo para verificar o cookie
+    //Precisa ficar aqui embaixo para verificar os cookies
     include '../includes/modal.php';
     ?>
 </body>

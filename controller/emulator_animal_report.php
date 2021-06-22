@@ -52,9 +52,9 @@ if (isset($_FILES['foto_animal'])){
         //pegando nome temporario
         $tpmName = $_FILES['foto_animal']['tmp_name'];
 
-        //Mudar a localização do arquivo
+        //Muda a localização do arquivo
         move_uploaded_file($tpmName, $diretorio . $foto_animal);
-    } else{//Se o arquivo for maior que 10mb
+    } else{//Se o arquivo for maior que 10mb, Mmostrará um modal de erro
         header('Location: ../reportar.php?msg=invalid_size_animal&size=' . $tamanhoImgAnimal . '');
     }
 }

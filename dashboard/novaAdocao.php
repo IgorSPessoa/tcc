@@ -147,7 +147,7 @@ if(isset($_SESSION['email']) == true){
     if(isset($_GET['msg'])) { //Verificando se existe mensagem
         
         $msg = $_GET['msg']; //pegando a mensagem
-        $_COOKIE['msg'] = $msg; //Transformando ela em cookie para enviar para outro script
+        $_COOKIE['msg'] = $msg; //Transformando-a em cookie para enviar para outro script
 
         if ($msg == "invalid_size_animal"){//verificando se a msg deu 'tamanho inválido do animal' 
             $tamanho = $_GET['size'];

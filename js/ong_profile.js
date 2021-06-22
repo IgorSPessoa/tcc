@@ -3,7 +3,7 @@
     Objetivo:  pegando a localização do ong e importando no mapa. 
 */
 
-const chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"; //Chave da API do google maps
+const chave = "YOUR_APIKEY"; //Chave da API do google maps
 let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${chave}`;
 fetch(url)
 .then(response => response.json())

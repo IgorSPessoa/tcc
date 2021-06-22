@@ -15,7 +15,7 @@ if(isset($_SESSION['email']) == true){
     require_once("logout.php");
 }
 
-//Concetando com o servidor mysql
+//Conectando com o servidor mysql
 include '../../connect.php';
 
 //Declarando os nomes das variáveis pegas no NovaAdocao

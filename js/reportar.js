@@ -120,7 +120,7 @@ function getLocation() { //Função chamada pelo botão no reportar.php
 
                 const Lat = latitude;
                 const Lng = longitude;
-                const chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"; //chave da API 
+                const chave = "YOUR_APIKEY"; //chave da API 
 
                 let urlsnd = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${Lat},${Lng}&key=${chave}`;
 

@@ -116,7 +116,7 @@
                         </thead>";
 
                 //chave para o api map.
-                $chave = "AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo";
+                $chave = "YOUR_APIKEY";
                 $idmap = 1;
 
 
@@ -322,7 +322,7 @@
                                 </div>
                             </div>";
                         //Fim modal
-                        //cont map de cada reporte
+                        //contador map de cada reporte
                         $idmap = $idmap + 1;
                     }
                 }
@@ -358,9 +358,9 @@
                         }
 
                         /*  Método: --
-                    Parâmetros: [ -- ]
-                    Objetivo:  Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação), se for ele imprime o button para a proxima pagina. 
-                    */
+                            Parâmetros: [ -- ]
+                            Objetivo:  Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação), se for ele imprime o button para a proxima pagina. 
+                        */
 
                         if ($number_of_page > 5) {
                             if ($page_atual < $number_of_page) {
@@ -440,12 +440,10 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script type="text/javascript">
-        var chave = "<?= $chave ?>";
-    </script>
+    <script type="text/javascript">var chave = "<?= $chave ?>";</script>
     <script src="js/user_dashboard.js"></script>"
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/global.js"></script>

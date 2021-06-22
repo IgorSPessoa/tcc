@@ -208,9 +208,9 @@ if ($rows >= 1) { // se existe algum resultado, irá pegar os dados
                     echo '<a href = "ong_profile.php?id=' . $id . '&page=' . $page . '" class="button text-center">' . $page . ' </a>';
                 }
                 /*
-            Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação),
-            se for ele imprime o button para a proxima pagina. 
-            */
+                    Testa se o numero de paginas vai ser maior que 5 (para limitar bloco de paginação),
+                    se for ele imprime o button para a proxima pagina. 
+                */
                 if ($number_of_page > 5) {
                     if ($page_atual < $number_of_page) {
                         echo '<a href="#" class="btn button disabled" role="button" aria-disabled="true">...</a>';
@@ -235,7 +235,7 @@ if ($rows >= 1) { // se existe algum resultado, irá pegar os dados
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_APIKEY"></script>
     <script type="text/javascript">
         var address = "<?= $address ?>";
     </script>

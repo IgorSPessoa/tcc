@@ -15,13 +15,13 @@ if(isset($_SESSION['email']) == true){
     require_once("logout.php");
 }
 
-//Concetando com o servidor mysql
+//Conectando com o servidor mysql
 include '../../connect.php';
 
 //pegando o id da ong 
 $id = $_SESSION['id'];
 
-//pegando os dados do forms
+//pegando os dados do formulario, e colocando nas variaveis
 $proposito = "$_POST[reason]";
 $horarioFunc = "$_POST[opening_hours]";
 $telefone = "$_POST[phone]";

@@ -27,7 +27,7 @@
         session_start();
     }
     if (isset($_SESSION['email']) == true) {
-        //Logou, então continua com as valida;'oes
+        //Logou, então continua com as validações
         require_once("includes/nav.php");
     } else { //Não logou então volta para a página inicial
         if (session_status() !== PHP_SESSION_ACTIVE) {
@@ -51,7 +51,7 @@
         } ?>
         <form class="w-100 bg-white shadow lg-3 border border-3 border-primary px-5 py-5" action="controller/emulator_animal_report.php" enctype="multipart/form-data" runat="server" method="POST">
 
-            <!--  Método: --
+            <!--Método: --
                 Parâmetros: [ -- ]
                 Objetivo: Cada php aberto nesta página verifica se existe um usuário logado, caso não tenha, todas as funções abaixos estarão indisponiveis. 
             -->
@@ -276,7 +276,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyChFNJMuEdWzbDHzz1GskqtstVDLe9dcIo"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=YOU_APIKEY"></script>
     <script src="dashboard/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="js/reportar.js"></script>
     <script src="js/global.js"></script>
@@ -289,14 +289,14 @@
         //definindo a mensagem
         $msg = "errorLoginReport";
 
-        // Colocando ela em cookie para conseguir pegar em outro script
+        // Colocando-a em cookie para conseguir pegar em outro script
         $_COOKIE['msg'] = $msg;
     }
 
     //verificando se existe uma mensagem na URL da página
     if (isset($_GET['msg'])) { //Se existe ele cairá neste if, se não, continuará a operação normalmente
         $msg = $_GET['msg']; // Colocando a mensagem em uma variável
-        $_COOKIE['msg'] = $msg; // Colocando ela em cookie para conseguir pegar em outro script
+        $_COOKIE['msg'] = $msg; // Colocando-a em cookie para conseguir pegar em outro script
 
         if ($msg == "invalid_size_animal") { //Se a mensagem for de erro do tamanho da imagem do animal cairá aqui  
             $tamanho = $_GET['size'];
@@ -307,7 +307,7 @@
         }
     }
 
-    // Precisa ficar aqui embaixo para verificar o cookie
+    // Precisa ficar aqui embaixo para verificar os cookies
     include 'includes/modal.php';
     ?>
 </body>
