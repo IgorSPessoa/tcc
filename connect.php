@@ -1,7 +1,7 @@
 <?php 
-$host = 'mysql:host=localhost;dbname=tcc';
-$user = 'root';
-$pass = 'igor1337';
+$host = 'mysql:host=;dbname=';
+$user = '';
+$pass = '';
 
 try{
     $mysql = new PDO($host, $user, $pass);
